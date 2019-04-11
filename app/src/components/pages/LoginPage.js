@@ -1,7 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-
-// import { userActions } from "../_actions";
 import { Link } from "react-router-dom";
 
 class LoginPage extends React.Component {
@@ -16,15 +14,15 @@ class LoginPage extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-
-    console.log("Hay1");
   }
 
+  // to keep the login form updated always
   handleChange(e) {
     const { name, value } = e.target;
     this.setState({ [name]: value });
   }
 
+  // submit the login form which will call a reducer
   handleSubmit(e) {
     // prevent form from submitting by default until we check the state status after dispatching
     e.preventDefault();
@@ -33,7 +31,7 @@ class LoginPage extends React.Component {
     const { username, password } = this.state;
     // const { dispatch } = this.props;
     if (username && password) {
-      // dispatch(userActions.login(username, password));
+      // dispatch the login action (username, password)
     }
   }
 
@@ -105,10 +103,7 @@ class LoginPage extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { loggingIn } = state.authentication;
-  return {
-    loggingIn
-  };
+  return {};
 }
 
 const connectedLoginPage = connect(
