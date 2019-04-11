@@ -12,8 +12,9 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <div>
-        <Route path="/" component={App} />
-        <Route path="/register" component={RegisterPage} />
+        <Route exact path="/" component={App} />
+        <Route exact path="/login" component={LoginPage} />
+        <Route exact path="/register" component={RegisterPage} />
       </div>
     </BrowserRouter>
   </Provider>,
