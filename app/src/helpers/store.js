@@ -7,8 +7,10 @@ const loggerMiddleware = createLogger();
 
 let initialState = {};
 
-export const store = createStore(
+const store = createStore(
   rootReducer,
   initialState,
   applyMiddleware(thunkMiddleware, loggerMiddleware)
 );
+
+export default store
