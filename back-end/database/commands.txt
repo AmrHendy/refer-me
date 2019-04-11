@@ -1,0 +1,296 @@
+***********************************************************************
+								INIT DB
+***********************************************************************
+--------------------------
+====>> CREATE DB
+--------------------------
+use referme_db
+
+---------------------------------
+====>> CREATE TABLES(COLLECTIONS)
+---------------------------------
+use referme_db
+db.createCollection("user_accounts")
+db.createCollection("positions_held")
+db.createCollection("refer_requests")
+
+
+***********************************************************************
+						INDEXING AND UNIQUENESS
+***********************************************************************
+--------------------
+====>> user_accounts
+--------------------
+db.user_accounts.ensureIndex({"login.email": 1}, {unique: true})
+
+
+---------------------
+====>> positions_held
+---------------------
+db.positions_held.ensureIndex({"user_id": 1})
+db.positions_held.ensureIndex({"company": 1})
+db.positions_held.ensureIndex({"office.city": 1})
+db.positions_held.ensureIndex({"office.country": 1})
+
+
+---------------------
+====>> refer_requests
+---------------------
+db.positions_held.ensureIndex({"user_id.sender": 1})
+db.positions_held.ensureIndex({"user_id.recipient": 1})
+
+***********************************************************************
+
+
+
+
+***********************************************************************
+***********************************************************************
+***********************************************************************
+***********************************************************************
+***********************************************************************
+***********************************************************************
+
+
+***********************************************************************
+					USER_ACCOUNTS - REGISTER NEW USER
+***********************************************************************
+------------------------------------
+====>> make sure email does't exist
+------------------------------------
+db.user_accounts.find({"login.email": "mohamed.shaapan.1@gmail.com"}).pretty()
+
+
+----------------------------
+====>> if so, insert into db
+----------------------------
+db.user_accounts.insert({
+
+	"login": {
+		"email": "mohamed.shaapan.1@gmail.com",
+		"password": "abcdefghijklmnopqrstuvwxyz"
+	},
+
+	"profile":{
+		"name": "mohamed shaban",
+		"age": 25
+	}
+
+})
+
+***********************************************************************
+					USER_ACCOUNTS - LOGIN OPERATION
+***********************************************************************
+----------------------------------
+====>> retrieve user account info
+----------------------------------
+db.user_accounts.find({"login.email": "mohamed.shaapan.1@gmail.com"}).pretty()
+
+
+***********************************************************************
+					USER_ACCOUNTS - UPDATE ACCOUNT
+***********************************************************************
+-------------------
+====>> single attr
+-------------------
+db.user_accounts.update(
+	{"login.email": "mohamed.shaapan.1@gmail.com"},
+	{$set:{'login.email':'mshaban@gmail.com'}}
+)
+
+----------------------
+====>> multiple attrs
+----------------------
+db.user_accounts.update(
+	{"login.email": "mohamed.shaapan.1@gmail.com"},
+	{$set:
+		{
+			'login.email':'mshaban@gmail.com',
+			'login.password':'123456789',
+			'profile.name':'mshaban'
+		}
+	}
+)
+
+***********************************************************************
+
+
+
+
+
+***********************************************************************
+***********************************************************************
+***********************************************************************
+***********************************************************************
+***********************************************************************
+***********************************************************************
+
+***********************************************************************
+					POSITIONS_HELD - PROFILE PAGE
+***********************************************************************
+>> how to know user id?
+get form back-end session variables
+
+>> how to get position id?
+returned when displaying user positions - query 
+
+-----------------------------------------
+====>> get list of positions held by user
+-----------------------------------------
+db.positions_held.find(
+	{"user_id": ObjectId("5caf36f51766fb7ca42befdc")}
+).pretty()
+
+
+----------------------
+====>> insert new job
+----------------------
+db.positions_held.insert({
+
+	"user_id": ObjectId("5caf36f51766fb7ca42befdc"),
+	"company": "facebook2222",
+	"position": "junior SWE",
+	"office":{
+		"city": "Palo Alto, California",
+		"country": "USA",
+	},
+	"duration":{
+		"start_date": "july 2019",
+		"end_date": "present"
+	}
+
+})
+
+
+------------------
+====>> remove job
+------------------
+db.positions_held.remove(
+	{
+		$and: [
+			{'user_id': ObjectId("5caf36f51766fb7ca42befdc")},
+			{'_id': ObjectId("5caf38241766fb7ca42befdd")}
+		]
+	}
+)
+
+
+***********************************************************************
+					POSITIONS_HELD - MAIN PAGE
+***********************************************************************
+----------------------------
+====>> retrieve all records
+----------------------------
+db.positions_held.find().pretty()
+
+----------------------
+====>> search by attr
+----------------------
+db.positions_held.find(
+	{"office.city": "Palo Alto, California"}
+).pretty()
+
+
+------------------------
+------------------------
+------------------------
+====>> browse by office ???????????????????????????
+------------------------
+------------------------
+------------------------
+db.positions_held.aggregate(
+	[
+		{$match: {}},
+		{$group : {_id : "$office.city"}}
+	]
+)
+
+
+db.positions_held.group(
+	{
+		key: { 'user_id': 1, 'company': 1, 'position': 1},
+		reduce: function ( curr, result ) { },
+		initial: { }
+	}
+)
+
+
+db.positions_held.aggregate([
+
+    { "$group": {
+        "_id": "$office.city",
+        "city": { "$first": "$city" },
+        "user_id": { "$first": "$user_id" },
+        "position": { "$first": "$position" }
+    }}
+
+]).pretty()
+
+***********************************************************************
+
+
+
+***********************************************************************
+***********************************************************************
+***********************************************************************
+***********************************************************************
+***********************************************************************
+***********************************************************************
+
+
+***********************************************************************
+					REFER_REQUESTS - OUTGOING REQUESTS
+***********************************************************************
+----------------------------------------
+====>> retrieve all requests made to me
+----------------------------------------
+db.refer_requests.find(
+	{"user_id.recipient": ObjectId("5caf36f51766fb7ca42befdc")}
+).pretty()
+
+
+-------------------------
+====>> respond to request
+-------------------------
+>> get request id when retieving requests
+db.refer_requests.update(
+	{"_id": 123},
+	{$set:{'status':'accepted'}}
+)
+
+***********************************************************************
+					REFER_REQUESTS - OUTGOING REQUESTS
+***********************************************************************
+--------------------------
+====>> retrieve all i made
+--------------------------
+db.refer_requests.find(
+	{"user_id.sender": ObjectId("5caf36f51766fb7ca42befdc")}
+).pretty()
+
+***********************************************************************
+					REFER_REQUESTS - MAIN PAGE
+***********************************************************************
+----------------------
+====>> make a request
+----------------------
+>> data
+- sender: get from session
+- all other data: already available when query 'browse main page'
+
+db.refer_requests.insert({
+
+	"user_id":{
+		"sender": 345,
+		"recipient": 321,
+	},
+	"position_info": {
+		"company": "facebook",
+		"position": "junior SWE",
+		"city": "Menlo Park, California",
+		"country": "USA",
+	},
+
+	"status": "pending_response"
+
+})

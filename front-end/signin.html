@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	
+	<!-- DEFINE HEADER -->
+	<!-- *********************************************** -->
+	<head>
+		<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+		<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	</head>
+	
+
+	<!-- DEFINE BODY -->
+	<!-- *********************************************** -->
+	<body class="w3-container w3-dark-grey">
+
+		<div id="signin_modal" class="w3-modal">
+
+			<div class="w3-modal-content w3-animate-zoom w3-card-12" style="width:400px; overflow:hidden;">
+			
+				<!-- modal header -->
+				<header class="w3-container w3-blue-grey w3-padding-8" style="padding-left:35px;">
+					<h2 class="w3-large">
+						<i class="fa fa-user w3-xlarge" style="padding-right: 6px;" ></i>
+						Account Login
+					</h2>
+				</header>
+
+				<!-- error msg -->
+				<div id="error_msg" class="w3-container w3-red w3-center">
+					wrong name or password
+				</div>
+
+				<!-- input fields --> 
+				<form id="logging_form" class="w3-container" style="margin-left:15px; margin-right:15px;">
+					<div style="padding-top: 20px;">
+						<label class="w3-text-grey"><b>Email</b></label>
+						<input type="email" class="w3-input w3-border" placeholder="userID@provider.domain" name="user_email" />
+					</div>
+					<div style="padding-top: 20px;">
+						<label class="w3-text-grey"><b>Password</b></label>
+						<input type="password" class="w3-input w3-border" placeholder="1234567890" name="user_password" />
+					</div>
+
+					<!-- form actions --> 
+					<div class="w3-center" style="padding-top: 20px; padding-bottom: 10px;">
+						<button id="signin_btn" class="w3-btn w3-green w3-margin-bottom w3-round-xxlarge w3-ripple w3-padding-8"
+						style="width:100px;">
+							Sign In
+						</button>
+						<button id="signup_btn" class="w3-btn w3-dark-grey w3-margin-bottom w3-round-xxlarge w3-ripple w3-padding-8"
+						style="width:100px;" >
+							Sign Up
+						</button>
+					</div>
+
+				</form>
+
+				
+
+			</div>
+
+		</div>
+
+	</body>
+
+	<!-- POST-LOADING SCRIPTS -->
+	<!-- *********************************************** -->
+	<script>
+
+		$(document).ready(function(){
+
+			/* handle display styles */
+			$("#signin_modal").show();
+			$("#error_msg").hide();
+
+			/* setup form actions */
+			$('#logging_form').attr('action', '/signin/submit');
+			$('#logging_form').attr('method', 'POST');
+
+			/* setup signup btn action listeners */
+			$("#signup_btn").click(function(e){
+				e.preventDefault();
+				var target_url = "http://127.0.0.1:8081/signup";
+      			$( location ).attr("href", target_url);
+			});
+
+		});
+
+	</script>
+
+</html>
+

@@ -1,0 +1,48 @@
+{
+	"positions_held":[
+		
+		{
+			"user_id": 123,
+			"company": "google",
+			"position": "junior SWE",
+			"office":{
+				"city": "Palo Alto, California",
+				"country": "USA",
+			},
+			"duration":{
+				"start_date": "july 2019",
+				"end_date": "present"
+			}
+		},
+
+		{
+			"user_id": 123,
+			"company": "facebook",
+			"position": "junior SWE2",
+			"office":{
+				"city": "Menlo Park, California",
+				"country": "USA",
+			},
+			"duration":{
+				"start_date": "july 2019",
+				"end_date": "present"
+			}
+		},
+
+
+		{
+			"user_id": 321,
+			"company": "google",
+			"position": "junior SWE",
+			"office":{
+				"city": "Palo Alto, California",
+				"country": "USA",
+			},
+			"duration":{
+				"start_date": "july 2019",
+				"end_date": "present"
+			}
+		},
+
+	]
+}

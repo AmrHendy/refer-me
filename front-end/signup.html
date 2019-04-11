@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+	<!-- DEFINE HEADER -->
+	<!-- *********************************************** -->
+	<head>
+		<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+		<style>	
+			.sh-form{
+				width: 600px; padding-top: 0px; padding-bottom: 20px; padding-left: 0px; margin-top:10px; margin-left:26%;
+			}
+
+			.sh-label{
+				width: 100px; padding-top: 8px; padding-right: 10px; text-align: right;
+			}
+		</style>
+
+	</head>
+
+	<!-- DEFINE BODY -->
+	<!-- *********************************************** -->
+	<body class="w3-light-grey">
+
+		<!-- navigation bar -->
+		<ul class="w3-navbar w3-blue-grey w3-card-2">
+			<p style="text-align: center;">CREATE NEW ACCOUNT</p>
+		</ul>
+
+		<!-- adjust spacing -->
+		<div style="padding: 5px;"></div>
+
+		<!-- signup form -->
+		<div class="sh-form" style="display: table; margin: 0 auto;">
+
+			<!-- error msg -->
+			<div id="error_msg" class="w3-red" style="padding:10px; display:none;">
+					error msg
+			</div>
+
+
+			<form id="signup_form" style="padding-left:5px; padding-top:25px;">
+				<!-- user name -->
+				<div class="w3-row" style="padding: 10px;">
+					<div class="w3-col sh-label">
+						<label class="w3-label" style="text-align: right;" >User Name</label>
+					</div>
+
+					<div class="w3-col" style="width: 400px;">
+						<input type="text" class="w3-input w3-border" name="user_name"/>
+					</div>
+				</div>
+
+				<!-- password -->
+				<div class="w3-row" style="padding: 10px;">
+					<div class="w3-col sh-label">
+						<label class="w3-label">Password</label>
+					</div>
+
+					<div class="w3-col" style="width: 400px;">
+						<input type="password" class="w3-input w3-border"  name="user_password" />
+					</div>
+				</div>
+
+				<!-- first name -->
+				<div class="w3-row" style="padding: 10px;">
+					<div class="w3-col sh-label">
+						<label class="w3-label">First Name</label>
+					</div>
+
+					<div class="w3-col" style="width: 400px;">
+						<input type="text" class="w3-input w3-border" name="first_name" />
+					</div>
+				</div>
+
+				<!-- last name -->
+				<div class="w3-row" style="padding: 10px;">
+					<div class="w3-col sh-label">
+						<label class="w3-label">Last Name</label>
+					</div>
+
+					<div class="w3-col" style="width: 400px;">
+						<input type="text" class="w3-input w3-border" name="last_name" />
+					</div>
+				</div>
+
+				<!-- user email -->
+				<div class="w3-row" style="padding: 10px;">
+					<div class="w3-col sh-label">
+						<label class="w3-label">Email</label>
+					</div>
+
+					<div class="w3-col" style="width: 400px;">
+						<input type="email" class="w3-input w3-border"  name="user_email" />
+					</div>
+				</div>
+
+				<!-- user phone -->
+				<div class="w3-row" style="padding: 10px;">
+					<div class="w3-col sh-label">
+						<label class="w3-label">Phone</label>
+					</div>
+
+					<div class="w3-col" style="width: 400px;">
+						<input type="text" class="w3-input w3-border"  name="user_phone"/>
+					</div>
+				</div>
+
+				<!-- shipping address -->
+				<div class="w3-row" style="padding: 10px;">
+					<div class="w3-col sh-label">
+						<label class="w3-label">Address</label>
+					</div>
+
+					<div class="w3-col" style="width: 400px;">
+						<input type="text" class="w3-input w3-border"  name="user_address" />
+					</div>
+				</div>
+
+				<div class="w3-container" style="margin-top:5px;">
+					<button class="w3-btn w3-right w3-teal" style="margin-right: 69px;"
+					name="signup_btn" type="submit" value = "signup" >Sign Up</button>
+
+					<button id="cancel_btn" class="w3-btn w3-right w3-green" style="margin-right: 10px;">Cancel</button>
+				</div>
+
+
+
+			</form>
+
+		</div>
+
+
+	</body>
+
+
+	<!-- POST-LOADING SCRIPTS -->
+	<!-- *********************************************** -->
+	<script>
+
+		$(document).ready(function(){
+
+			/* handle display styles */
+			$("#error_msg").hide();
+
+			/* setup form actions */
+			$('#signup_form').attr('action', '/signup/submit');
+			$('#signup_form').attr('method', 'POST');
+
+			/* setup cancel btn action listeners */
+			$("#cancel_btn").click(function(e){
+				e.preventDefault();
+				var target_url = "http://127.0.0.1:8081/";
+      			$( location ).attr("href", target_url);
+			});
+
+		});
+
+	
+		
+		/*if('${error}' != '#')
+		{
+			document.getElementById('error_msg').style.display='block';
+		}*/
+		
+	</script>
+
+</html>
