@@ -1,20 +1,20 @@
 /* IMPORT REQUIRED MODULEs */
 /*********************************************/
-var mysql = require('mysql');
-var connection;
+var MongoClient = require('mongodb').MongoClient;
+
+var connection_par = {
+	"client": MongoClient,
+	"url": "mongodb://localhost:27017/",
+	"database_name": "referme_db"
+}
 
 
 /* INTERFACE METHOD */
 /*********************************************/
-exports.initialize = function()
-{
-	connection = mysql.createConnection({
-		host     : 'localhost',
-		user     : 'root',
-		password : '0103808083Mo',
-		database : 'bookstore'
-	});
+exports.initialize = function(){
 
-	connection.connect();
-	return connection;
+	return connection_par;
+
 }
+
+

@@ -25,10 +25,10 @@ var directory_table = {
 
 /* REQUEST-ROUTING TABLE */
 /*********************************************/
-exports.start_listening = function(server, database, session)
+exports.start_listening = function(server, connection_par, session)
 {
-	signin_routes.handle_routes(server, database, directory_table, session);
-	signup_routes.handle_routes(server, database, directory_table, session);
+	signin_routes.handle_routes(server, connection_par, directory_table, session);
+	signup_routes.handle_routes(server, connection_par, directory_table, session);
 	/*home_routes.handle_routes(server, database, directory_table, session);
 	account_routes.handle_routes(server, database, directory_table, session);
 	cart_routes.handle_routes(server, database, directory_table, session);

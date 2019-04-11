@@ -78,6 +78,21 @@ db.user_accounts.insert({
 
 })
 
+
+db.user_accounts.insert({
+
+	"login": {
+		"email": "mohamed_shaapan@ymail.com",
+		"password": "123456789"
+	},
+
+	"profile":{
+		"name": "ahmad shaban",
+		"age": 25
+	}
+
+})
+
 ***********************************************************************
 					USER_ACCOUNTS - LOGIN OPERATION
 ***********************************************************************

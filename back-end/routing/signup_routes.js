@@ -8,77 +8,78 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 /* INTERFACE FUNCTIONS */
 /*********************************************/
-exports.handle_routes = function(server, database, directory_table, session)
+exports.handle_routes = function(server, connection_par, directory_table, session)
 {
-	// signup page
-	server.get('/signup', function (req, res) {
 
-		if(req.session.user_id)
-		{
-			// user already signed in
-			console.log("\nuser already signed in");
-			var page_path = path.join(__dirname + directory_table["home"]);
-			res.sendFile(page_path);
-			return;
-		}
-
-		console.log("\nuser first time signup");
-		var page_path = path.join(__dirname + directory_table["signup"]);
-		res.sendFile(page_path);
-	});
-
-	/* signin submit form */
+	// signup submit form
 	server.post('/signup/submit', urlencodedParser, function (req, res) {
 
-		/* extract data */
-		var user_name = req.body.user_name;
-		var user_password = req.body.user_password;
-		var first_name = req.body.first_name;
-		var last_name = req.body.last_name;
-		var user_email = req.body.user_email;
-		var user_phone = req.body.user_phone;
-		var user_address = req.body.user_address;
+		console.log("accepting route /signup/submit");
 
-		/* check database */
-		var sql_query = "INSERT INTO user_account "+
-						"(email, login_password, user_name, credentials, first_name, last_name, address, phone) "+
-						"VALUES (\""+user_email+"\", \""+user_password+"\", \""+user_name+"\", 0, "+
-						"\""+first_name+"\", \""+last_name+"\", \""+user_address+"\", \""+user_phone+"\") ;";
-
-		database.query(sql_query, function (err, rows, fields) {
-
-			if (err)
-			{
-				// invalid data
-				console.log("\nincorrect data");
-				var page_path = path.join(__dirname + directory_table["signup"]);
-				res.sendFile(page_path);
-				return;
+		// extract data
+		var new_user = {
+			"login": {
+				"email": req.body.user_email,
+				"password": req.body.user_password
+			},
+			"profile":{
+				"name": req.body.user_name,
+				"age": req.body.user_age
 			}
+		}
+		
+		// connect to database
+		connection_par["client"].connect(connection_par["url"], function(err1, connection) {
+			if (err1) throw err1;
+			var db = connection.db(connection_par["database_name"]);
 
-			console.log("\nvalid signup info");
-			// manage user session
-			var query = "SELECT id FROM user_account WHERE email='"+user_email+"' ;";
-			database.query(query, function (err2, rows2, fields2) {
-
-				// handle errors
+			// check if user already exists
+			db.collection("user_accounts").find({"login.email": new_user["login"]["email"]}).toArray(function(err2, result2) {
 				if (err2) throw err2;
-				// retrieve data
-				var user_id = rows2[0].id;
+				
+				// user already exists
+				if(result2.length != 0){
+					connection.close();
+					var data = {
+						"msg": "user already exists!"
+					}
+					var ret = JSON.stringify(data);
+					res.end(ret);
+					return;
+				}
 
-				req.session.user_id = user_id;
-				req.session.user_name = user_name;
-				req.session.credentials = 0;
-				console.log("\nuser session saved");
+				// insert new user into db
+				db.collection("user_accounts").insertOne(new_user, function(err3, result3) {
+					if (err3) throw err3;
+					
+					// valid signup
+					console.log("user added successfully");
 
-				var page_path = path.join(__dirname + directory_table["home"]);
-				res.sendFile(page_path);
+					// get user id for session management
+					db.collection("user_accounts").find({"login.email": new_user["login"]["email"]}).toArray(function(err4, result4) {
+						if (err4) throw err4;
+						connection.close();
+						var data = {
+							"msg": "valid signup",
+							"session_info": {
+								"user_email": new_user["login"]["email"],
+								"user_name": new_user["profile"]["name"]
+							}
+						};
+						// store session variables
+						console.log(result4);
+						req.session.user_id = result4[0]["_id"]
+						// return result
+						var ret = JSON.stringify(data);
+						res.end(ret);
+						return;
+					});
 
+				});	
+		
 			});
-
-			
-			
 		});
+
 
 		
 

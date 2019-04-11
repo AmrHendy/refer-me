@@ -8,11 +8,11 @@ var router = require('./routing/router');
 /* initialize server components */
 var init = initializer.initialize();
 var server = init[0];
-var database = init[1];
+var connection_par = init[1];
 var session = init[2];
 
 /* initialize router */
-router.start_listening(server, database, session);
+router.start_listening(server, connection_par, session);
 
 
 

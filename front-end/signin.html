@@ -75,13 +75,13 @@
 			$("#error_msg").hide();
 
 			/* setup form actions */
-			$('#logging_form').attr('action', '/signin/submit');
+			$('#logging_form').attr('action', 'http://127.0.0.1:8001/signin/submit');
 			$('#logging_form').attr('method', 'POST');
 
 			/* setup signup btn action listeners */
 			$("#signup_btn").click(function(e){
 				e.preventDefault();
-				var target_url = "http://127.0.0.1:8081/signup";
+				var target_url = "http://127.0.0.1:8001/signup";
       			$( location ).attr("href", target_url);
 			});
 

@@ -41,14 +41,16 @@
 
 
 			<form id="signup_form" style="padding-left:5px; padding-top:25px;">
-				<!-- user name -->
+
+
+				<!-- user email -->
 				<div class="w3-row" style="padding: 10px;">
 					<div class="w3-col sh-label">
-						<label class="w3-label" style="text-align: right;" >User Name</label>
+						<label class="w3-label">Email</label>
 					</div>
 
 					<div class="w3-col" style="width: 400px;">
-						<input type="text" class="w3-input w3-border" name="user_name"/>
+						<input type="email" class="w3-input w3-border"  name="user_email" />
 					</div>
 				</div>
 
@@ -63,60 +65,28 @@
 					</div>
 				</div>
 
-				<!-- first name -->
+				<!-- user name -->
 				<div class="w3-row" style="padding: 10px;">
 					<div class="w3-col sh-label">
-						<label class="w3-label">First Name</label>
+						<label class="w3-label" style="text-align: right;" >Name</label>
 					</div>
 
 					<div class="w3-col" style="width: 400px;">
-						<input type="text" class="w3-input w3-border" name="first_name" />
+						<input type="text" class="w3-input w3-border" name="user_name"/>
 					</div>
 				</div>
 
-				<!-- last name -->
+				<!-- user name -->
 				<div class="w3-row" style="padding: 10px;">
 					<div class="w3-col sh-label">
-						<label class="w3-label">Last Name</label>
+						<label class="w3-label" style="text-align: right;" >Age</label>
 					</div>
 
 					<div class="w3-col" style="width: 400px;">
-						<input type="text" class="w3-input w3-border" name="last_name" />
+						<input type="text" class="w3-input w3-border" name="user_age"/>
 					</div>
 				</div>
 
-				<!-- user email -->
-				<div class="w3-row" style="padding: 10px;">
-					<div class="w3-col sh-label">
-						<label class="w3-label">Email</label>
-					</div>
-
-					<div class="w3-col" style="width: 400px;">
-						<input type="email" class="w3-input w3-border"  name="user_email" />
-					</div>
-				</div>
-
-				<!-- user phone -->
-				<div class="w3-row" style="padding: 10px;">
-					<div class="w3-col sh-label">
-						<label class="w3-label">Phone</label>
-					</div>
-
-					<div class="w3-col" style="width: 400px;">
-						<input type="text" class="w3-input w3-border"  name="user_phone"/>
-					</div>
-				</div>
-
-				<!-- shipping address -->
-				<div class="w3-row" style="padding: 10px;">
-					<div class="w3-col sh-label">
-						<label class="w3-label">Address</label>
-					</div>
-
-					<div class="w3-col" style="width: 400px;">
-						<input type="text" class="w3-input w3-border"  name="user_address" />
-					</div>
-				</div>
 
 				<div class="w3-container" style="margin-top:5px;">
 					<button class="w3-btn w3-right w3-teal" style="margin-right: 69px;"
@@ -145,24 +115,17 @@
 			$("#error_msg").hide();
 
 			/* setup form actions */
-			$('#signup_form').attr('action', '/signup/submit');
+			$('#signup_form').attr('action', 'http://127.0.0.1:8001/signup/submit');
 			$('#signup_form').attr('method', 'POST');
 
 			/* setup cancel btn action listeners */
 			$("#cancel_btn").click(function(e){
 				e.preventDefault();
-				var target_url = "http://127.0.0.1:8081/";
+				var target_url = "http://127.0.0.1:8001/";
       			$( location ).attr("href", target_url);
 			});
 
 		});
-
-	
-		
-		/*if('${error}' != '#')
-		{
-			document.getElementById('error_msg').style.display='block';
-		}*/
 		
 	</script>
 

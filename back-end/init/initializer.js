@@ -10,8 +10,8 @@ var session_init = require('./session_init');
 exports.initialize = function()
 {
 	var server = server_init.initialize();
-	var connection = database_init.initialize();
 	var session = session_init.initialize(server);
+	var connection_par = database_init.initialize();
 
-	return [server, connection, session];
+	return [server, connection_par, session];
 }
