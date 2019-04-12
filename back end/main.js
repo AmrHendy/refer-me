@@ -1,9 +1,7 @@
 /* IMPORT REQUIRED MODULEs */
 /*********************************************/
-var initializer = require('./init/initializer');
-var router = require('./routing/router');
-
-
+var initializer = require("./init/initializer");
+var router = require("./routing/router");
 
 /* initialize server components */
 var init = initializer.initialize();
@@ -13,9 +11,3 @@ var session = init[2];
 
 /* initialize router */
 router.start_listening(server, connection_par, session);
-
-
-
-
-
-

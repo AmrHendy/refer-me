@@ -30,6 +30,8 @@ exports.handle_routes = function(
       }
     };
 
+    console.log(new_user);
+
     // connect to database
     connection_par["client"].connect(connection_par["url"], function(
       err1,
@@ -74,7 +76,12 @@ exports.handle_routes = function(
                 connection.close();
                 var data = {
                   msg: "valid signup",
-                  status: "success"
+                  status: "success",
+                  user: {
+                    email: new_user.login.email,
+                    firstName: new_user.profile.first_name,
+                    lastName: new_user.profile.last_name
+                  }
                 };
                 // store session variables
                 console.log(result4);
