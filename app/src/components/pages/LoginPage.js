@@ -2,6 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
+import loginRequest from "../../actions/creators/loginActions";
+
 class LoginPage extends React.Component {
   constructor(props) {
     super(props);
@@ -29,9 +31,10 @@ class LoginPage extends React.Component {
 
     this.setState({ submitted: true });
     const { username, password } = this.state;
-    // const { dispatch } = this.props;
+
     if (username && password) {
       // dispatch the login action (username, password)
+      this.props.dispatch(loginRequest(username, password));
     }
   }
 
@@ -102,13 +105,9 @@ class LoginPage extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {};
-}
-
-const connectedLoginPage = connect(
-  mapStateToProps,
+let connectedLoginPage = connect(
+  null,
   null
 )(LoginPage);
 
-export default LoginPage;
+export default connectedLoginPage;
