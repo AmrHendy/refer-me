@@ -6,7 +6,7 @@ let initialState = { loggedInUser: null };
 function login(state = initialState, action) {
   switch (action.type) {
     case LOGIN_SUCCESS:
-      console.log(`Successfully logging and user = ${action.loggedInUser}`);
+      console.log("Successfully logging, user = ", action.loggedInUser);
       return { loggedInUser: action.loggedInUser };
     case LOGIN_FAILED:
       console.log("Error in logging");

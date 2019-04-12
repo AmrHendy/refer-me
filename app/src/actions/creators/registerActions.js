@@ -12,4 +12,4 @@ function registerRequest(user) {
     return { type: REGISTER_FAILED };
   }
 }
-export default loginRequest;
+export default registerRequest;
