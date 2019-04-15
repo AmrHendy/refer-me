@@ -6,9 +6,11 @@ let initialState = { loggedInUser: null };
 function register(state = initialState, action) {
   switch (action.type) {
     case REGISTER_SUCCESS:
+      alert(action.message);
       console.log("Successfully registered", action.loggedInUser);
       return { loggedInUser: action.loggedInUser };
     case REGISTER_FAILED:
+      alert(action.message);
       console.log("Error in registering");
       return { loggedInUser: null };
     default:

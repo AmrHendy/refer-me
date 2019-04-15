@@ -5,9 +5,13 @@ function loginRequest(response) {
   // TODO call the backend with the email and password.
   // it will return onject of {user: logged in user or null, status: 'success' or 'error'}
   if (response.status === "success") {
-    return { type: LOGIN_SUCCESS, loggedInUser: response.user };
+    return {
+      type: LOGIN_SUCCESS,
+      loggedInUser: response.user,
+      message: response.msg
+    };
   } else if (response.status === "error") {
-    return { type: LOGIN_FAILED, loggedInUser: null };
+    return { type: LOGIN_FAILED, loggedInUser: null, message: response.msg };
   }
 }
 
