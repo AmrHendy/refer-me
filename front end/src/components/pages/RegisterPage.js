@@ -14,13 +14,15 @@ class RegisterPage extends React.Component {
         firstName: "",
         lastName: "",
         email: "",
-        password: ""
+        password: "",
+        loginPressed: false
       },
       submitted: false
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.goLogin = this.goLogin.bind(this);
   }
 
   handleChange(event) {
@@ -36,7 +38,12 @@ class RegisterPage extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    
+    if(this.state.loginPressed === true){
+      return;
+    }
 
+    console.log(event)
     this.setState({ submitted: true });
     const { user } = this.state;
 
@@ -49,118 +56,86 @@ class RegisterPage extends React.Component {
     }
   }
 
+  goLogin(){
+    this.setState({loginPressed: true})
+    alert('redirect to sign in')
+    window.location.href = '/login';
+  }
+
   render() {
     const { user, submitted } = this.state;
     return (
-      <div className="col-md-3 col-md-offset-4">
-        <h2>Register</h2>
-        <form name="form" onSubmit={this.handleSubmit}>
-          {/* first name*/}
-          <div
-            className={
-              "form-group" + (submitted && !user.firstName ? " has-error" : "")
-            }
-          >
-            <div className="input-group">
-              <span className="input-group-addon">
-                <i className="glyphicon glyphicon-user" />
-              </span>
-              <input
-                type="text"
-                className="form-control"
-                name="firstName"
-                placeholder="First Name"
-                value={user.firstName}
-                onChange={this.handleChange}
-              />
-              {submitted && !user.firstName && (
-                <div className="help-block">First Name is required</div>
-              )}
-            </div>
-          </div>
+      <React.Fragment>
+        <div id="signin_modal" className="w3-modal comp11">
+          <div className="w3-modal-content w3-animate-zoom w3-card-12 comp1">
+            <header className="w3-container w3-blue-grey w3-padding-8 comp2">
+              <h2 className="w3-large">
+                <i className="fa fa-user w3-xlarge comp3"></i>
+                Sign up
+              </h2>
+            </header>
 
-          {/* last name*/}
-          <div
-            className={
-              "form-group" + (submitted && !user.lastName ? " has-error" : "")
-            }
-          >
-            <div className="input-group">
-              <span className="input-group-addon">
-                <i className="glyphicon glyphicon-user" />
-              </span>
-              <input
-                type="text"
-                className="form-control"
-                name="lastName"
-                placeholder="Last Name"
-                value={user.lastName}
-                onChange={this.handleChange}
-              />
-              {submitted && !user.lastName && (
-                <div className="help-block">Last Name is required</div>
-              )}
+            {/*error msg*/}
+            <div id="error_msg" className="w3-container w3-red w3-center comp4">
+              wrong name or password
             </div>
-          </div>
+    
+            {/*input fields*/} 
+            <form name="form" className="w3-container comp5" onSubmit={this.handleSubmit}>
+              <div className="comp6">
+                <label className="w3-text-grey"><b>First Name</b></label>
+                <input type="text" className="w3-input w3-border" 
+                  name="firstName"
+                  placeholder="First Name"
+                  value={user.firstName}
+                  onChange={this.handleChange}
+                />
+              </div>
 
-          {/* user name*/}
-          <div
-            className={
-              "form-group" + (submitted && !user.username ? " has-error" : "")
-            }
-          >
-            <div className="input-group">
-              <span className="input-group-addon">
-                <i className="glyphicon glyphicon-user" />
-              </span>
-              <input
-                id="email"
-                type="email"
-                className="form-control"
-                name="email"
-                placeholder="Email"
-                value={user.email}
-                onChange={this.handleChange}
-              />
-              {submitted && !user.email && (
-                <div className="help-block">Email is required</div>
-              )}
-            </div>
-          </div>
+              <div className="comp12">
+                <label className="w3-text-grey"><b>Last Name</b></label>
+                <input type="text" className="w3-input w3-border" 
+                  name="lastName"
+                  placeholder="Last Name"
+                  value={user.lastName}
+                  onChange={this.handleChange}
+                />
+              </div>
 
-          {/* password*/}
-          <div
-            className={
-              "form-group" + (submitted && !user.password ? " has-error" : "")
-            }
-          >
-            <div className="input-group">
-              <span className="input-group-addon">
-                <i className="glyphicon glyphicon-lock" />
-              </span>
-              <input
-                id="password"
-                type="password"
-                className="form-control"
-                name="password"
-                placeholder="Password"
-                value={user.password}
-                onChange={this.handleChange}
-              />
-              {submitted && !user.password && (
-                <div className="help-block">Password is required</div>
-              )}
-            </div>
+              <div className="comp12">
+                <label className="w3-text-grey"><b>Email</b></label>
+                <input type="email" className="w3-input w3-border" 
+                  name="email"
+                  placeholder="Email"
+                  value={user.email}
+                  onChange={this.handleChange}
+                />
+              </div>
+              
+              <div className="comp12">
+                <label className="w3-text-grey"><b>Password</b></label>
+                <input type="password" className="w3-input w3-border"
+                  name="password"
+                  placeholder="Password"
+                  value={user.password}
+                  onChange={this.handleChange}
+                />
+              </div>
+    
+              {/*form actions*/} 
+              <div className="w3-center comp8">
+                <button id="signin_btn" className="w3-btn w3-green w3-margin-bottom w3-round-xxlarge w3-ripple w3-padding-8 comp9"
+                  onClick={this.goLogin}>
+							    Sign In
+					  	  </button>
+					    	<button id="signup_btn" className="w3-btn w3-dark-grey w3-margin-bottom w3-round-xxlarge w3-ripple w3-padding-8 comp10">
+							    Sign Up
+						    </button>
+              </div>
+            </form>
           </div>
-
-          <div className="form-group">
-            <button className="btn btn-primary">Register</button>
-            <Link to="/login" className="btn btn-link">
-              Cancel
-            </Link>
-          </div>
-        </form>
-      </div>
+        </div>
+      </React.Fragment>
     );
   }
 }

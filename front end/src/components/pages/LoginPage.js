@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import loginRequest from "../../actions/creators/loginActions";
 import login from "../../services/loginService";
 
+import './LoginPage.css'; 
+
 class LoginPage extends React.Component {
   constructor(props) {
     super(props);
@@ -12,11 +14,13 @@ class LoginPage extends React.Component {
     this.state = {
       email: "",
       password: "",
-      submitted: false
+      submitted: false,
+      resgisterPressed: false
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.goRegister = this.goRegister.bind(this);
   }
 
   // to keep the login form updated always
@@ -29,6 +33,11 @@ class LoginPage extends React.Component {
   handleSubmit(e) {
     // prevent form from submitting by default until we check the state status after dispatching
     e.preventDefault();
+
+    if(this.state.resgisterPressed === true){
+      return;
+    }
+    alert('handle submit')
 
     this.setState({ submitted: true });
     const { email, password } = this.state;
@@ -43,70 +52,70 @@ class LoginPage extends React.Component {
     }
   }
 
+  goRegister(){
+    this.setState({resgisterPressed: true})
+    alert('redirect to register')    
+    window.location.href = '/register';
+  }
+
   render() {
     const { email, password, submitted } = this.state;
+    return(
+      <React.Fragment>
+        <div id="signin_modal" className="w3-modal">
+          <div className="w3-modal-content w3-animate-zoom w3-card-12 comp1">
+            <header className="w3-container w3-blue-grey w3-padding-8 comp2">
+              <h2 className="w3-large">
+                <i className="fa fa-user w3-xlarge comp3"></i>
+                Login
+              </h2>
+            </header>
 
-    return (
-      <div className="col-md-3 col-md-offset-4">
-        <h2>Login</h2>
-        <form name="form" onSubmit={this.handleSubmit}>
-          <div
-            className={"form-group" + (submitted && !email ? " has-error" : "")}
-          >
-            <div className="input-group">
-              <span className="input-group-addon">
-                <i className="glyphicon glyphicon-user" />
-              </span>
-              <input
-                id="email"
-                type="email"
-                className="form-control"
-                name="email"
-                placeholder="User Email"
-                value={email}
-                onChange={this.handleChange}
-              />
-              {submitted && !email && (
-                <div className="help-block">Email is required</div>
-              )}
+            {/*error msg*/}
+            <div id="error_msg" className="w3-container w3-red w3-center comp4">
+              wrong name or password
             </div>
+    
+            {/*input fields*/} 
+            <form name="form" className="w3-container comp5" onSubmit={this.handleSubmit}>
+              <div className="comp6">
+                <label className="w3-text-grey"><b>Email</b></label>
+                <input type="email" className="w3-input w3-border" placeholder="userID@provider.domain" 
+                  name="email"
+                  value={email}
+                  onChange={this.handleChange}
+                />
+              </div>
+              
+              <div className="comp7">
+                <label className="w3-text-grey"><b>Password</b></label>
+                <input type="password" className="w3-input w3-border" placeholder="1234567890"
+                  name="password"
+                  value={password}
+                  onChange={this.handleChange}
+                />
+              </div>
+    
+              {/*form actions*/} 
+              <div className="w3-center comp8">
+                <button id="signin_btn" className="w3-btn w3-green w3-margin-bottom w3-round-xxlarge w3-ripple w3-padding-8 comp9">
+							    Sign In
+					  	  </button>
+					    	<button id="signup_btn" className="w3-btn w3-dark-grey w3-margin-bottom w3-round-xxlarge w3-ripple w3-padding-8 comp10"
+                  onClick={this.goRegister}>
+							    Sign Up
+						    </button>
+              </div>
+            </form>
           </div>
-
-          <div
-            className={
-              "form-group" + (submitted && !password ? " has-error" : "")
-            }
-          >
-            <div className="input-group">
-              <span className="input-group-addon">
-                <i className="glyphicon glyphicon-lock" />
-              </span>
-              <input
-                id="password"
-                type="password"
-                className="form-control"
-                name="password"
-                placeholder="Password"
-                value={password}
-                onChange={this.handleChange}
-              />
-              {submitted && !password && (
-                <div className="help-block">Password is required</div>
-              )}
-            </div>
-          </div>
-
-          <div className="form-group">
-            <button className="btn btn-primary">Login</button>
-            <Link to="/register" className="btn btn-link">
-              Register
-            </Link>
-          </div>
-        </form>
-      </div>
+        </div>
+      </React.Fragment>
     );
   }
 }
+
+
+
 
 let connectedLoginPage = connect(
   null,
