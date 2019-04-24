@@ -6,7 +6,8 @@ let initialState = {
   loggedInUser: {
     firstName: null,
     lastName: null,
-    email: null
+    email: null,
+    imagePath: null
   }
 };
 

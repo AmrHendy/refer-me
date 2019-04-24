@@ -38,7 +38,7 @@ class Test extends React.Component {
     };
 
     return (
-      <ProfilePage/>
+      <HomePage/>
     );
   }
 }
