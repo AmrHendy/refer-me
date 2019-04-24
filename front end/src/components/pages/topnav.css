@@ -1,0 +1,10 @@
+.nav-wrapper {padding-right: 20px;}
+.info-wrapper {width: 400px; padding-left: 50px; padding-top: 10px; padding-bottom: 10px;}
+.image-wrapper {width: 60px;}
+.image-style {width: 100%; border-radius: 50%; cursor: pointer;}
+.name-wrapper {width: 200px; padding-top: 20px; text-align: left; padding-left: 10px; font-weight: bold; text-shadow: 1px 1px grey; }
+.name-style {cursor: pointer;}
+.signout-wrapper {width: 70px; padding-top: 30px; font-weight: bold; margin-right: 20px;}
+.request-wrapper {width: 100px; padding-top: 30px; margin-right: 40px; font-weight: bold;}
+.comp11 {border-radius: 50%; padding: 4px; cursor: pointer; margin-left: 5px;}
+.comp22 {width: 70px; padding-top: 30px; font-weight: bold; margin-right: 40px;}
