@@ -12,6 +12,8 @@ import EmployeeCard from "../layout/EmployeeCard";
 import ProfileCard from "../layout/ProfileCard";
 import PostionCard from "../layout/PositionCard";
 import ProfilePage from "./ProfilePage";
+import RequestNav from "../layout/RequestNav";
+import RequestCard from "../layout/RequestCard";
 
 class Test extends React.Component {
   constructor(props) {
@@ -38,7 +40,7 @@ class Test extends React.Component {
     };
 
     return (
-      <HomePage/>
+      <RequestCard/>
     );
   }
 }
