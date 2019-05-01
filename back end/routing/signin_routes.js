@@ -18,14 +18,8 @@ exports.handle_routes = function(
     console.log("accepting route /signin/submit");
 
     /* extract data */
-    console.log("req = ", req);
-    console.log("body = ", req.body);
-    console.log("params = ", req.params);
     var user_email = req.body.user_email;
     var user_password = req.body.user_password;
-
-    console.log("email : " + user_email);
-    console.log("password : " + user_password);
 
     //db.user_accounts.find({"login.email": "mohamed.shaapan.1@gmail.com"}).pretty()
 
@@ -43,6 +37,7 @@ exports.handle_routes = function(
 
           // user not found
           if (result.length == 0) {
+            console.log("user not found");
             var data = {
               msg: "user not found",
               status: "error"
@@ -54,6 +49,7 @@ exports.handle_routes = function(
 
           // incorrect password
           if (result[0]["login"]["password"] != user_password) {
+            console.log("incorrect pasword");
             var data = {
               msg: "incorrect password",
               status: "error"
@@ -64,6 +60,7 @@ exports.handle_routes = function(
           }
 
           // valid credentials
+          console.log("valid signin");
           console.log(result);
           var data = {
             msg: "valid login",
@@ -76,6 +73,7 @@ exports.handle_routes = function(
           };
           // store session variables
           req.session.user_id = result[0]["_id"];
+          console.log(req.session.user_id);
           // return result
           var ret = JSON.stringify(data);
           res.end(ret);

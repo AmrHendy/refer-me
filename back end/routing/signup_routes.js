@@ -29,8 +29,6 @@ exports.handle_routes = function(
       }
     };
 
-    console.log(new_user);
-
     // connect to database
     connection_par["client"].connect(connection_par["url"], function(
       err1,
@@ -47,6 +45,7 @@ exports.handle_routes = function(
 
           // user already exists
           if (result2.length != 0) {
+            console.log("user already exists");
             connection.close();
             var data = {
               msg: "user already exists!",

@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import Sidenav from "./sidenav";
 import OfficeCard from "./OfficeCard";
@@ -35,7 +36,6 @@ class HomePage extends React.Component {
       this.cancelModal = this.cancelModal.bind(this);
       this.submitModal = this.submitModal.bind(this);
       this.submitReuqestRefer = this.submitReuqestRefer.bind(this);
-      store.subscribe(() => this.getData() );
   }
 
   componentDidMount(){
@@ -44,15 +44,14 @@ class HomePage extends React.Component {
    
   componentWillMount(){
     // init default filtered jobs
-    // let response = filterJobs("", "");
-    // this.props.dispatch(searchRequest(response));
-
-    this.getData();
     store.subscribe(() => this.getData() );
+
+    let response = filterJobs("init", "");
+    this.props.dispatch(searchRequest(response));
   }
 
   getData() {
-    //let requestNum = getRequestNum(); 
+    //let requestNum = getRequestNum();
     let requestNum = 5;
     this.setState({
       navItems:{ 
@@ -95,15 +94,16 @@ class HomePage extends React.Component {
 
   render() {
     let navItems = { ...this.state.navItems };
-    let filteredJobs = this.state.filteredJobs;
-    console.log(this.state);
+    const { filteredJobs } = this.state.filteredJobs;
+    console.log(filteredJobs);
 
     return (
         <React.Fragment>
             <TopNav items= {navItems}/>
             <Sidenav/>
-            {filteredJobs.map((job) => {
-              return <OfficeCard company={job.company} office={job.office} employees={job.employees} displayRequestModal={this.displayRequestModal}/>
+            {filteredJobs.map((job, index) => {
+              console.log(job)
+              return <OfficeCard key={index} company={job.company} office={job.office} employees={job.employees} displayRequestModal={this.displayRequestModal}/>
             })}
             {this.state.displayModal ? <RequestModal cancel={this.cancelModal} sumbit={this.submitModal}/> : null}
         </React.Fragment>
@@ -111,4 +111,9 @@ class HomePage extends React.Component {
   }
 }
 
-export default HomePage;
+let connectedHomePage = connect(
+  null,
+  null
+)(HomePage);
+
+export default connectedHomePage;

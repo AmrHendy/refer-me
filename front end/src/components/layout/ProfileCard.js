@@ -36,7 +36,6 @@ class ProfileCard extends React.Component {
       if (email && password && firstName && lastName) {
         // dispatch the login action (email, password)
         console.log(email, password);
-        //this.props.dispatch(loginRequest(email, password));
         let response = updateProfile(email, password, firstName, lastName);
         console.log("response = ", response);
         this.props.dispatch(updateProfileRequest(response));

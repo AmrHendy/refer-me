@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 
 import loginRequest from "../../actions/creators/loginActions";
 import login from "../../services/loginService";
@@ -49,6 +48,10 @@ class LoginPage extends React.Component {
       let response = login(email, password);
       console.log("response = ", response);
       this.props.dispatch(loginRequest(response));
+      if(response.status === 'success')
+      {
+        window.location.href = '/home';
+      }
     }
   }
 

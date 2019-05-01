@@ -53,6 +53,10 @@ class RegisterPage extends React.Component {
       let response = register(user);
       console.log("response = ", response);
       this.props.dispatch(registerRequest(response));
+      if(response.status === 'success')
+      {
+        window.location.href = '/home';
+      }
     }
   }
 

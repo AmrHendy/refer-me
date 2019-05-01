@@ -54,6 +54,7 @@ class ProfilePage extends React.Component {
   }
 
   componentWillMount(){
+    this.getData();
     store.subscribe(() => this.getData() );
   }
 

@@ -27,7 +27,7 @@ class Sidenav extends React.Component {
   
   componentWillMount(){
     // make ajax request to get the data
-    //this.getData();
+    this.getData();
   }
 
   handleChange(e){

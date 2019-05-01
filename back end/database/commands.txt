@@ -54,6 +54,8 @@ db.positions_held.ensureIndex({"user_id.recipient": 1})
 ------------------------------------
 db.user_accounts.find({"login.email": "mohamed.shaapan.1@gmail.com"}).pretty()
 
+db.user_accounts.find({"_id": "5cc9c99296680c1800903861"})
+
 
 ----------------------------
 ====>> if so, insert into db
@@ -191,17 +193,17 @@ db.positions_held.find(
 ----------------------
 db.positions_held.insert({
 
-	"user_id": ObjectId("5caf36f51766fb7ca42befdc"),
-	"company": "facebook2222",
-	"position": "junior SWE",
-	"office":{
-		"city": "Palo Alto, California",
-		"country": "USA",
-	},
-	"duration":{
-		"start_date": "july 2019",
-		"end_date": "present"
-	}
+	"user_id": 321,
+			"company": "google",
+			"position": "junior SWE",
+			"office":{
+				"city": "Palo Alto, California",
+				"country": "USA",
+			},
+			"duration":{
+				"start_date": "july 2019",
+				"end_date": "present"
+			}
 
 })
 

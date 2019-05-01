@@ -66,11 +66,17 @@ exports.handle_routes = function(
     var search_data = {
       "table_name" : "",
       "attribute": "",
-      "value": search_term
+      "value": req.body.search_term
     };
+
+    console.log(req.body);
 
     switch(req.body.search_criteria)
     {
+      case "init":
+        search_data["table_name"] = "positions_held";
+        search_data["attribute"] = "init";
+        break;
       case "company_list":
         search_data["table_name"] = "positions_held";
         search_data["attribute"] = "company";
@@ -85,13 +91,18 @@ exports.handle_routes = function(
         //search_data["attribute"] = "profile";
     }
 
+    console.log(search_data);
+
     search_db(connection_par, search_data, function(result_data){
       // valid credentials
       var data = {
         msg: "data found",
         status: "success",
-        position_list: result_data
+        position_list: group_positions_by_office(result_data)
       };
+      console.log("RESULT ************************************");
+      console.log(data);
+      
       var ret = JSON.stringify(data);
       res.end(ret);
       return;
@@ -119,7 +130,7 @@ exports.handle_routes = function(
       };
   **************************************************************************/
   server.post("/home/view/refer_request/submit", urlencodedParser, function(req, res) {
-    console.log("accepting route /home/search");
+    console.log("accepting route /home/view/refer_request/submit");
 
     /* extract data */
     var new_request = {
@@ -163,6 +174,88 @@ exports.handle_routes = function(
 //**************************************************************************
 //**************************************************************************
 //**************************************************************************
+function search_db(connection_par, search_data, callback)
+{
+
+  connection_par["client"].connect(connection_par["url"], function(
+      err,
+      connection
+    ) {
+      if (err) throw err;
+      var db = connection.db(connection_par["database_name"]);
+      if(search_data["attribute"] == 'init')
+      {
+        console.log("init view");
+        db.collection(search_data["table_name"])
+          .find()
+          /*.aggregate([
+            { $lookup:
+              {
+                from: 'products',
+                localField: 'product_id',
+                foreignField: '_id',
+                as: 'orderdetails'
+              }
+            }
+          ])*/
+          .toArray(function(err, result) {
+            if (err) throw err;
+            connection.close();
+            //console.log(result);
+            // return result
+            callback(result);
+            return;
+        });
+      }else{
+
+        console.log("normal search");
+        var attribute = search_data["attribute"];
+        var value = search_data["value"]
+        db.collection(search_data["table_name"])
+        .find({attribute : value})
+        .toArray(function(err, result) {
+          if (err) throw err;
+          connection.close();
+          // return result
+          callback(result);
+          return;
+        });
+
+      }
+
+    });
+}
+
+function group_positions_by_office(position_list){
+
+  var result = {};
+
+  position_list.forEach( position => {
+      var key = position["company"] + ", " + position["office"]["city"] + ", " + position["office"]["country"];
+      if(result[key] === undefined){
+        result[key] = {
+          company: position["company"],
+          office: position["office"],
+          employees: [position]
+        };
+      }else{
+        result[key]["employees"].push(position);
+      }
+    }
+  )
+
+  console.log("el result aheee ***************************");
+  var values = [];
+  var keys = Object.keys(result);
+  keys.forEach(function(key){
+    values.push(result[key]);
+  });
+  console.log(values);
+  return values;
+}
+
+
+
 function register_new_request(connection_par, new_request, callback)
 {
   connection_par["client"].connect(connection_par["url"], function(
@@ -183,31 +276,6 @@ function register_new_request(connection_par, new_request, callback)
         });
     });
 }
-
-
-function search_db(connection_par, search_data, callback)
-{
-
-  connection_par["client"].connect(connection_par["url"], function(
-      err,
-      connection
-    ) {
-      if (err) throw err;
-      var db = connection.db(connection_par["database_name"]);
-      var attribute = search_data["attribute"];
-      var value = search_data["value"];
-      db.collection(search_data["table_name"])
-        .find({ attribute : value })
-        .toArray(function(err, result) {
-          if (err) throw err;
-          connection.close();
-          // return result
-          callback(result);
-          return;
-        });
-    });
-}
-
 
 function get_country_list(connection_par, data_collected, callback)
 {
@@ -281,3 +349,6 @@ function get_employee_list(connection_par, data_collected, callback)
         });
     });
 }
+
+
+
