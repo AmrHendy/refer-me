@@ -8,6 +8,7 @@ class RequestModal extends React.Component {
     super(props)
     this.state = {position: '', message: ''};
     this.submit = this.submit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   submit(){
@@ -16,6 +17,7 @@ class RequestModal extends React.Component {
   }
 
   handleChange(e) {
+    e.preventDefault();
     const { name, value } = e.target;
     this.setState({ [name]: value });
   }
@@ -32,12 +34,12 @@ class RequestModal extends React.Component {
             <div className="comp_6">
               <label className="w3-text-grey"><b>Position</b></label>
               <input type="text" className="w3-input w3-border comp_13"
-                placeholder="position name" name="position" value={this.state.position}/>
+                placeholder="position name" name="position" value={this.state.position} onChange={this.handleChange}/>
             </div>
             
             <div className="comp_6">
               <label className="w3-text-grey"><b>Message</b></label>
-              <textarea className="w3-input w3-border comp_12 comp_13" name="message">
+              <textarea className="w3-input w3-border comp_12 comp_13" name="message" onChange={this.handleChange}>
                 {this.state.message}
               </textarea>
             </div>
