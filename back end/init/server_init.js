@@ -17,7 +17,7 @@ exports.initialize = function() {
   // 02. allow access from other domains
   app.use(function(req, res, next) {
     // Website you wish to allow to connect
-    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:8000");
     // Request methods you wish to allow
     res.setHeader(
       "Access-Control-Allow-Methods",

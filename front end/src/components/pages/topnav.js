@@ -56,12 +56,11 @@ class TopNav extends React.Component {
 
             <div className="w3-col w3-right request-wrapper">
                 <span className="mine name-style" onClick={this.redirectRequests}>Requests</span>
-                <span className="w3-yellow w3-small mine comp11">{requestNum || '0' }</span>
+                <span className="w3-yellow w3-small mine comp__11">{requestNum || '0' }</span>
             </div>
             <div className="w3-col w3-right comp22">
                 <span className="mine name-style" onClick={this.redirectHome}>Home</span>
             </div>
-
         </div>
       );
   }

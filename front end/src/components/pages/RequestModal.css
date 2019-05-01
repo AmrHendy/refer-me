@@ -1,16 +1,16 @@
-.comp1 {width:400px; overflow:hidden;}
-.comp2 {padding-left:35px; font-weight: bold;}
-.comp3 {padding-right: 6px;}
-.comp4 {display: none;}
-.comp5 {margin-left:15px; margin-right:15px;}
-.comp6 {padding-top: 10px;}
-.comp7 {padding-top: 20px;}
-.comp8 {padding-top: 15px;}
-.comp9 {width:100px;}
-.comp10 {width:100px;}
-.comp11 {padding-top: 5px; padding-left: 20px; padding-right: 20px;}
-.comp12 {height: 170px;}
-.comp13 {margin-top: 5px;}
-.comp10 {margin-left: 15px;}
+.comp_1 {width:400px; overflow:hidden;}
+.comp_2 {padding-left:35px; font-weight: bold;}
+.comp_3 {padding-right: 6px;}
+.comp_4 {display: none;}
+.comp_5 {margin-left:15px; margin-right:15px;}
+.comp_6 {padding-top: 10px;}
+.comp_7 {padding-top: 20px;}
+.comp_8 {padding-top: 15px;}
+.comp_9 {width:100px;}
+.comp_10 {width:100px;}
+.comp_11 {padding-top: 5px; padding-left: 20px; padding-right: 20px;}
+.comp_12 {height: 170px;}
+.comp_13 {margin-top: 5px;}
+.comp_10 {margin-left: 15px;}
 #request_modal {display: block;}
 

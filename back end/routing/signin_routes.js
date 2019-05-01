@@ -11,7 +11,6 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 exports.handle_routes = function(
   server,
   connection_par,
-  directory_table,
   session
 ) {
   /* signin submit form */
