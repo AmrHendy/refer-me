@@ -57,9 +57,6 @@ class ProfilePage extends React.Component {
     store.subscribe(() => this.getData() );
   }
 
-  
-  
-
   getData() {
     let response = getProfileData();
     let requestNum = getRequestNum();

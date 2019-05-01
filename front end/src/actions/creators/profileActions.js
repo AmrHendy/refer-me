@@ -1,4 +1,4 @@
-import { UPDATE_PROFILE_SUCCESS, UPDATE_PROFILE_FAILED } from "../actionTypes";
+import { LOGIN_SUCCESS, LOGIN_FAILED } from "../actionTypes";
 
 // return the action which we will call a dispatch on it later.
 function updateProfileRequest(response) {
@@ -6,12 +6,12 @@ function updateProfileRequest(response) {
   // it will return onject of {user: logged in user or null, status: 'success' or 'error'}
   if (response.status === "success") {
     return {
-      type: UPDATE_PROFILE_SUCCESS,
+      type: LOGIN_SUCCESS,
       loggedInUser: response.user,
       message: response.msg
     };
   } else if (response.status === "error") {
-    return { type: UPDATE_PROFILE_FAILED, loggedInUser: null, message: response.msg };
+    return { type: LOGIN_SUCCESS, loggedInUser: null, message: response.msg };
   }
 }
 

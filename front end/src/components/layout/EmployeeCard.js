@@ -2,37 +2,41 @@ import React from "react";
 
 import './EmployeeCard.css'
 
+import displayRequestRefer from "../../actions/creators/requestReferActions";
+
+
 class EmployeeCard extends React.Component {
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
+        this.requestRefer = this.requestRefer.bind(this);
+    }
+
+  requestRefer(){
+    let info = {recipientUserId: this.props.userId};
+    this.props.sendReuqestInfo(info);
   }
 
   render() {
     return (
       <div className="w3-row w3-card-2 w3-round-xlarge user-card">
 
-      <div className="w3-col image-wrapper">
-          <img className="w3-card-2 image-style" src="http://localhost:8000/profile.png"/>
-      </div>
+        <div className="w3-col image-wrapper">
+            <img className="w3-card-2 image-style" src="http://localhost:8000/profile.png"/>
+        </div>
 
-      <div className="w3-col info-style">
-          <div className="w3-xlarge">{this.props.userName}</div>
-          <div>{this.props.postion}</div>
-      </div>
+        <div className="w3-col info-style">
+            <div className="w3-xlarge">{this.props.employee.firstName} {this.props.employee.lastName}</div>
+            <div>{this.props.employee.position}</div>
+        </div>
 
-      <div className="w3-col w3-small buttons-style">
-          <div>
-              <button  className="w3-btn w3-teal w3-round-large profile-button-style">
-              view profile
-              </button>
-          </div>
-          <div>
-              <button onClick={this.requestRefer} className="w3-btn w3-teal w3-round-large refer-button-style">
-              request refer
-              </button>
-          </div>
-      </div>
-    </div>
+        <div className="w3-col w3-small buttons-style">
+            <div>
+                <button onClick={this.requestRefer} className="w3-btn w3-teal w3-round-large refer-button-style">
+                request refer
+                </button>
+            </div>
+        </div>
+     </div>
     );
   }
 }

@@ -14,6 +14,7 @@ import PostionCard from "../layout/PositionCard";
 import ProfilePage from "./ProfilePage";
 import RequestNav from "../layout/RequestNav";
 import RequestCard from "../layout/RequestCard";
+import RequestModal from "./RequestModal"
 
 class Test extends React.Component {
   constructor(props) {
@@ -39,8 +40,15 @@ class Test extends React.Component {
       date: '2010-2011'
     };
 
+    // done
+    const employeeCardProps = {
+      userName: 'Essam Khamis',
+      postion: 'Software Engineer'
+    };
+
+
     return (
-      <RequestCard/>
+      <HomePage/>
     );
   }
 }

@@ -1,7 +1,6 @@
-.user-card {padding-left: 40px; padding-top: 15px; padding-bottom: 15px;}
+.user-card {padding-left: 40px; padding-top: 15px; padding-bottom: 15px; margin-bottom: 15px}
 .image-wrapper {width: 80px;}
 .image-style {width: 100%; border-radius: 50%;}
 .info-style {width: 300px; margin-left: 20px; padding-top: 10px;}
-.buttons-style {width: 80px; font-weight: bold; padding-top: 2px; margin-left: 50px;}
-.profile-button-style {width: 120px; margin-bottom: 10px;}
+.buttons-style {width: 80px; font-weight: bold; padding-top: 15px; margin-left: 50px;}
 .refer-button-style {width: 120px;}
