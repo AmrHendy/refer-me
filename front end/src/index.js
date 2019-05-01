@@ -8,6 +8,7 @@ import App from "./containers/App";
 import LoginPage from "./components/pages/LoginPage";
 import RegisterPage from "./components/pages/RegisterPage";
 import ProfilePage from "./components/pages/ProfilePage";
+import HomePage from "./components/pages/HomePage";
 
 ReactDOM.render(
   <Provider store={store}>
@@ -17,6 +18,7 @@ ReactDOM.render(
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/register" component={RegisterPage} />
         <Route exact path="/profile" component={ProfilePage} />
+        <Route exact path="/home" component={HomePage} />
       </div>
     </BrowserRouter>
   </Provider>,
