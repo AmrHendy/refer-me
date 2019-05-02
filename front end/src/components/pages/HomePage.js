@@ -7,6 +7,8 @@ import TopNav from "./topnav";
 import RequestModal from "./RequestModal";
 
 import getRequestNum from "../../services/getRequestNum";
+import getProfileData from '../../services/getProfileDataService';
+import checkLogin from '../../services/checkLoginService';
 import store from '../../helpers/store'
 
 import filterJobs from '../../services/filterJobsService'
@@ -30,12 +32,17 @@ class HomePage extends React.Component {
           requestReferInfo: {recipientUserId: null, company: '', city: '', country: '', position: '', message: ''},
           displayModal: false,
         }  
-  
+      // check logged in user
+      checkLogin(false);
+     
       this.getData = this.getData.bind(this);
       this.displayRequestModal = this.displayRequestModal.bind(this);
       this.cancelModal = this.cancelModal.bind(this);
       this.submitModal = this.submitModal.bind(this);
       this.submitReuqestRefer = this.submitReuqestRefer.bind(this);
+  
+      console.log('in home', localStorage.getItem('email'));
+    
   }
 
   componentDidMount(){
@@ -43,20 +50,29 @@ class HomePage extends React.Component {
   }
    
   componentWillMount(){
-    // init default filtered jobs
-    store.subscribe(() => this.getData() );
+    if(!checkLogin(false)){
+      // init default filtered jobs
+      store.subscribe(() => this.getData() );
 
-    let response = filterJobs("init", "");
-    this.props.dispatch(searchRequest(response));
+      let response = filterJobs("init", "");
+      this.props.dispatch(searchRequest(response));
+    }
   }
 
   getData() {
-    //let requestNum = getRequestNum();
+    let response = getProfileData();
     let requestNum = 5;
+    console.log('response in profile', response);
+    // response = {
+    //             user_info: {first_name, last_name, email, password, img_link, resume_link },
+    //            positions_held: [ {company , office, position, date, imagePath }, ...] }
+            
     this.setState({
       navItems:{ 
         // imagePath, first_name, last_name ---> global state retrival 
-        ...store.getState().loggedInUser,
+        imagePath: response.user_info.img_link,
+        firstName: response.user_info.first_name,
+        lastName: response.user_info.last_name,
         requestNum: requestNum
       },
       filteredJobs: store.getState().filteredJobs
@@ -85,10 +101,10 @@ class HomePage extends React.Component {
     let info = this.state.requestReferInfo;
     let response = sendReferRequest(info);
     if(response.status === "success"){
-      alert("Success Adding request refer");
+      //alert("Success Adding request refer");
     }
     else{
-      alert("Error Adding request refer ,, try again");
+      //alert("Error Adding request refer ,, try again");
     }
   }
 

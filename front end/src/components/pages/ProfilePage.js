@@ -6,6 +6,7 @@ import PostionCard from "../layout/PositionCard";
 import { connect } from "react-redux";
 
 import getProfileData from '../../services/getProfileDataService'
+import checkLogin from '../../services/checkLoginService';
 
 import '../layout/PositionCard.css'
 import getRequestNum from "../../services/getRequestNum";
@@ -50,34 +51,39 @@ class ProfilePage extends React.Component {
         }
       ]
     }
+    checkLogin(false);
     this.getData = this.getData.bind(this);
   }
 
   componentWillMount(){
-    this.getData();
-    store.subscribe(() => this.getData() );
+    if(!checkLogin(false)){
+      this.getData();
+      store.subscribe(() => this.getData() );
+    }
   }
-
   getData() {
     let response = getProfileData();
-    let requestNum = getRequestNum();
+//    let requestNum = getRequestNum();
+    let requestNum = 5;
+    console.log('response in profile', response);
     // response = {
     //             user_info: {first_name, last_name, email, password, img_link, resume_link },
     //            positions_held: [ {company , office, position, date, imagePath }, ...] }
         
     this.setState({
       navItems:{ 
-        
         // imagePath, first_name, last_name ---> global state retrival 
-        
-        ...store.getState().loggedInUser,
+        imagePath: response.user_info.img_link,
+        firstName: response.user_info.first_name,
+        lastName: response.user_info.last_name,
         requestNum: requestNum
       },
       cardItems: {
-        
         // imagePath, first_name, last_name, email ---> global state retrival 
-        
-        ...store.getState().loggedInUser,
+        firstName: response.user_info.first_name,
+        lastName: response.user_info.last_name,
+        email: response.user_info.email,
+        imagePath: response.user_info.img_link,
         password: response.user_info.password,
         resumeLink: response.user_info.resume_link
       },
@@ -94,13 +100,15 @@ class ProfilePage extends React.Component {
     return (
       <div>
           <TopNav items= {navItems}/>
-          <ProfileCard items = {cardItems}/>
-          <div className="w3-col w3-container positionCard-comp1">
+          <div className="w3-row comp111">
+            <ProfileCard items = {cardItems}/>
+            <div className="w3-col w3-container positionCard-comp1">
 
-            <div className="w3-xlarge w3-padding-16 positionCard-comp2">Positions Held</div>
-            {this.state.positions.map( (position) => {
-              return <PostionCard items={position} />
-          } )}
+              <div className="w3-xlarge w3-padding-16 positionCard-comp2">Positions Held</div>
+              {this.state.positions.map( (position) => {
+                return <PostionCard items={position} />
+            } )}
+            </div>
           </div>
       </div>
     );

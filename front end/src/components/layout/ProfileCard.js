@@ -45,7 +45,8 @@ class ProfileCard extends React.Component {
 
   viewResume(e){
       e.preventDefault();
-      window.open(this.state.resumeLink);
+			console.log('review cv', this.state.resumeLink);
+			window.open(this.state.resumeLink);
   }
 
   render() {

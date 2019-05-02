@@ -9,8 +9,10 @@ class PostionCard extends React.Component {
 
   render() {
 
-    let {imagePath, company, office, position, date} = this.props.items;
-
+    let {company, duration, office, position} = this.props.items;
+    let imagePath = null;
+    console.log('postion card',this.props);
+    console.log('postion card values',company, duration, office, office, position);
     return (
     
         <div className="w3-row w3-card-2 w3-round-xlarge positionCard-comp3">
@@ -25,7 +27,7 @@ class PostionCard extends React.Component {
                 </div>
                 <div className="w3-row">
                     <div className="w3-col positionCard-comp7">Office:</div>
-                    <div className="w3-col positionCard-comp8">{office}</div>
+                    <div className="w3-col positionCard-comp8">{office.city} {office.country}</div>
                 </div>
                 <div className="w3-row">
                     <div className="w3-col positionCard-comp7">Position:</div>
@@ -34,7 +36,7 @@ class PostionCard extends React.Component {
             </div>
 
             <div className="w3-col positionCard-comp9">
-                {date}
+                {duration.start_date} {duration.end_date}
             </div>
         </div>
     );

@@ -3,6 +3,7 @@
 		
 		{
 			"user_id": 123,
+			"email": "mohamed.shaapan.1@gmail.com",
 			"company": "google",
 			"position": "junior SWE",
 			"office":{
@@ -17,6 +18,7 @@
 
 		{
 			"user_id": 123,
+			"email": "mohamed.shaapan.1@gmail.com",
 			"company": "facebook",
 			"position": "junior SWE2",
 			"office":{
@@ -32,6 +34,7 @@
 
 		{
 			"user_id": 321,
+			"email": "amr.hendi.1@gmail.com",
 			"company": "google",
 			"position": "junior SWE",
 			"office":{

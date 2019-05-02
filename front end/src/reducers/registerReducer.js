@@ -6,12 +6,14 @@ let initialState = { loggedInUser: null };
 function register(state = initialState, action) {
   switch (action.type) {
     case REGISTER_SUCCESS:
-      alert(action.message);
+      //alert(action.message);
       console.log("Successfully registered", action.loggedInUser);
+      localStorage.setItem('email', action.loggedInUser.email);
       return { loggedInUser: action.loggedInUser };
     case REGISTER_FAILED:
-      alert(action.message);
+      //alert(action.message);
       console.log("Error in registering");
+      localStorage.setItem('email', null);
       return { loggedInUser: null };
     default:
       return state;

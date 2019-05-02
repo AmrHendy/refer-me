@@ -1,4 +1,4 @@
-/* IMPORT REQUIRED MODULEs */
+ /* IMPORT REQUIRED MODULEs */
 /*********************************************/
 var server_init = require("./server_init");
 var database_init = require("./database_init");

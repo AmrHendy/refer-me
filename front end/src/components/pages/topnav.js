@@ -23,6 +23,7 @@ class TopNav extends React.Component {
     }
 
     redirectSignout(){
+        localStorage.setItem('email', null);
         window.location.href = '/login'
     }
 
@@ -48,7 +49,6 @@ class TopNav extends React.Component {
                 </div>
 
             </div>
-
 
             <div className="w3-col w3-right signout-wrapper">
                 <span className="mine name-style" onClick={this.redirectSignout}>SignOut</span>

@@ -83,7 +83,7 @@ exports.handle_routes = function(
                 };
                 // store session variables
                 console.log(result4);
-                req.session.user_id = result4[0]["_id"];
+                req.session.user_email = result4[0]["login"]["email"];
                 // return result
                 var ret = JSON.stringify(data);
                 res.end(ret);

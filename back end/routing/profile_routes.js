@@ -22,20 +22,23 @@ exports.handle_routes = function(
       data = {}
       response = {}
   */
-  server.get("/profile/get_user_data", function(req, res) {
+  server.post("/profile/get_user_data", urlencodedParser, function(req, res) {
     console.log("accepting route /profile/get_user_data");
+
+    /* extract data */
+    var user_email = req.body.user_email;
 
     var collected_data = {
       "user_info": {},
       "positions_held": []
     };
 
-    var user_id = req.session.user_id;
-    console.log(user_id, "*****************---------------------*************");
-    get_user_info(connection_par, user_id, collected_data, function(updated_data){
-      get_positions_held(connection_par, user_id, updated_data, function(updated_data2){
-        console.log(collected_data);
-        var ret = JSON.stringify(collected_data);
+    print_stuff(user_email, "profile page")
+
+    get_user_info(connection_par, user_email, collected_data, function(updated_data){
+      get_positions_held(connection_par, user_email, updated_data, function(updated_data2){
+        print_stuff(updated_data2, "before return");
+        var ret = JSON.stringify(updated_data2);
         res.end(ret);
         return;
       });
@@ -53,33 +56,37 @@ exports.handle_routes = function(
 // *****************************************************************************
 // UTILITY FUNCTIONS
 // *****************************************************************************
-function get_user_info(connection_par, user_id, data_collected, callback)
+function get_user_info(connection_par, user_email, data_collected, callback)
 {
   connection_par["client"].connect(connection_par["url"], function(
       err,
       connection
     ) {
       if (err) throw err;
-      console.log("************************************");
-      console.log(typeof(user_id));
-      console.log(user_id);
       var db = connection.db(connection_par["database_name"]);
-      db.collection("user_account")
-        .find({"_id" : new ObjectID("" + user_id)})
+      db.collection("user_accounts")
+        .find({"login.email" : user_email})
         .toArray(function(err2, result) {
           if (err2) throw err2;
           connection.close();
           // valid credentials
-          data_collected["user_info"] = result[0];
-          console.log("profile info");
-          console.log(result);
+          var tmp = {
+            "first_name" : result[0]["profile"]["first_name"],
+            "last_name" : result[0]["profile"]["last_name"],
+            "email" : result[0]["login"]["email"],
+            "password" : result[0]["login"]["password"],
+            "img_link": "http://localhost:8000/profile.png",
+            "resume_link": "http://localhost:8000/resume.pdf"
+          };
+          data_collected["user_info"] = tmp;
+          print_stuff(data_collected["user_info"], "user info");
           callback(data_collected);
       });
   });
 
 }
 
-function get_positions_held(connection_par, user_id, data_collected, callback)
+function get_positions_held(connection_par, user_email, data_collected, callback)
 {
   connection_par["client"].connect(connection_par["url"], function(
       err,
@@ -88,15 +95,14 @@ function get_positions_held(connection_par, user_id, data_collected, callback)
       if (err) throw err;
       var db = connection.db(connection_par["database_name"]);
       db.collection("positions_held")
-        .find({"user_id" : user_id})
+        .find({"email" : user_email})
         .toArray(function(err2, result) {
           if (err2) throw err2;
           connection.close();
           // valid credentials
           data_collected["positions_held"] = result;
-          console.log("positions_held");
-          console.log(result);
-          callback()
+          print_stuff(data_collected["positions_held"], "positions_held");
+          callback(data_collected);
       });
   });
 
@@ -104,4 +110,16 @@ function get_positions_held(connection_par, user_id, data_collected, callback)
 
 
 
+}
+
+
+
+
+function print_stuff(data , message)
+{
+  console.log("****************************************");
+  console.log("****************************************");
+  console.log(message, data);
+  console.log("****************************************");
+  console.log("****************************************");
 }

@@ -54,8 +54,6 @@ db.positions_held.ensureIndex({"user_id.recipient": 1})
 ------------------------------------
 db.user_accounts.find({"login.email": "mohamed.shaapan.1@gmail.com"}).pretty()
 
-db.user_accounts.find({"_id": "5cc9c99296680c1800903861"})
-
 
 ----------------------------
 ====>> if so, insert into db
@@ -118,26 +116,6 @@ db.user_accounts.find({}, {"profile.first_name":1, "profile.last_name": 1, _id: 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ***********************************************************************
 					USER_ACCOUNTS - UPDATE ACCOUNT
 ***********************************************************************
@@ -194,6 +172,7 @@ db.positions_held.find(
 db.positions_held.insert({
 
 	"user_id": 321,
+			"email": "amr.hendi.1@gmail.com",
 			"company": "google",
 			"position": "junior SWE",
 			"office":{

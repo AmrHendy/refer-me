@@ -6,6 +6,8 @@ import login from "../../services/loginService";
 
 import './LoginPage.css'; 
 
+import store from '../../helpers/store';
+      
 class LoginPage extends React.Component {
   constructor(props) {
     super(props);
@@ -36,7 +38,7 @@ class LoginPage extends React.Component {
     if(this.state.resgisterPressed === true){
       return;
     }
-    alert('handle submit')
+    //alert('handle submit')
 
     this.setState({ submitted: true });
     const { email, password } = this.state;
@@ -48,6 +50,7 @@ class LoginPage extends React.Component {
       let response = login(email, password);
       console.log("response = ", response);
       this.props.dispatch(loginRequest(response));
+      
       if(response.status === 'success')
       {
         window.location.href = '/home';
@@ -57,7 +60,7 @@ class LoginPage extends React.Component {
 
   goRegister(){
     this.setState({resgisterPressed: true})
-    alert('redirect to register')    
+    //alert('redirect to register')    
     window.location.href = '/register';
   }
 

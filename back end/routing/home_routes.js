@@ -33,6 +33,7 @@ exports.handle_routes = function(
         "employee_list": []
       };
 
+
       get_country_list(connection_par, data, function(updated_data){
         get_company_list(connection_par, updated_data, function(updated_data2){
           get_employee_list(connection_par, updated_data2, function(updated_data3){
@@ -176,7 +177,6 @@ exports.handle_routes = function(
 //**************************************************************************
 function search_db(connection_par, search_data, callback)
 {
-
   connection_par["client"].connect(connection_par["url"], function(
       err,
       connection
@@ -187,17 +187,17 @@ function search_db(connection_par, search_data, callback)
       {
         console.log("init view");
         db.collection(search_data["table_name"])
-          .find()
           /*.aggregate([
             { $lookup:
               {
-                from: 'products',
-                localField: 'product_id',
-                foreignField: '_id',
-                as: 'orderdetails'
+                from: 'user_accounts',
+                localField: 'email',
+                foreignField: 'profile.email',
+                as: 'user_info'
               }
             }
           ])*/
+          .find()
           .toArray(function(err, result) {
             if (err) throw err;
             connection.close();
@@ -277,6 +277,18 @@ function register_new_request(connection_par, new_request, callback)
     });
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
 function get_country_list(connection_par, data_collected, callback)
 {
   connection_par["client"].connect(connection_par["url"], function(
@@ -296,6 +308,10 @@ function get_country_list(connection_par, data_collected, callback)
               connection.close();
               console.log(documents);
               data_collected["country_list"] = documents;
+              for(var i = 0; i < data_collected["country_list"].length; i++)
+              {
+                data_collected["country_list"][i] = data_collected["country_list"][i]["_id"];
+              }
               callback(data_collected);
             });
           }
@@ -322,6 +338,10 @@ function get_company_list(connection_par, data_collected, callback)
               connection.close();
               console.log(documents);
               data_collected["company_list"] = documents;
+              for(var i = 0; i < data_collected["company_list"].length; i++)
+              {
+                data_collected["company_list"][i] = data_collected["company_list"][i]["_id"];
+              }
               callback(data_collected);
             });
           }
@@ -339,12 +359,16 @@ function get_employee_list(connection_par, data_collected, callback)
       var db = connection.db(connection_par["database_name"]);
       db.collection("user_accounts")
         .find({})
-        .project({"profile.name":1, "profile.age": 1, "_id": 0})
         .toArray(function(err, documents) {
           if (err) throw err;
           connection.close();
           console.log(documents);
           data_collected["employee_list"] = documents;
+          for(var i = 0; i < data_collected["employee_list"].length; i++)
+          {
+            var name = data_collected["employee_list"][i]["profile"];
+            data_collected["employee_list"][i] = name["first_name"] + " " + name["last_name"];
+          }
           callback(data_collected);
         });
     });

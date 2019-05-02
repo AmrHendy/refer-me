@@ -15,7 +15,7 @@ class Sidenav extends React.Component {
       country_list: [],
       employee_list: [],
       search_criteria: 'country_list',
-      chosen_search_criteria_results: ['google', 'facebook', 'amazon', 'gshaban', 'goal'],
+      chosen_search_criteria_results: [],
       search_query: '',
       chosen_search_query: '',
     };
@@ -38,7 +38,7 @@ class Sidenav extends React.Component {
 
   getData(){
     let response = getSearchCategoryValues();
-    this.setState({...response});
+    this.setState({...response, chosen_search_criteria_results: response.country_list});
   }
 
   changeSearchCriteria(e){
@@ -74,7 +74,7 @@ class Sidenav extends React.Component {
         </div>
         <input className="w3-input w3-border" type="text" name="search_query" onChange={this.handleChange} value={this.state.search_query}/>
         <select className="w3-btn w3-white w3-round-large w3-border w3-right w3-small select-style" name="search_criteria" onChange={this.changeSearchCriteria}>
-          <option value="country_list">country</option>
+          <option value="country_list" selected>country</option>
           <option value="company_list">company</option>
           <option value="employee_list">people</option>
         </select>

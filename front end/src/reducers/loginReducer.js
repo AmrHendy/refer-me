@@ -6,12 +6,14 @@ let initialState = { loggedInUser: null };
 function login(state = initialState, action) {
   switch (action.type) {
     case LOGIN_SUCCESS:
-      alert(action.message);
+      //alert(action.message);
       console.log("Successfully logging, user = ", action.loggedInUser);
+      localStorage.setItem('email', action.loggedInUser.email);
       return { loggedInUser: action.loggedInUser };
     case LOGIN_FAILED:
-      alert(action.message);
+      //alert(action.message);
       console.log("Error in logging");
+      localStorage.setItem('email', null);
       return { loggedInUser: null };
     default:  
       return state;

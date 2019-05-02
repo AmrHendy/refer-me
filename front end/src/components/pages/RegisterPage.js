@@ -62,7 +62,7 @@ class RegisterPage extends React.Component {
 
   goLogin(){
     this.setState({loginPressed: true})
-    alert('redirect to sign in')
+    //alert('redirect to sign in')
     window.location.href = '/login';
   }
 
