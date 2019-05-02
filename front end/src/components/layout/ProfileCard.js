@@ -1,7 +1,5 @@
 import React from "react";
 
-
-import updateProfileRequest from "../../actions/creators/profileActions";
 import updateProfile from "../../services/updateProfileService";
 
 import './ProfileCard.css'
@@ -29,18 +27,25 @@ class ProfileCard extends React.Component {
   }
 
   handleUpdate(e){
-      e.preventDefault();
-
+			e.preventDefault();
+			
       const {firstName, lastName, email, password} = this.state;
 
       if (email && password && firstName && lastName) {
         // dispatch the login action (email, password)
         console.log(email, password);
-        let response = updateProfile(email, password, firstName, lastName);
-        console.log("response = ", response);
-        this.props.dispatch(updateProfileRequest(response));
-      }
-  
+				let old_email = localStorage.getItem("email");
+				let response = updateProfile(old_email, email, password, firstName, lastName);
+				if(response.status === "success"){
+					alert("Successfull update");
+					localStorage.setItem("email", email);
+					window.location.href = '/profile';
+				}
+				else{
+					alert("Invalid update");
+					window.location.href = '/profile';
+				}
+			}  
   }
 
   viewResume(e){
@@ -108,7 +113,7 @@ class ProfileCard extends React.Component {
 
 						<div className="w3-col profileCard-comp9">
 							<button className="w3-btn w3-teal" onClick={this.viewResume}>view</button>
-							<button className="w3-btn w3-red profileCard-comp10">change</button>
+							<input className="w3-small sh-upload-btn" type="file"/>
 						</div>
 					</div>
 

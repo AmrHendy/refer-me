@@ -1,12 +1,12 @@
 import $ from "jquery";
 
-function updateProfile(email, password, firstName, lastName) {
+function updateProfile(old_email, email, password, firstName, lastName) {
 
     let response = JSON.parse(
     $.ajax({
       type: "POST",
-      url: "http://127.0.0.1:8001/profile/update_profile",
-      data: { user_email: email, user_password: password, user_firstName: firstName, user_lastName: lastName },
+      url: "http://127.0.0.1:8001/profile/update_user_info",
+      data: { "old_email": old_email, "email": email, "password": password, "first_name": firstName, "last_name": lastName },
       async: false
     }).responseText
   );

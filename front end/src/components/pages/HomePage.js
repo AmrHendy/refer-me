@@ -110,16 +110,16 @@ class HomePage extends React.Component {
 
   render() {
     let navItems = { ...this.state.navItems };
-    const { filteredJobs } = this.state.filteredJobs;
-    console.log(filteredJobs);
+    //const { filteredJobs } = this.state.filteredJobs;
+    //console.log('filtered', filteredJobs);
 
     return (
         <React.Fragment>
             <TopNav items= {navItems}/>
             <Sidenav/>
-            {filteredJobs.map((job, index) => {
-              console.log(job)
-              return <OfficeCard key={index} company={job.company} office={job.office} employees={job.employees} displayRequestModal={this.displayRequestModal}/>
+            {this.state.filteredJobs.filteredJobs.map((job) => {
+              console.log(job);
+              return <OfficeCard company={job.company} office={job.office} employees={job.employees} displayRequestModal={this.displayRequestModal}/>
             })}
             {this.state.displayModal ? <RequestModal cancel={this.cancelModal} sumbit={this.submitModal}/> : null}
         </React.Fragment>

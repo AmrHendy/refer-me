@@ -8,6 +8,7 @@ function getSearchCategoryValues(){
       async: false
     }).responseText
   );
+  
   return response;
 }
 

@@ -65,34 +65,29 @@ exports.handle_routes = function(
 
     /* extract data */
     var search_data = {
-      "table_name" : "",
-      "attribute": "",
-      "value": req.body.search_term
+      "table_name" : "positions_held",
+      "init": false,
+      "condition": {}
     };
 
-    console.log(req.body);
+    print_stuff(req.body, "received search data");
 
     switch(req.body.search_criteria)
     {
       case "init":
-        search_data["table_name"] = "positions_held";
-        search_data["attribute"] = "init";
+        search_data["init"] = true;
         break;
       case "company_list":
-        search_data["table_name"] = "positions_held";
-        search_data["attribute"] = "company";
+        search_data["condition"] = {"company": req.body.search_term};
         break;
       case "country_list":
-        search_data["table_name"] = "positions_held";
-        search_data["attribute"] = "office.country";
+        search_data["condition"] = {"office.country": req.body.search_term};
         break;
       case "employee_list":
         // not yet supported
         //search_data["table_name"] = "user_accounts";
         //search_data["attribute"] = "profile";
     }
-
-    console.log(search_data);
 
     search_db(connection_par, search_data, function(result_data){
       // valid credentials
@@ -182,11 +177,12 @@ function search_db(connection_par, search_data, callback)
       connection
     ) {
       if (err) throw err;
+      print_stuff(search_data, "search data finalllllllllll");
       var db = connection.db(connection_par["database_name"]);
-      if(search_data["attribute"] == 'init')
+      if(search_data["init"] == true)
       {
         console.log("init view");
-        db.collection(search_data["table_name"])
+        db.collection("positions_held")
           /*.aggregate([
             { $lookup:
               {
@@ -202,21 +198,30 @@ function search_db(connection_par, search_data, callback)
             if (err) throw err;
             connection.close();
             //console.log(result);
-            // return result
             callback(result);
             return;
         });
       }else{
-
         console.log("normal search");
-        var attribute = search_data["attribute"];
-        var value = search_data["value"]
         db.collection(search_data["table_name"])
-        .find({attribute : value})
+          /*.aggregate([
+            {$match: {attribute:value}},
+            { $lookup:
+              {
+                from: 'user_accounts',
+                localField: 'email',
+                foreignField: 'profile.email',
+                as: 'user_info'
+              }
+            }
+          ])*/
+        //.find({attribute : value})
+        .find(search_data["condition"])
         .toArray(function(err, result) {
           if (err) throw err;
           connection.close();
           // return result
+          print_stuff(result, "88888888888888888888");
           callback(result);
           return;
         });
@@ -376,3 +381,16 @@ function get_employee_list(connection_par, data_collected, callback)
 
 
 
+
+
+
+
+
+function print_stuff(data , message)
+{
+  console.log("****************************************");
+  console.log("****************************************");
+  console.log(message, data);
+  console.log("****************************************");
+  console.log("****************************************");
+}

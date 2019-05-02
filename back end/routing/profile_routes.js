@@ -47,10 +47,125 @@ exports.handle_routes = function(
   });
 
 
+  /*
+      request : asd
+      data = {}
+      response = {}
+  */
+  server.post("/profile/update_user_info", urlencodedParser, function(req, res) {
+    console.log("accepting route /profile/update_user_info");
+
+    /* extract data */
+    var updated_data = {
+      "profile.first_name": req.body.first_name,
+      "profile.last_name": req.body.last_name,
+      "login.email": req.body.email,
+      "login.password": req.body.password
+    };
+
+    var old_email = req.body.old_email;
+
+    print_stuff(updated_data, "update profile");
+
+    update_user_info(connection_par, old_email, updated_data, function(msg){
+        var data = {
+          msg: "valid update",
+          status: "success"
+        };
+        var ret = JSON.stringify(data);
+        res.end(ret);
+        return;
+    });
+
+  });
+
+  /*
+      request : asd
+      data = {}
+      response = {}
+  */
+  server.post("/profile/add_new_position", urlencodedParser, function(req, res) {
+    console.log("accepting route /profile/add_new_position");
+
+    /* extract data */
+    print_stuff(req.body, "sent body");
+
+    var new_position = {
+      "email": req.body.email,
+      "company": req.body.company,
+      "position": req.body.position,
+      "office":{
+        "city": req.body.city,
+        "country": req.body.country,
+      },
+        "duration":{
+        "start_date": req.body.start_date,
+        "end_date": req.body.end_date
+      }
+    };
+
+
+    print_stuff(new_position, "new position");
+
+    insert_new_position(connection_par, new_position, function(msg){
+        var data = {
+          msg: "valid update",
+          status: "success"
+        };
+        var ret = JSON.stringify(data);
+        res.end(ret);
+        return;
+    });
+
+  });
+
+
 
 }
 
 
+// *****************************************************************************
+// UTILITY FUNCTIONS
+// *****************************************************************************
+function insert_new_position(connection_par, new_position, callback)
+{
+  connection_par["client"].connect(connection_par["url"], function(
+      err,
+      connection
+    ) {
+      if (err) throw err;
+      var db = connection.db(connection_par["database_name"]);
+      db.collection("positions_held").insertOne(new_position, function(err2, res2){
+        if(err2) throw err2;
+        connection.close();
+        callback("success");
+      });
+  });
+
+}
+
+
+// *****************************************************************************
+// UTILITY FUNCTIONS
+// *****************************************************************************
+function update_user_info(connection_par, old_email, updated_info, callback)
+{
+  connection_par["client"].connect(connection_par["url"], function(
+      err,
+      connection
+    ) {
+      if (err) throw err;
+      var db = connection.db(connection_par["database_name"]);
+      var condition = {'login.email': old_email};
+      var set_query = { $set: updated_info};
+      db.collection("user_accounts").updateOne(condition, set_query, function(err2, res2){
+        if(err2) throw err2;
+        connection.close();
+        callback("success");
+      });
+  });
+
+}
 
 
 // *****************************************************************************
@@ -85,6 +200,7 @@ function get_user_info(connection_par, user_email, data_collected, callback)
   });
 
 }
+
 
 function get_positions_held(connection_par, user_email, data_collected, callback)
 {

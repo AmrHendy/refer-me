@@ -14,7 +14,9 @@ import PostionCard from "../layout/PositionCard";
 import ProfilePage from "./ProfilePage";
 import RequestNav from "../layout/RequestNav";
 import RequestCard from "../layout/RequestCard";
-import RequestModal from "./RequestModal"
+import RequestModal from "./RequestModal";
+import PositionModal from "./PositionModal";
+
 
 class Test extends React.Component {
   constructor(props) {
@@ -48,7 +50,7 @@ class Test extends React.Component {
 
 
     return (
-      <HomePage/>
+      <PositionModal/>
     );
   }
 }

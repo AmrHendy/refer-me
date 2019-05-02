@@ -55,6 +55,9 @@ db.positions_held.ensureIndex({"user_id.recipient": 1})
 db.user_accounts.find({"login.email": "mohamed.shaapan.1@gmail.com"}).pretty()
 
 
+db.positions_held.find()
+
+
 ----------------------------
 ====>> if so, insert into db
 ----------------------------

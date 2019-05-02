@@ -1,8 +1,9 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import './sidenav.css'; 
-import getSearchCategoryValues from '../../services/getSearchCategoryService'
-import filterJobs from '../../services/filterJobsService'
+import getSearchCategoryValues from '../../services/getSearchCategoryService';
+import filterJobs from '../../services/filterJobsService';
 import searchRequest from "../../actions/creators/searchActions";
 
 
@@ -60,9 +61,12 @@ class Sidenav extends React.Component {
   }
 
   filterJobs(e){
-    const {name, value} = e.target;
-    this.setState({chosen_search_query: value});
-    let response = filterJobs(this.state.search_criteria, this.state.chosen_search_query);
+    e.preventDefault();
+    const value = e.target.dataset.value;
+    this.setState({chosen_search_query: value, search_query: value});
+    console.log('request in sidenav filtered = ', this.state.search_criteria, '     ', value);
+    let response = filterJobs(this.state.search_criteria, value);
+    console.log('response in sidenav filtered = ', response);
     this.props.dispatch(searchRequest(response));
   }
 
@@ -83,8 +87,8 @@ class Sidenav extends React.Component {
         </div>
         <div className="w3-round company-div">
           <table className="w3-round">
-          {this.state.chosen_search_criteria_results.map((value) => {
-            return value.startsWith(this.state.search_query) ? <tr> <td name="chosen_search_query" onClick={this.filterJobs}> {value}</td> </tr> : null;
+          {this.state.chosen_search_criteria_results.map((value, index) => {
+            return value.startsWith(this.state.search_query) ? <tr> <td id={"search_pill" + index} onClick={this.filterJobs} data-value={value}> {value}</td> </tr> : null;
           })}
           </table>
         </div>
@@ -93,4 +97,9 @@ class Sidenav extends React.Component {
   }
 }
 
-export default Sidenav;
+const connectedSideNav = connect(
+  null,
+  null
+)(Sidenav);
+
+export default connectedSideNav;

@@ -11,8 +11,6 @@ class PostionCard extends React.Component {
 
     let {company, duration, office, position} = this.props.items;
     let imagePath = null;
-    console.log('postion card',this.props);
-    console.log('postion card values',company, duration, office, office, position);
     return (
     
         <div className="w3-row w3-card-2 w3-round-xlarge positionCard-comp3">

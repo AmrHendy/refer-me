@@ -12,6 +12,7 @@ import '../layout/PositionCard.css'
 import getRequestNum from "../../services/getRequestNum";
 
 import store from '../../helpers/store'
+import PositionModal from "./PositionModal";
 
 
 
@@ -41,7 +42,6 @@ class ProfilePage extends React.Component {
           position: 'CEO',
           date: '2015 - 2016'
         },
-        
         {
           imagePath: 'http://localhost:8000/google.png',
           company: 'Google',
@@ -49,10 +49,12 @@ class ProfilePage extends React.Component {
           position: 'CEO',
           date: '2015 - 2016'
         }
-      ]
+      ],
+      displayModal: false
     }
     checkLogin(false);
     this.getData = this.getData.bind(this);
+    this.addPosition = this.addPosition.bind(this);
   }
 
   componentWillMount(){
@@ -92,6 +94,10 @@ class ProfilePage extends React.Component {
 
   }
 
+  addPosition(){
+    this.setState({'displayModal': true});
+  }
+
   render() {
     console.log(this.state);
     let navItems = { ...this.state.navItems };
@@ -108,8 +114,12 @@ class ProfilePage extends React.Component {
               {this.state.positions.map( (position) => {
                 return <PostionCard items={position} />
             } )}
+              <div>
+                <button className="w3-btn w3-teal" onClick={this.addPosition}>Add Position</button>
+              </div>
             </div>
           </div>
+          {this.state.displayModal ? <PositionModal/> : null}
       </div>
     );
   }
