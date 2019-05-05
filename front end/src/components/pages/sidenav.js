@@ -102,29 +102,28 @@ class Sidenav extends React.Component {
           className="w3-btn w3-white w3-round-large w3-border w3-right w3-small select-style"
           name="search_criteria"
           onChange={this.changeSearchCriteria}
-        >
-          <option value="country_list" selected>
-            country
-          </option>
+          value={this.state.search_criteria}>
+          <option value="country_list">country</option>
           <option value="company_list">company</option>
           <option value="employee_list">people</option>
         </select>
         <div className="w3-large result-div">Result</div>
         <div className="w3-round company-div">
           <table className="w3-round">
-            {this.state.chosen_search_criteria_results.map(item => {
-              return item.value.startsWith(this.state.search_query) ? (
-                <tr>
-                  <td
-                    key={item.key}
-                    onClick={this.filterJobs}
-                    data-value={item.value}
-                  >
-                    {item.value}
-                  </td>
-                </tr>
-              ) : null;
-            })}
+            <tbody>
+              {this.state.chosen_search_criteria_results.map(item => {
+                return item.value.startsWith(this.state.search_query) ? (
+                  <tr key={`tr_${item.key}`}>
+                    <td
+                      key={item.key}
+                      onClick={this.filterJobs}
+                      data-value={item.value}>
+                      {item.value}
+                    </td>
+                  </tr>
+                ) : null;
+              })}
+            </tbody>
           </table>
         </div>
       </div>

@@ -239,6 +239,7 @@ function group_positions_by_office(position_list){
       var key = position["company"] + ", " + position["office"]["city"] + ", " + position["office"]["country"];
       if(result[key] === undefined){
         result[key] = {
+          key: position["_id"],
           company: position["company"],
           office: position["office"],
           employees: [position]

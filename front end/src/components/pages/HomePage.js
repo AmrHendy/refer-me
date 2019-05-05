@@ -119,7 +119,7 @@ class HomePage extends React.Component {
             <Sidenav/>
             {this.state.filteredJobs.filteredJobs.map((job) => {
               console.log(job);
-              return <OfficeCard key={job.id} company={job.company} office={job.office} employees={job.employees} displayRequestModal={this.displayRequestModal}/>
+              return <OfficeCard key={job.key} company={job.company} office={job.office} employees={job.employees} displayRequestModal={this.displayRequestModal}/>
             })}
             {this.state.displayModal ? <RequestModal cancel={this.cancelModal} sumbit={this.submitModal}/> : null}
         </React.Fragment>
