@@ -2,9 +2,6 @@ import React from "react";
 
 import './EmployeeCard.css'
 
-import displayRequestRefer from "../../actions/creators/requestReferActions";
-
-
 class EmployeeCard extends React.Component {
     constructor(props) {
         super(props);
@@ -17,6 +14,9 @@ class EmployeeCard extends React.Component {
   }
 
   render() {
+    let {firstName, lastName, position} = this.props.employee;
+    firstName = firstName || 'Arsanuos';
+    lastName = lastName || 'Essa';
     return (
       <div className="w3-row w3-card-2 w3-round-xlarge user-card">
 
@@ -25,8 +25,8 @@ class EmployeeCard extends React.Component {
         </div>
 
         <div className="w3-col info-style">
-            <div className="w3-xlarge">{this.props.employee.firstName} {this.props.employee.lastName}</div>
-            <div>{this.props.employee.position}</div>
+            <div className="w3-xlarge">{firstName} {lastName}</div>
+            <div>{position}</div>
         </div>
 
         <div className="w3-col w3-small buttons-style">

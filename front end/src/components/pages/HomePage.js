@@ -117,9 +117,9 @@ class HomePage extends React.Component {
         <React.Fragment>
             <TopNav items= {navItems}/>
             <Sidenav/>
-            {this.state.filteredJobs.filteredJobs.map((job) => {
-              console.log(job);
-              return <OfficeCard key={job.key} company={job.company} office={job.office} employees={job.employees} displayRequestModal={this.displayRequestModal}/>
+            {this.state.filteredJobs.filteredJobs.map((job, index) => {
+              console.log(job, index);
+              return <OfficeCard index={index} key={job.key} company={job.company} office={job.office} employees={job.employees} displayRequestModal={this.displayRequestModal}/>
             })}
             {this.state.displayModal ? <RequestModal cancel={this.cancelModal} sumbit={this.submitModal}/> : null}
         </React.Fragment>
