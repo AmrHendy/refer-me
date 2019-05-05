@@ -1,0 +1,12 @@
+use referme_db
+db.createCollection("user_accounts")
+db.createCollection("positions_held")
+db.createCollection("refer_requests")
+db.user_accounts.ensureIndex({"login.email": 1}, {unique: true})
+db.positions_held.ensureIndex({"user_id": 1})
+db.positions_held.ensureIndex({"company": 1})
+db.positions_held.ensureIndex({"office.city": 1})
+db.positions_held.ensureIndex({"office.country": 1})
+db.positions_held.ensureIndex({"user_id.sender": 1})
+db.positions_held.ensureIndex({"user_id.recipient": 1})
+// then import the three collectiosn into the database using Compass

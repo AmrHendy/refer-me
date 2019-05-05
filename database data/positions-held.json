@@ -1,0 +1,4 @@
+{"_id":{"$oid":"5ccec7bd5fc22915e4d2d0a9"},"email":"arsanuos.essa@gmail.com","company":"Google","position":"Software Engineer","office":{"city":"New York","country":"USA"},"duration":{"start_date":"Feb, 2018","end_date":"Present"}}
+{"_id":{"$oid":"5ccec89f5fc22915e4d2d0aa"},"email":"arsanuos.essa@gmail.com","company":"Facebook","position":"Front End Developer","office":{"city":"Paris","country":"France"},"duration":{"start_date":"Jan, 2017","end_date":"Feb, 2018"}}
+{"_id":{"$oid":"5ccedd0e76aaa30488191c0a"},"email":"arsanuos.essa@gmail.com","company":"Google","position":"Software Engineer II","office":{"city":"New York","country":"USA"},"duration":{"start_date":"May, 2015","end_date":"Present"}}
+{"_id":{"$oid":"5ccedfa876aaa30488191c0b"},"email":"arsanuos.essa@gmail.com","company":"Google","position":"Infrastructure Engineer","office":{"city":"New York","country":"USA"},"duration":{"start_date":"July, 2019","end_date":"July, 2020"}}
