@@ -319,5 +319,4 @@ db.refer_requests.insert({
 	},
 
 	"status": "pending_response"
-
 })
