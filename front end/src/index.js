@@ -5,10 +5,10 @@ import { BrowserRouter, Route } from "react-router-dom";
 
 import store from "./helpers/store";
 import App from "./containers/App";
-import LoginPage from "./components/pages/LoginPage";
-import RegisterPage from "./components/pages/RegisterPage";
-import ProfilePage from "./components/pages/ProfilePage";
-import HomePage from "./components/pages/HomePage";
+import LoginPage from "./components/pages/Sign in/LoginPage";
+import RegisterPage from "./components/pages/Sign up/RegisterPage";
+import ProfilePage from "./components/pages/Profile/ProfilePage";
+import HomePage from "./components/pages/Home/HomePage";
 
 ReactDOM.render(
   <Provider store={store}>

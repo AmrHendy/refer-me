@@ -1,9 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
-import registerRequest from "../../actions/creators/registerActions";
-import register from "../../services/registerService";
+import registerRequest from "../../../actions/creators/registerActions";
+import register from "../../../services/registerService";
 
 class RegisterPage extends React.Component {
   constructor(props) {
@@ -70,7 +69,7 @@ class RegisterPage extends React.Component {
     const { user, submitted } = this.state;
     return (
       <React.Fragment>
-        <div id="signin_modal" className="w3-modal comp11">
+        <div id="register_modal" className="w3-modal comp11">
           <div className="w3-modal-content w3-animate-zoom w3-card-12 comp1">
             <header className="w3-container w3-blue-grey w3-padding-8 comp2">
               <h2 className="w3-large">

@@ -13,7 +13,7 @@ class RequestModal extends React.Component {
 
   submit(){
     let requestReferInfo = {position: this.state.position, message: this.state.message};
-    this.props.submit(this.state);
+    this.props.submit(requestReferInfo);
   }
 
   handleChange(e) {

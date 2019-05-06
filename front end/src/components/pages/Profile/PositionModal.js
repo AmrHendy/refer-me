@@ -1,7 +1,7 @@
 import React from "react";
 import './PositionModal.css';
 
-import addPosition from '../../services/addPositionService'
+import addPosition from '../../../services/addPositionService'
 
 class PositionModal extends React.Component{
     constructor(props){

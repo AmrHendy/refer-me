@@ -1,12 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import loginRequest from "../../actions/creators/loginActions";
-import login from "../../services/loginService";
-
 import './LoginPage.css'; 
 
-import store from '../../helpers/store';
+import loginRequest from "../../../actions/creators/loginActions";
+import login from "../../../services/loginService";
       
 class LoginPage extends React.Component {
   constructor(props) {

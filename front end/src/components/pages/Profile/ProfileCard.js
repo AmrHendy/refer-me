@@ -1,6 +1,6 @@
 import React from "react";
 
-import updateProfile from "../../services/updateProfileService";
+import updateProfile from "../../../services/updateProfileService";
 
 import './ProfileCard.css'
 

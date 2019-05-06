@@ -2,9 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 
 import "./sidenav.css";
-import getSearchCategoryValues from "../../services/getSearchCategoryService";
-import filterJobs from "../../services/filterJobsService";
-import searchRequest from "../../actions/creators/searchActions";
+import getSearchCategoryValues from "../../../services/getSearchCategoryService";
+import filterJobs from "../../../services/filterJobsService";
+import searchRequest from "../../../actions/creators/searchActions";
 
 class Sidenav extends React.Component {
   constructor(props) {

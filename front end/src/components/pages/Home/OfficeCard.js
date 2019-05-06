@@ -2,23 +2,13 @@ import React from "react";
 
 import "./sidenav.css";
 import "./OfficeCard.css";
-import ProfileCard from "../layout/EmployeeCard";
-import EmployeeCard from "../layout/EmployeeCard";
+import EmployeeCard from "./EmployeeCard";
 
 class OfficeCard extends React.Component {
   constructor(props) {
     super(props);
     // will be sent via props
     this.state = {
-      /*
-            company: props.company || 'Google',
-            office: props.office || {city: 'Alexandria', country: 'Egypt'},
-            // {firstName, lastName, position}
-            employees: props.employees || [
-                {firstName: 'Essam', lastName: 'Khamis', position: 'CEO'},
-                {firstName: 'Mohamed', lastName: 'Shaban', position: 'CEO'}
-                ],
-            */
       company: "",
       office: { city: "", country: "" },
       employees: [],

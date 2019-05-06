@@ -3,18 +3,17 @@ import { connect } from "react-redux";
 
 import Sidenav from "./sidenav";
 import OfficeCard from "./OfficeCard";
-import TopNav from "./topnav";
+import TopNav from "../../layout/topnav";
 import RequestModal from "./RequestModal";
 
-import getRequestNum from "../../services/getRequestNum";
-import getProfileData from '../../services/getProfileDataService';
-import checkLogin from '../../services/checkLoginService';
-import store from '../../helpers/store'
+import getRequestNum from "../../../services/getRequestNum";
+import getProfileData from '../../../services/getProfileDataService';
+import checkLogin from '../../../services/checkLoginService';
+import filterJobs from '../../../services/filterJobsService'
+import searchRequest from "../../../actions/creators/searchActions";
+import sendReferRequest from '../../../services/sendReferRequestService'
 
-import filterJobs from '../../services/filterJobsService'
-import searchRequest from "../../actions/creators/searchActions";
-
-import sendReferRequest from '../../services/sendReferRequestService'
+import store from '../../../helpers/store'
 
 
 class HomePage extends React.Component {

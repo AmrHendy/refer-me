@@ -1,18 +1,17 @@
 import React from "react";
-import TopNav from "./topnav";
-import ProfileCard from "../layout/ProfileCard";
-import PostionCard from "../layout/PositionCard";
-
 import { connect } from "react-redux";
 
-import getProfileData from '../../services/getProfileDataService'
-import checkLogin from '../../services/checkLoginService';
-
-import '../layout/PositionCard.css'
-import getRequestNum from "../../services/getRequestNum";
-
-import store from '../../helpers/store'
+import TopNav from "../../layout/topnav";
+import ProfileCard from "./ProfileCard";
+import PostionCard from "./PositionCard";
 import PositionModal from "./PositionModal";
+import './PositionCard.css'
+
+import getProfileData from '../../../services/getProfileDataService'
+import checkLogin from '../../../services/checkLoginService';
+import getRequestNum from "../../../services/getRequestNum";
+
+import store from '../../../helpers/store'
 
 
 
