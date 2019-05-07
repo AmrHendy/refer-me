@@ -15,7 +15,7 @@ exports.handle_routes = function(
 ) {
   // signup submit form
   server.post("/signup/submit", urlencodedParser, function(req, res) {
-    console.log("accepting route /signup/submit");
+    //console.log("accepting route /signup/submit");
 
     // extract data
     var new_user = {
@@ -45,7 +45,7 @@ exports.handle_routes = function(
 
           // user already exists
           if (result2.length != 0) {
-            console.log("user already exists");
+            //console.log("user already exists");
             connection.close();
             var data = {
               msg: "user already exists!",
@@ -64,7 +64,7 @@ exports.handle_routes = function(
             if (err3) throw err3;
 
             // valid signup
-            console.log("user added successfully");
+            //console.log("user added successfully");
 
             // get user id for session management
             db.collection("user_accounts")
@@ -82,7 +82,7 @@ exports.handle_routes = function(
                   }
                 };
                 // store session variables
-                console.log(result4);
+                //console.log(result4);
                 req.session.user_email = result4[0]["login"]["email"];
                 // return result
                 var ret = JSON.stringify(data);

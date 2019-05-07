@@ -15,7 +15,7 @@ exports.handle_routes = function(
 ) {
   /* signin submit form */
   server.post("/signin/submit", urlencodedParser, function(req, res) {
-    console.log("accepting route /signin/submit");
+    //console.log("accepting route /signin/submit");
 
     /* extract data */
     var user_email = req.body.user_email;
@@ -37,7 +37,7 @@ exports.handle_routes = function(
 
           // user not found
           if (result.length == 0) {
-            console.log("user not found");
+            //console.log("user not found");
             var data = {
               msg: "user not found",
               status: "error"
@@ -49,7 +49,7 @@ exports.handle_routes = function(
 
           // incorrect password
           if (result[0]["login"]["password"] != user_password) {
-            console.log("incorrect pasword");
+            //console.log("incorrect pasword");
             var data = {
               msg: "incorrect password",
               status: "error"
@@ -60,8 +60,8 @@ exports.handle_routes = function(
           }
 
           // valid credentials
-          console.log("valid signin");
-          console.log(result);
+          //console.log("valid signin");
+          //console.log(result);
           var data = {
             msg: "valid login",
             status: "success",
@@ -74,7 +74,7 @@ exports.handle_routes = function(
           // store session variables
           req.session.user_email = result[0]["login"]["email"];
 
-          console.log(req.session.user_email);
+          //console.log(req.session.user_email);
           // return result
           var ret = JSON.stringify(data);
           res.end(ret);
@@ -85,13 +85,13 @@ exports.handle_routes = function(
 
   // index pa	ge
   server.get("/signout", function(req, res) {
-    console.log("accepting route /signout");
+    //console.log("accepting route /signout");
 
     // valid session
-    console.log("\nsigning out");
+    //console.log("\nsigning out");
     req.session.destroy(function(err) {
       if (err) {
-        console.log(err);
+        //console.log(err);
         return;
       }
       // redirect to signin page

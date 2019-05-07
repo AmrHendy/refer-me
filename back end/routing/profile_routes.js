@@ -2,6 +2,7 @@
 /*********************************************/
 var path = require("path");
 var bodyParser = require("body-parser");
+//var upload = require('express-fileupload'); // for file uploads
 
 // Create application/x-www-form-urlencoded parser
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
@@ -23,7 +24,7 @@ exports.handle_routes = function(
       response = {}
   */
   server.post("/profile/get_user_data", urlencodedParser, function(req, res) {
-    console.log("accepting route /profile/get_user_data");
+    //console.log("accepting route /profile/get_user_data");
 
     /* extract data */
     var user_email = req.body.user_email;
@@ -53,7 +54,7 @@ exports.handle_routes = function(
       response = {}
   */
   server.post("/profile/update_user_info", urlencodedParser, function(req, res) {
-    console.log("accepting route /profile/update_user_info");
+    //console.log("accepting route /profile/update_user_info");
 
     /* extract data */
     var updated_data = {
@@ -64,6 +65,8 @@ exports.handle_routes = function(
     };
 
     var old_email = req.body.old_email;
+
+    //handle_file_upload(req);
 
     print_stuff(updated_data, "update profile");
 
@@ -85,7 +88,7 @@ exports.handle_routes = function(
       response = {}
   */
   server.post("/profile/add_new_position", urlencodedParser, function(req, res) {
-    console.log("accepting route /profile/add_new_position");
+    //console.log("accepting route /profile/add_new_position");
 
     /* extract data */
     print_stuff(req.body, "sent body");
@@ -168,6 +171,32 @@ function update_user_info(connection_par, old_email, updated_info, callback)
 }
 
 
+function handle_file_upload(req)
+{
+  console.log(req.files);
+  if(req.files.upfile){
+    var file = req.files.upfile,
+    name = file.name,
+    type = file.mimetype;
+    var uploadpath = __dirname + '/uploads/' + name;
+    file.mv(uploadpath,function(err){
+      if(err){
+        console.log("File Upload Failed",name,err);
+        res.send("Error Occured!");
+      }
+      else {
+        console.log("File Uploaded",name);
+        res.send('Done! Uploading files');
+      }
+    });
+  }
+  else {
+    res.send("No File selected !");
+    res.end();
+  };
+}
+
+
 // *****************************************************************************
 // UTILITY FUNCTIONS
 // *****************************************************************************
@@ -233,9 +262,9 @@ function get_positions_held(connection_par, user_email, data_collected, callback
 
 function print_stuff(data , message)
 {
-  console.log("****************************************");
+  /*console.log("****************************************");
   console.log("****************************************");
   console.log(message, data);
   console.log("****************************************");
-  console.log("****************************************");
+  console.log("****************************************");*/
 }

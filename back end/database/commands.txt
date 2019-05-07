@@ -320,3 +320,21 @@ db.refer_requests.insert({
 
 	"status": "pending_response"
 })
+
+
+
+
+
+
+
+***********************************************************************
+								MORE TESTS
+***********************************************************************
+db.positions_held.aggregate([{
+    $lookup: {
+            from: "user_accounts",
+            localField: "email",
+            foreignField: "login.email",
+            as: "user_data"
+        }
+}]).pretty()

@@ -25,7 +25,7 @@ exports.handle_routes = function(
       }
   **************************************************************************/
   server.get("/home/search/init/get_search_data", function(req, res) {
-    console.log("accepting route /home/search/init/get_search_data");
+    //console.log("accepting route /home/search/init/get_search_data");
 
       var data = {
         "company_list": [],
@@ -61,7 +61,7 @@ exports.handle_routes = function(
       };
   **************************************************************************/
   server.post("/home/search", urlencodedParser, function(req, res) {
-    console.log("accepting route /home/search");
+    //console.log("accepting route /home/search");
 
     /* extract data */
     var search_data = {
@@ -96,8 +96,8 @@ exports.handle_routes = function(
         status: "success",
         position_list: group_positions_by_office(result_data)
       };
-      console.log("RESULT ************************************");
-      console.log(data);
+      //console.log("RESULT ************************************");
+      //console.log(data);
       
       var ret = JSON.stringify(data);
       res.end(ret);
@@ -126,7 +126,7 @@ exports.handle_routes = function(
       };
   **************************************************************************/
   server.post("/home/view/refer_request/submit", urlencodedParser, function(req, res) {
-    console.log("accepting route /home/view/refer_request/submit");
+    //console.log("accepting route /home/view/refer_request/submit");
 
     /* extract data */
     var new_request = {
@@ -163,13 +163,9 @@ exports.handle_routes = function(
 }
 
 
-//**************************************************************************
-//**************************************************************************
-//**************************************************************************
-//  DB request handlers
-//**************************************************************************
-//**************************************************************************
-//**************************************************************************
+// *****************************************************************************
+// UTILITY FUNCTIONS
+// *****************************************************************************
 function search_db(connection_par, search_data, callback)
 {
   connection_par["client"].connect(connection_par["url"], function(
@@ -181,19 +177,19 @@ function search_db(connection_par, search_data, callback)
       var db = connection.db(connection_par["database_name"]);
       if(search_data["init"] == true)
       {
-        console.log("init view");
+        //console.log("init view");
         db.collection("positions_held")
-          /*.aggregate([
+          .aggregate([
             { $lookup:
               {
                 from: 'user_accounts',
                 localField: 'email',
-                foreignField: 'profile.email',
-                as: 'user_info'
+                foreignField: 'login.email',
+                as: 'user_data'
               }
             }
-          ])*/
-          .find()
+          ])
+          //.find()
           .toArray(function(err, result) {
             if (err) throw err;
             connection.close();
@@ -202,26 +198,26 @@ function search_db(connection_par, search_data, callback)
             return;
         });
       }else{
-        console.log("normal search");
+        //console.log("normal search");
         db.collection(search_data["table_name"])
-          /*.aggregate([
-            {$match: {attribute:value}},
+          .aggregate([
+            {$match: search_data["condition"]},
             { $lookup:
               {
                 from: 'user_accounts',
                 localField: 'email',
-                foreignField: 'profile.email',
-                as: 'user_info'
+                foreignField: 'login.email',
+                as: 'user_data'
               }
             }
-          ])*/
+          ])
         //.find({attribute : value})
-        .find(search_data["condition"])
+        //.find(search_data["condition"])
         .toArray(function(err, result) {
           if (err) throw err;
           connection.close();
           // return result
-          print_stuff(result, "88888888888888888888");
+          //console.log(result);
           callback(result);
           return;
         });
@@ -232,36 +228,49 @@ function search_db(connection_par, search_data, callback)
 }
 
 function group_positions_by_office(position_list){
+  // group positions by office
 
   var result = {};
 
   position_list.forEach( position => {
+
+      //console.log(position);
+
+      var curr_empl = {
+          "firstName": position["user_data"][0]["profile"]["first_name"],
+          "lastName": position["user_data"][0]["profile"]["last_name"],
+          "position": position["position"]
+      };
+
       var key = position["company"] + ", " + position["office"]["city"] + ", " + position["office"]["country"];
       if(result[key] === undefined){
         result[key] = {
           key: position["_id"],
           company: position["company"],
           office: position["office"],
-          employees: [position]
+          employees: [curr_empl]
         };
       }else{
-        result[key]["employees"].push(position);
+        result[key]["employees"].push(curr_empl);
       }
     }
   )
 
-  console.log("el result aheee ***************************");
+  //console.log("el result aheee ***************************");
   var values = [];
   var keys = Object.keys(result);
   keys.forEach(function(key){
     values.push(result[key]);
   });
-  console.log(values);
+  //console.log(values);
   return values;
 }
 
 
 
+// *****************************************************************************
+// UTILITY FUNCTIONS
+// *****************************************************************************
 function register_new_request(connection_par, new_request, callback)
 {
   connection_par["client"].connect(connection_par["url"], function(
@@ -276,7 +285,7 @@ function register_new_request(connection_par, new_request, callback)
         ) {
           if (err) throw err;
           // valid entry
-          console.log("request registered successfully");
+          //console.log("request registered successfully");
           // get user id for session management
           callback("success");
         });
@@ -284,17 +293,9 @@ function register_new_request(connection_par, new_request, callback)
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
+// *****************************************************************************
+// UTILITY FUNCTIONS
+// *****************************************************************************
 function get_country_list(connection_par, data_collected, callback)
 {
   connection_par["client"].connect(connection_par["url"], function(
@@ -312,7 +313,7 @@ function get_country_list(connection_par, data_collected, callback)
           function(err, cursor) {
             cursor.toArray(function(err, documents) {
               connection.close();
-              console.log(documents);
+              //console.log(documents);
               data_collected["country_list"] = documents;
               for(var i = 0; i < data_collected["country_list"].length; i++)
               {
@@ -342,7 +343,7 @@ function get_company_list(connection_par, data_collected, callback)
           function(err, cursor) {
             cursor.toArray(function(err, documents) {
               connection.close();
-              console.log(documents);
+              //console.log(documents);
               data_collected["company_list"] = documents;
               for(var i = 0; i < data_collected["company_list"].length; i++)
               {
@@ -368,7 +369,7 @@ function get_employee_list(connection_par, data_collected, callback)
         .toArray(function(err, documents) {
           if (err) throw err;
           connection.close();
-          console.log(documents);
+          //console.log(documents);
           data_collected["employee_list"] = documents;
           for(var i = 0; i < data_collected["employee_list"].length; i++)
           {
@@ -381,17 +382,14 @@ function get_employee_list(connection_par, data_collected, callback)
 }
 
 
-
-
-
-
-
-
+// *****************************************************************************
+// UTILITY FUNCTIONS
+// *****************************************************************************
 function print_stuff(data , message)
 {
-  console.log("****************************************");
+  /*console.log("****************************************");
   console.log("****************************************");
   console.log(message, data);
   console.log("****************************************");
-  console.log("****************************************");
+  console.log("****************************************");*/
 }
