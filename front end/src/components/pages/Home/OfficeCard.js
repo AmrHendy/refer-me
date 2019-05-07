@@ -30,7 +30,7 @@ class OfficeCard extends React.Component {
   }
 
   sendReuqestInfo(employeeReuqestReferInfo) {
-    // user id, company, position, city, country,  message
+    // sending user email, recipient user email, company, position, city, country, message
     // add employeeReuqestReferInfo to request and also add company, office, ....
     let requestReferInfo = {
       ...employeeReuqestReferInfo,
