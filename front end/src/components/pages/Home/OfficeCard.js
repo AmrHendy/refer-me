@@ -35,8 +35,7 @@ class OfficeCard extends React.Component {
     let requestReferInfo = {
       ...employeeReuqestReferInfo,
       company: this.props.company,
-      city: this.props.city,
-      country: this.props.country
+      office: this.props.office
     };
     this.props.displayRequestModal(requestReferInfo);
   }

@@ -9,7 +9,7 @@ class EmployeeCard extends React.Component {
   }
 
   requestRefer() {
-    let info = { recipientUserEmail: this.props.email };
+    let info = { recipientUserEmail: this.props.employee.email };
     this.props.sendReuqestInfo(info);
   }
 

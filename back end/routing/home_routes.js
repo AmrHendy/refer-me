@@ -234,11 +234,10 @@ function group_positions_by_office(position_list){
 
   position_list.forEach( position => {
 
-      //console.log(position);
-
       var curr_empl = {
           "firstName": position["user_data"][0]["profile"]["first_name"],
           "lastName": position["user_data"][0]["profile"]["last_name"],
+          "email": position["user_data"][0]["login"]["email"],
           "position": position["position"]
       };
 
@@ -262,7 +261,7 @@ function group_positions_by_office(position_list){
   keys.forEach(function(key){
     values.push(result[key]);
   });
-  //console.log(values);
+  // console.log(values[0]['employees'][0]);
   return values;
 }
 

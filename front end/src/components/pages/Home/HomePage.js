@@ -21,18 +21,17 @@ class HomePage extends React.Component {
     this.state = {
       navItems: {
         imagePath: "http://localhost:8000/profile.png",
-        firstName: "Shaaban",
-        lastName: "Shaapan",
+        firstName: "",
+        lastName: "",
         requestNum: 10
       },
       filteredJobs: [],
 
       requestReferInfo: {
-        sendingUserEmail: null,
-        recipientUserEmail: null,
+        sendingUserEmail: "",
+        recipientUserEmail: "",
         company: "",
-        city: "",
-        country: "",
+        office: { country: "", city: "" },
         position: "",
         message: ""
       },
@@ -47,8 +46,6 @@ class HomePage extends React.Component {
     this.submitModal = this.submitModal.bind(this);
     this.submitReuqestRefer = this.submitReuqestRefer.bind(this);
     this.sendReferReuqestInfo = this.sendReferReuqestInfo.bind(this);
-
-    console.log("in home", localStorage.getItem("email"));
   }
 
   componentDidMount() {
@@ -68,7 +65,6 @@ class HomePage extends React.Component {
   getData() {
     let response = getProfileData();
     let requestNum = 5;
-    console.log("response in profile", response);
     /*
       response = {
                   user_info: {first_name, last_name, email, password, img_link, resume_link },
@@ -84,6 +80,7 @@ class HomePage extends React.Component {
       },
       filteredJobs: store.getState().filteredJobs,
       requestReferInfo: {
+        ...this.state.requestReferInfo,
         sendingUserEmail: response.user_info.email
       }
     });
@@ -101,19 +98,19 @@ class HomePage extends React.Component {
   }
 
   submitModal(info) {
+    console.log("==>", info);
     this.setState({ displayModal: false });
-    this.setState({ requestReferInfo: info });
-    this.submitReuqestRefer();
+    let referRequest = {...this.state.requestReferInfo, ...info};
+    this.submitReuqestRefer(referRequest);
   }
 
   sendReferReuqestInfo(info) {
-    let requestReferInfo = { ...info };
-    this.setState({ requestReferInfo: requestReferInfo });
+    // merge two object attributes
+    this.setState({ requestReferInfo: {...this.state.requestReferInfo, ...info}});
   }
 
-  submitReuqestRefer() {
-    let referRequest = this.state.requestReferInfo;
-    console.log('Sending request info to backend = ', referRequest);
+  submitReuqestRefer(referRequest) {
+    console.log("Sending refer request info to backend = ", referRequest);
     let response = sendReferRequest(referRequest);
     if (response.status === "success") {
       alert("Success Adding request refer");
@@ -124,8 +121,8 @@ class HomePage extends React.Component {
 
   render() {
     let navItems = { ...this.state.navItems };
-    //const { filteredJobs } = this.state.filteredJobs;
-    //console.log('filtered', filteredJobs);
+    const { filteredJobs } = this.state.filteredJobs;
+    console.log("filtered", filteredJobs);
 
     return (
       <React.Fragment>
