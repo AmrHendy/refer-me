@@ -1,7 +1,6 @@
 import $ from "jquery";
 
 function login(email, password) {
-  console.log("Sending login request");
   let response = JSON.parse(
     $.ajax({
       type: "POST",

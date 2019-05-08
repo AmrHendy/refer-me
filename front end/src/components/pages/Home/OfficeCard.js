@@ -10,12 +10,11 @@ class OfficeCard extends React.Component {
     // will be sent via props
     this.state = {
       company: "",
-      office: { city: "", country: "" },
+      city: "",
+      country: "",
       employees: [],
       viewSize: 1
     };
-
-    console.log("inside office card", this.props);
     this.handleViewMore = this.handleViewMore.bind(this);
     this.sendReuqestInfo = this.sendReuqestInfo.bind(this);
   }
@@ -35,16 +34,18 @@ class OfficeCard extends React.Component {
     let requestReferInfo = {
       ...employeeReuqestReferInfo,
       company: this.props.company,
-      office: this.props.office
+      city: this.props.office.city,
+      country: this.props.office.country
     };
     this.props.displayRequestModal(requestReferInfo);
   }
 
   render() {
     // to put margin top with the first card only
-    let cardClass = this.props.index == 0 ? 'first-company-card' : '';
+    let cardClass = this.props.index == 0 ? "first-company-card" : "";
     return (
-      <div className={`w3-col w3-container w3-card-2 w3-round company-card ${cardClass}`}>
+      <div
+        className={`w3-col w3-container w3-card-2 w3-round company-card ${cardClass}`}>
         <div className="w3-xlarge w3-padding-16 company-name">
           {this.props.company}, {this.props.office.city},{" "}
           {this.props.office.country}

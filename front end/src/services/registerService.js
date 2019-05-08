@@ -1,7 +1,6 @@
 import $ from "jquery";
 
 function register(user) {
-  console.log("Sending resgitser request");
   let response = JSON.parse(
     $.ajax({
       type: "POST",

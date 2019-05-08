@@ -66,7 +66,7 @@ class ProfilePage extends React.Component {
     let response = getProfileData();
 //    let requestNum = getRequestNum();
     let requestNum = 5;
-    console.log('response in profile', response);
+    // console.log('response in profile', response);
     // response = {
     //             user_info: {first_name, last_name, email, password, img_link, resume_link },
     //            positions_held: [ {company , office, position, date, imagePath }, ...] }
@@ -98,7 +98,6 @@ class ProfilePage extends React.Component {
   }
 
   render() {
-    console.log(this.state);
     let navItems = { ...this.state.navItems };
     let cardItems = { ...this.state.cardItems };
     

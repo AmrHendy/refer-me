@@ -23,33 +23,8 @@ class Test extends React.Component {
   }
 
   render() {
-    const items = {
-      imagePath: 'http://localhost:8000/profile.png',
-      firstName: 'ahmed',
-      lastName: 'ezzat',
-      password: 'password',
-      email: 'ezzat@gmail.com',
-      resumeLink: 'http://localhost:8000/resume.pdf'
-    };
-
-
-    const items2 = {
-      imagePath: 'http://localhost:8000/profile.png',
-      company: 'ahmed',
-      office: 'ezzat',
-      position: 'password',
-      date: '2010-2011'
-    };
-
-    // done
-    const employeeCardProps = {
-      userName: 'Essam Khamis',
-      postion: 'Software Engineer'
-    };
-
-
     return (
-      <PositionModal/>
+      <RegisterPage/>
     );
   }
 }

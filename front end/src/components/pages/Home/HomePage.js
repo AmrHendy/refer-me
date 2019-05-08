@@ -31,7 +31,8 @@ class HomePage extends React.Component {
         sendingUserEmail: "",
         recipientUserEmail: "",
         company: "",
-        office: { country: "", city: "" },
+        country: "",
+        city: "",
         position: "",
         message: ""
       },
@@ -98,7 +99,6 @@ class HomePage extends React.Component {
   }
 
   submitModal(info) {
-    console.log("==>", info);
     this.setState({ displayModal: false });
     let referRequest = {...this.state.requestReferInfo, ...info};
     this.submitReuqestRefer(referRequest);
@@ -122,14 +122,13 @@ class HomePage extends React.Component {
   render() {
     let navItems = { ...this.state.navItems };
     const { filteredJobs } = this.state.filteredJobs;
-    console.log("filtered", filteredJobs);
+    //console.log("filtered", filteredJobs);
 
     return (
       <React.Fragment>
         <TopNav items={navItems} />
         <Sidenav />
         {this.state.filteredJobs.filteredJobs.map((job, index) => {
-          console.log(job, index);
           return (
             <OfficeCard
               index={index}

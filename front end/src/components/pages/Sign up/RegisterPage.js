@@ -41,16 +41,12 @@ class RegisterPage extends React.Component {
     if(this.state.loginPressed === true){
       return;
     }
-
-    console.log(event)
     this.setState({ submitted: true });
     const { user } = this.state;
 
     if (user.firstName && user.lastName && user.email && user.password) {
       // dispatch the register action (user)
-      console.log(user);
       let response = register(user);
-      console.log("response = ", response);
       this.props.dispatch(registerRequest(response));
       if(response.status === 'success')
       {
@@ -69,7 +65,7 @@ class RegisterPage extends React.Component {
     const { user, submitted } = this.state;
     return (
       <React.Fragment>
-        <div id="register_modal" className="w3-modal comp11">
+        <div id="signin_modal" className="w3-modal comp11">
           <div className="w3-modal-content w3-animate-zoom w3-card-12 comp1">
             <header className="w3-container w3-blue-grey w3-padding-8 comp2">
               <h2 className="w3-large">

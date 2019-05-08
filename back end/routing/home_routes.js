@@ -127,22 +127,21 @@ exports.handle_routes = function(
   **************************************************************************/
   server.post("/home/view/refer_request/submit", urlencodedParser, function(req, res) {
     //console.log("accepting route /home/view/refer_request/submit");
-
     /* extract data */
     var new_request = {
         "user_id":{
-          "sender": req.session.sendingUserEmail,
+          "sender": req.body.sendingUserEmail,
           "recipient": req.body.recipientUserEmail
         },
         "position_info":{
           "company": req.body.company,
           "position": req.body.position,
-          "city": req.body.office.city,
-          "country": req.body.office.country,
+          "city": req.body.city,
+          "country": req.body.country,
           "message": req.body.message
         }
     };
-
+    
     register_new_request(connection_par, new_request, function(message){
       // valid credentials
       var data = {

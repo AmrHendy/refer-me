@@ -7,7 +7,7 @@ function filterJobs(state = initialState, action) {
   switch (action.type) {
     case FILTER_SEARCH_JOBS:
       //alert(action.message);
-      console.log("Successfully filted jobs, jobs = ", action.filteredJobs);
+      //console.log("Successfully filtered jobs, jobs = ", action.filteredJobs);
       return { filteredJobs: action.filteredJobs };
     default:  
       return state;

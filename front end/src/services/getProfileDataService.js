@@ -1,7 +1,6 @@
 import $ from "jquery";
 
 function getProfileData() {
-  console.log('sending email', localStorage.getItem('email'));
   let response = JSON.parse(
   $.ajax({
     type: "POST",

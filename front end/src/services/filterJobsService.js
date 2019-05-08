@@ -9,7 +9,6 @@ function filterJobs(search_criteria, search_term){
       async: false
     }).responseText
   );
-  console.log(response);
   return response;
 }
 

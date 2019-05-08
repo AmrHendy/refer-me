@@ -76,14 +76,7 @@ class Sidenav extends React.Component {
     e.preventDefault();
     const value = e.target.dataset.value;
     this.setState({ chosen_search_query: value, search_query: value });
-    console.log(
-      "request in sidenav filtered = ",
-      this.state.search_criteria,
-      "     ",
-      value
-    );
     let response = filterJobs(this.state.search_criteria, value);
-    console.log("response in sidenav filtered = ", response);
     this.props.dispatch(searchRequest(response));
   }
 
