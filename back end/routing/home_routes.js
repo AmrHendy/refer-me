@@ -131,14 +131,14 @@ exports.handle_routes = function(
     /* extract data */
     var new_request = {
         "user_id":{
-          "sender": req.session.user_id,
-          "recipient": req.body.recipientUserID
+          "sender": req.session.sendingUserEmail,
+          "recipient": req.body.recipientUserEmail
         },
         "position_info":{
           "company": req.body.company,
           "position": req.body.position,
-          "city": req.body.city,
-          "country": req.body.country,
+          "city": req.body.office.city,
+          "country": req.body.office.country,
           "message": req.body.message
         }
     };
