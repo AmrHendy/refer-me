@@ -45,7 +45,7 @@ class OfficeCard extends React.Component {
     // to put margin top with the first card only
     let cardClass = this.props.index == 0 ? 'first-company-card' : '';
     return (
-      <div className={`w3-col w3-container w3-card-2 w3-round company-card ${cardClass}`}>
+      <div className={`w3-col w3-container w3-border w3-light-grey w3-round-large company-card ${cardClass}`}>
         <div className="w3-xlarge w3-padding-16 company-name">
           {this.props.company}, {this.props.office.city},{" "}
           {this.props.office.country}

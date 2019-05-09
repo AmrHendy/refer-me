@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 
+import "./HomePage.css";
+
 import Sidenav from "./sidenav";
 import OfficeCard from "./OfficeCard";
 import TopNav from "../../layout/topnav";
@@ -131,6 +133,7 @@ class HomePage extends React.Component {
       <React.Fragment>
         <TopNav items={navItems} />
         <Sidenav />
+        <div className="sh-home-content-container">
         {this.state.filteredJobs.filteredJobs.map((job, index) => {
           console.log(job, index);
           return (
@@ -144,6 +147,7 @@ class HomePage extends React.Component {
             />
           );
         })}
+        </div>
         {this.state.displayModal ? (
           <RequestModal cancel={this.cancelModal} submit={this.submitModal} />
         ) : null}

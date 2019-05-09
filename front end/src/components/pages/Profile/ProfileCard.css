@@ -1,7 +1,7 @@
-.profileCard-comp1 {margin-left: 50px; margin-top: 20px; width: 400px; padding-top: 15px; padding-left: 0px; padding-bottom: 20px;}
-.profileCard-comp2 {margin-right: 10px; padding-top: 15px; padding-left: 50px; padding-bottom: 15px;}
-.profileCard-comp3 {width: 150px; border-radius: 50%;}
-.profileCard-comp4 {width: 150px; padding-top: 40px; font-weight: bold; text-align: center;}
+.profileCard-comp1 {position: fixed; left: 50px; top: 110px; width: 400px; padding-top: 15px; padding-left: 0px; padding-bottom: 20px;}
+.profileCard-comp2 {margin-right: 10px; padding-top: 15px; padding-left: 70px; padding-bottom: 15px;}
+.profileCard-comp3 {width: 100px; border-radius: 50%;}
+.profileCard-comp4 {width: 150px; padding-top: 15px; font-weight: bold; text-align: center;}
 .profileCard-comp5 {width: 500px;}
 .profileCard-comp6 {padding: 10px;}
 .profileCard-comp7 {width: 100px; padding-top: 8px; text-align: right;}

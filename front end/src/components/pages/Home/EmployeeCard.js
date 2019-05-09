@@ -18,7 +18,7 @@ class EmployeeCard extends React.Component {
     firstName = firstName || "Arsanuos";
     lastName = lastName || "Essa";
     return (
-      <div className="w3-row w3-card-2 w3-round-xlarge user-card">
+      <div className="w3-row w3-border w3-white w3-round-xlarge user-card">
         <div className="w3-col image-wrapper">
           <img
             className="w3-card-2 image-style"

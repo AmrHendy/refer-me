@@ -89,8 +89,8 @@ class Sidenav extends React.Component {
 
   render() {
     return (
-      <div className="w3-col w3-card-2 w3-round-large w3-container wrapper-div">
-        <div className="w3-large search-div">Search Website</div>
+      <div className="w3-border w3-round-large w3-container wrapper-div sh-home-sidenav-container">
+        <div className="w3-large search-div">Search2 Website</div>
         <input
           className="w3-input w3-border"
           type="text"

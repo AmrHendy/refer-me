@@ -1,6 +1,6 @@
 .user-card {padding-left: 40px; padding-top: 15px; padding-bottom: 15px; margin-bottom: 15px}
-.image-wrapper {width: 80px;}
+.image-wrapper {width: 100px; padding-top: 0px;}
 .image-style {width: 100%; border-radius: 50%;}
-.info-style {width: 300px; margin-left: 20px; padding-top: 10px;}
-.buttons-style {width: 80px; font-weight: bold; padding-top: 15px; margin-left: 50px;}
+.info-style {width: 300px; margin-left: 20px; padding-top: 0px;}
+.buttons-style {width: 80px; font-weight: bold; padding-top: 10px; margin-left: 50px;}
 .refer-button-style {width: 120px;}

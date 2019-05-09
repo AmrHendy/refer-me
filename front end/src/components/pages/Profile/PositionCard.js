@@ -13,7 +13,7 @@ class PostionCard extends React.Component {
     let imagePath = null;
     return (
     
-        <div className="w3-row w3-card-2 w3-round-xlarge positionCard-comp3">
+        <div className="w3-row w3-border w3-round-xlarge positionCard-comp3">
             <div className="w3-col positionCard-comp4"> 
                 <img className="w3-card-2 positionCard-comp5" src={imagePath || 'http://localhost:8000/profile.png' }/>
             </div>
