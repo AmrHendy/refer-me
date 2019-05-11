@@ -12,10 +12,10 @@ import ProfileCard from "./Profile/ProfileCard";
 import PostionCard from "./Profile/PositionCard";
 import ProfilePage from "./Profile/ProfilePage";
 import RequestNav from "./Requests/RequestNav";
-import RequestCard from "./Requests/RequestCard";
 import RequestModal from "./Home/RequestModal";
 import PositionModal from "./Profile/PositionModal";
-import SentRequestsPage from './Requests/SentRequestsPage';
+import SentRequestCard from './Requests/SentRequestCard';
+import RecievedRequestCard from './Requests/RecievedRequestCard';
 
 
 class Test extends React.Component {
@@ -24,13 +24,7 @@ class Test extends React.Component {
   }
 
   render() {
-    let requests = [{sender: {profileImage:'http://localhost:8000/profile.png', firstName:'Mohamed', lastName:'Shaban', resumeLink:''},
-             info:{position:'SA', company: 'Google', city:'Alex', country:'EG'}}];
-    return (
-      //const {profileImage, firstName, lastName, resumeLink} = this.props.request.sender;
-      //const {position, company, city, country} = this.props.request.info;
-      <SentRequestsPage requests={requests}/>
-    );
+    return <LoginPage/>
   }
 }
 

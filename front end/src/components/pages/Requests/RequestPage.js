@@ -7,7 +7,7 @@ import getRequests from "../../../services/getRequests";
 import updateRequest from "../../../services/updateRequest";
 
 
-class SentRequestsPage extends React.Component {
+class RequestPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,12 +16,13 @@ class SentRequestsPage extends React.Component {
       email: localStorage.getItem("email")
     };
     
-    this.viewRequests = thie.viewRequests.bind(this);
+    this.viewRequests = this.viewRequests.bind(this);
     this.changeRequestStatus = this.changeRequestStatus.bind(this);
   }
 
   componentWillMount() {
     let response = getRequests();
+    console.log("All requests getting from database = ", response);
     let sentRequests = response.requests.filter(request => {
       return request.user_id.sender === this.state.email;
     });
@@ -29,7 +30,9 @@ class SentRequestsPage extends React.Component {
     let receivedRequests = response.requests.filter(request => {
       return request.user_id.recipient === this.state.email;
     });
-
+    console.log('Filtered recieved requests = ', receivedRequests);
+    console.log('Filtered sent requests = ', sentRequests);
+    
     this.setState({
       requests: {
         sentRequests: sentRequests,
@@ -38,13 +41,15 @@ class SentRequestsPage extends React.Component {
     });
   }
 
-  viewRequests(type) {
+  viewRequests(reqType) {
     // type should be 'sent' or 'received'
-    this.setState({ requestsType: type });
+    this.setState({ requestsType: reqType });
+    console.log('Changing requests type to ', reqType);
   }
 
   changeRequestStatus(requestId, newStatus){
     // send ajax update request to backend
+    console.log('Updated request with id: ', requestId, ' to status ', newStatus);
     let response = updateRequest(requestId, newStatus);
     if(response.status === "success"){
       alert("Successfully updated request");

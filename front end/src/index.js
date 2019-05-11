@@ -9,6 +9,7 @@ import LoginPage from "./components/pages/Sign in/LoginPage";
 import RegisterPage from "./components/pages/Sign up/RegisterPage";
 import ProfilePage from "./components/pages/Profile/ProfilePage";
 import HomePage from "./components/pages/Home/HomePage";
+import RequestPage from "./components/pages/Requests/RequestPage";
 
 ReactDOM.render(
   <Provider store={store}>
@@ -19,6 +20,7 @@ ReactDOM.render(
         <Route exact path="/register" component={RegisterPage} />
         <Route exact path="/profile" component={ProfilePage} />
         <Route exact path="/home" component={HomePage} />
+        <Route exact path="/requests" component={RequestPage} />
       </div>
     </BrowserRouter>
   </Provider>,
