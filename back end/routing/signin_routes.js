@@ -22,65 +22,51 @@ exports.handle_routes = function(
     var user_password = req.body.user_password;
 
     //db.user_accounts.find({"login.email": "mohamed.shaapan.1@gmail.com"}).pretty()
-
-    connection_par["client"].connect(connection_par["url"], function(
-      err,
-      connection
-    ) {
-      if (err) throw err;
-      var db = connection.db(connection_par["database_name"]);
-      db.collection("user_accounts")
-        .find({ "login.email": user_email })
-        .toArray(function(err, result) {
-          if (err) throw err;
-          connection.close();
-
-          // user not found
-          if (result.length == 0) {
-            //console.log("user not found");
-            var data = {
-              msg: "user not found",
-              status: "error"
-            };
-            var ret = JSON.stringify(data);
-            res.end(ret);
-            return;
-          }
-
-          // incorrect password
-          if (result[0]["login"]["password"] != user_password) {
-            //console.log("incorrect pasword");
-            var data = {
-              msg: "incorrect password",
-              status: "error"
-            };
-            var ret = JSON.stringify(data);
-            res.end(ret);
-            return;
-          }
-
-          // valid credentials
-          //console.log("valid signin");
-          //console.log(result);
+    find_user(connection_par, req.body.user_email, function(result){
+        // user not found
+        if (result.length == 0) {
+          //console.log("user not found");
           var data = {
-            msg: "valid login",
-            status: "success",
-            user: {
-              email: result[0]["login"]["email"],
-              firstName: result[0]["profile"]["first_name"],
-              lastName: result[0]["profile"]["last_name"]
-            }
+            msg: "user not found",
+            status: "error"
           };
-          // store session variables
-          req.session.user_email = result[0]["login"]["email"];
-
-          //console.log(req.session.user_email);
-          // return result
           var ret = JSON.stringify(data);
           res.end(ret);
           return;
-        });
+        }
+
+        // incorrect password
+        if (result[0]["login"]["password"] != user_password) {
+          //console.log("incorrect pasword");
+          var data = {
+          msg: "incorrect password",
+          status: "error"
+          };
+          var ret = JSON.stringify(data);
+          res.end(ret);
+          return;
+        }
+
+        // valid credentials
+        var data = {
+          msg: "valid login",
+          status: "success",
+          user: {
+            email: result[0]["login"]["email"],
+            firstName: result[0]["profile"]["first_name"],
+            lastName: result[0]["profile"]["last_name"]
+          }
+        };
+        // store session variables
+        req.session.user_email = result[0]["login"]["email"];
+
+        //console.log(req.session.user_email);
+        // return result
+        var ret = JSON.stringify(data);
+        res.end(ret);
+        return;
     });
+
   });
 
   // index pa	ge
@@ -103,3 +89,27 @@ exports.handle_routes = function(
     });
   });
 };
+
+
+
+// *****************************************************************************
+// UTILITY FUNCTIONS
+// *****************************************************************************
+function find_user(connection_par, user_email, callback)
+{
+  connection_par["client"].connect(connection_par["url"], function(
+      err,
+      connection
+    ) {
+      if (err) throw err;
+      var db = connection.db(connection_par["database_name"]);
+      db.collection("user_accounts")
+        .find({ "login.email": user_email })
+        .toArray(function(err2, result) {
+          if (err2) throw err2;
+          connection.close();
+          callback(result);
+      });
+
+    });
+}

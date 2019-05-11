@@ -15,7 +15,7 @@ const http = require('http');
 
 
 
-http.Server(app).listen(8008); // make server listen on port 80
+http.Server(app).listen(80); // make server listen on port 80
 
 app.use(upload()); // configure middleware
 
