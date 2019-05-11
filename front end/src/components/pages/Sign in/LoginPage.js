@@ -117,9 +117,6 @@ class LoginPage extends React.Component {
   }
 }
 
-
-
-
 let connectedLoginPage = connect(
   null,
   null

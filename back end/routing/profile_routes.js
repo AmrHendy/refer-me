@@ -2,7 +2,7 @@
 /*********************************************/
 var path = require("path");
 var bodyParser = require("body-parser");
-//var upload = require('express-fileupload'); // for file uploads
+var upload = require('express-fileupload'); // for file uploads
 
 // Create application/x-www-form-urlencoded parser
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
@@ -65,9 +65,10 @@ exports.handle_routes = function(
     };
 
     var old_email = req.body.old_email;
-
-    //handle_file_upload(req);
-
+    
+    
+    //handle_file_upload(req.file);
+    
     print_stuff(updated_data, "update profile");
 
     update_user_info(connection_par, old_email, updated_data, function(msg){
@@ -79,7 +80,7 @@ exports.handle_routes = function(
         res.end(ret);
         return;
     });
-
+    
   });
 
   /*

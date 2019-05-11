@@ -2,7 +2,7 @@ import React from "react";
 
 import './RequestCard.css'
 
-class RequestCard extends React.Component {
+class ReceivedRequestCard extends React.Component {
     constructor(props) {
         super(props);
         this.viewResume = this.viewResume.bind(this);
@@ -12,25 +12,25 @@ class RequestCard extends React.Component {
 
     viewResume(e) {
         e.preventDefault();
-        window.open(this.props.request.sender.resumeLink);
+        window.open(this.props.request.user_info.recipient.resumeLink);
     }
 
     confirmRequest(e){
         e.preventDefault();
-        const {id} = this.props.request.info;
+        const {id} = this.props.request.id
         this.props.changeRequestStatus(id, 'confirmed');
     }
 
     rejectRequest(e){
         e.preventDefault();
-        const {id} = this.props.request.info;
+        const {id} = this.props.request.id
         this.props.changeRequestStatus(id, 'rejected');
     }
 
     render() {
-        const {profileImage, firstName, lastName, resumeLink} = this.props.request.sender;
-        const {position, company, city, country} = this.props.request.info;
-
+        const {profileImage, firstName, lastName, resumeLink} = this.props.request.user_info.recipient;
+        const {position, company, city, country} = this.props.request.position_info;
+        
         return (        
             <div class="w3-row w3-card-2 w3-round-xlarge requestCard-comp1">
                 <div class="w3-col w3-center requestCard-comp2">
@@ -79,4 +79,4 @@ class RequestCard extends React.Component {
     }
 }
 
-export default RequestCard;
+export default ReceivedRequestCard;
