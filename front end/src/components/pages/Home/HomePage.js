@@ -5,6 +5,7 @@ import Sidenav from "./sidenav";
 import OfficeCard from "./OfficeCard";
 import TopNav from "../../layout/topnav";
 import RequestModal from "./RequestModal";
+import "./HomePage.css";
 
 import getRequestNum from "../../../services/getRequestNum";
 import getProfileData from "../../../services/getProfileDataService";
@@ -128,18 +129,20 @@ class HomePage extends React.Component {
       <React.Fragment>
         <TopNav items={navItems} />
         <Sidenav />
-        {this.state.filteredJobs.filteredJobs.map((job, index) => {
-          return (
-            <OfficeCard
-              index={index}
-              key={job.key}
-              company={job.company}
-              office={job.office}
-              employees={job.employees}
-              displayRequestModal={this.displayRequestModal}
-            />
-          );
-        })}
+        <div className="sh-home-content-container">
+          {this.state.filteredJobs.filteredJobs.map((job, index) => {
+            return (
+              <OfficeCard
+                index={index}
+                key={job.key}
+                company={job.company}
+                office={job.office}
+                employees={job.employees}
+                displayRequestModal={this.displayRequestModal}
+              />
+            );
+          })}
+        </div>
         {this.state.displayModal ? (
           <RequestModal cancel={this.cancelModal} submit={this.submitModal} />
         ) : null}

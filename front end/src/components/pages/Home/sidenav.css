@@ -1,4 +1,4 @@
-.wrapper-div {width: 250px; height: 500px; padding-top: 20px; padding-bottom: 20px; margin-left: 50px; margin-top: 20px;}
+.wrapper-div {width: 250px; height: 500px; position: fixed; margin-top: 0px; padding-top: 20px; padding-bottom: 20px; margin-left: 50px;}
 
 .search-div {font-weight: bold; padding-bottom: 10px;}
 
@@ -6,7 +6,7 @@
 
 .result-div {font-weight: bold; margin-top: 50px;}
 
-.company-div {margin-top: 5px; height: 300px; border: 1px solid #e2e2e2; overflow: hidden;}
+.company-div {margin-top: 5px; border: 1px solid #e2e2e2; overflow: hidden; max-height: 300px;}
 
 .mine:hover {color: red;}
 

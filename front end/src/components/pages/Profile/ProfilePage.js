@@ -106,7 +106,7 @@ class ProfilePage extends React.Component {
           <TopNav items= {navItems}/>
           <div className="w3-row comp111">
             <ProfileCard items = {cardItems}/>
-            <div className="w3-col w3-container positionCard-comp1">
+            <div className="w3-container positionCard-comp1">
 
               <div className="w3-xlarge w3-padding-16 positionCard-comp2">Positions Held</div>
               {this.state.positions.map( (position) => {

@@ -7,6 +7,7 @@ class TopNav extends React.Component {
 
     constructor(props){
         super(props)
+    
         this.redirectHome = this.redirectHome.bind(this);
         this.redirectRequests = this.redirectRequests.bind(this);
         this.redirectSignout = this.redirectSignout.bind(this);
@@ -34,9 +35,10 @@ class TopNav extends React.Component {
     render() {
         let {imagePath , firstName, lastName, requestNum } = this.props.items;
     return (
-        <div className="w3-row w3-teal w3-card-2 nav-wrapper">
+        <div className="w3-row w3-teal nav-wrapper">
 
             <div className="w3-col info-wrapper">
+
                 <div className="w3-row">
                     <div className="w3-col image-wrapper">
                         <img className="w3-card-2 image-style" src={imagePath || "http://localhost:8000/profile.png"}/>
@@ -45,10 +47,15 @@ class TopNav extends React.Component {
                         <span className="mine name-style" onClick={this.redirectProfile}> {firstName} {lastName}</span>
                     </div>
                 </div>
+
+            </div>
+
+            <div className="w3-col w3-xxlarge sh-topnav-title-container" onClick={this.redirectHome}>
+                ReferME
             </div>
 
             <div className="w3-col w3-right signout-wrapper">
-                <span className="mine name-style" onClick={this.redirectSignout}>SignOut</span>
+                <span className="mine name-style" onClick={this.redirectSignout}>Signout</span>
             </div>
 
             <div className="w3-col w3-right request-wrapper">

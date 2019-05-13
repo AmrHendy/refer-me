@@ -55,7 +55,7 @@ class ProfileCard extends React.Component {
   render() {
     const { imagePath, firstName, lastName, email, password } = this.state;
     return (
-      <div className="w3-col w3-card-2 w3-round profileCard-comp1">
+      <div className="w3-border w3-round-large profileCard-comp1">
         <div className="w3-row profileCard-comp2">
           <img className="w3-col w3-card-2 profileCard-comp3" src={imagePath} />
           <div className="w3-col w3-center w3-xlarge profileCard-comp4">
