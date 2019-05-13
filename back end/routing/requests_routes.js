@@ -16,52 +16,30 @@ exports.handle_routes = function(
 
 
   /**************************************************************************
-      request 1 - get list of all requests i sent
-      type = GET
+      request 1 - get list of all requests i have
+      type = POST
       result = {
         sent_requests = []
       }
   **************************************************************************/
-  server.get("/requests/nav/get_sent_requests", function(req, res) {
+  server.post("/requests/get_refer_requests", function(req, res) {
 
     console.log("accepting route /requests/init/get_sent_requests");
 
-	get_sent_requests(connection_par, req.session.user_id, function(result){
-		var data = {
-			sent_requests : result
-		};
-		var ret = JSON.stringify(data);
-		res.end(ret);
-		return;
-	});
-
-  });
-
-  /**************************************************************************
-      request 2 - get list of all requests i received
-      type = GET
-      result = {
-        received_requests = []
-      }
-  **************************************************************************/
-  server.get("/requests/nav/get_received_requests", function(req, res) {
-
-    console.log("accepting route /requests/init/get_received_requests");
-
-	get_received_requests(connection_par, req.session.user_id, function(result){
-		var data = {
-			received_requests : result
-		};
-		var ret = JSON.stringify(data);
-		res.end(ret);
-		return;
-	});
+    get_refer_requests(connection_par, req.body.user_email, function(result){
+      var data = {
+        "requests" : conform_data(result)
+      };
+      var ret = JSON.stringify(data);
+      res.end(ret);
+      return;
+    });
 
   });
 
 
   /**************************************************************************
-      request 3 - handle request (approve, reject)
+      request 2 - handle request (approve, reject)
       type = POST
       data = {
         request_id = "id of target request",
@@ -71,13 +49,20 @@ exports.handle_routes = function(
         status: "success"
       };
   **************************************************************************/
-  server.post("/requests/handle_recevied_request", urlencodedParser, function(req, res) {
+  server.get("/requests/handle_recevied_request", urlencodedParser, function(req, res) {
     console.log("accepting route /requests/handle_recevied_request");
 
-	var update_data = {
-		match_criteria: req.body.request_id,
-		match_value: req.body.new_status
-	};
+    /*var update_data = {
+      "sender_email": req.body.sender_email,
+      "recipient_email": req.body.recipient_email,
+      "new_status": req.body.new_status
+    };*/
+
+    var update_data = {
+      "sender_email": "mohamed.shaapan.1@gmail.com",
+      "recipient_email": "amrhendy@gmail.com",
+      "new_status": "accepted"
+    };
 
     handle_request(connection_par, update_data, function(message){
       // valid credentials
@@ -93,14 +78,10 @@ exports.handle_routes = function(
 }
 
 
-//**************************************************************************
-//**************************************************************************
-//**************************************************************************
-//  DB request handlers
-//**************************************************************************
-//**************************************************************************
-//**************************************************************************
-function get_sent_requests(connection_par, user_id, callback)
+// *****************************************************************************
+// UTILITY FUNCTIONS
+// *****************************************************************************
+function get_refer_requests(connection_par, user_email, callback)
 {
   connection_par["client"].connect(connection_par["url"], function(
       err,
@@ -108,10 +89,30 @@ function get_sent_requests(connection_par, user_id, callback)
     ) {
       if (err) throw err;
       var db = connection.db(connection_par["database_name"]);
-      var attribute = "user_id.sender";
-      var value = user_id;
       db.collection("refer_requests")
-        .find({ attribute : value })
+        .aggregate([
+            {$match:
+              {$or:
+                [{"user_id.sender": user_email}, {"user_id.recipient": user_email}]
+              }
+            },
+            { $lookup:
+              {
+                from: 'user_accounts',
+                localField: 'user_id.sender',
+                foreignField: 'login.email',
+                as: 'sender_data'
+              }
+            },
+            { $lookup:
+              {
+                from: 'user_accounts',
+                localField: 'user_id.recipient',
+                foreignField: 'login.email',
+                as: 'recipient_data'
+              }
+            }
+          ])
         .toArray(function(err, result) {
           if (err) throw err;
           connection.close();
@@ -122,28 +123,61 @@ function get_sent_requests(connection_par, user_id, callback)
     });
 }
 
-function get_received_requests(connection_par, user_id, callback)
+// *****************************************************************************
+// UTILITY FUNCTIONS
+// *****************************************************************************
+function conform_data(request_list)
 {
-  connection_par["client"].connect(connection_par["url"], function(
-      err,
-      connection
-    ) {
-      if (err) throw err;
-      var db = connection.db(connection_par["database_name"]);
-      var attribute = "user_id.recipient";
-      var value = user_id;
-      db.collection("refer_requests")
-        .find({ attribute : value })
-        .toArray(function(err, result) {
-          if (err) throw err;
-          connection.close();
-          // return result
-          callback(result);
-          return;
-        });
-    });
+  var result = [];
+  request_list.forEach( request => {
+      console.log(request);
+      var conformed_request = {
+          "user_info":{
+              "sender": {},
+              "recipient": {}
+          },
+          "position_info": request["position_info"],
+          "status": request["status"]
+      };
+
+      if(request["sender_data"].length > 0)
+      {
+          console.log("in sender");
+          console.log(request["sender_data"]);
+          var sender_data = {
+            "email": request["sender_data"][0]["login"]["email"],
+            "firstName": request["sender_data"][0]["profile"]["first_name"],
+            "lasName": request["sender_data"][0]["profile"]["last_name"],
+            "profileImage": "http://localhost:8000/profile.png",
+            "resumeLink": "http://localhost:8000/profile.png"
+          };
+          conformed_request["user_info"]["sender"] = sender_data;
+      }
+
+      if(request["recipient_data"].length > 0)
+      {
+        console.log("in recipient");
+        console.log(request["recipient_data"]);
+        var recipient_data = {
+          "email": request["recipient_data"][0]["login"]["email"],
+          "firstName": request["recipient_data"][0]["profile"]["first_name"],
+          "lasName": request["recipient_data"][0]["profile"]["last_name"],
+          "profileImage": "http://localhost:8000/profile.png",
+          "resumeLink": "http://localhost:8000/profile.png"
+        };
+        conformed_request["user_info"]["recipient"] = sender_data;
+      }
+      
+      result.push(conformed_request);
+  });
+
+  return result;
 }
 
+
+// *****************************************************************************
+// UTILITY FUNCTIONS
+// *****************************************************************************
 function handle_request(connection_par, update_data, callback)
 {
   connection_par["client"].connect(connection_par["url"], function(
@@ -152,11 +186,17 @@ function handle_request(connection_par, update_data, callback)
     ) {
       if (err) throw err;
       var db = connection.db(connection_par["database_name"]);
-      db.collection("refer_requests").updateOne(update_data["match_criteria"], update_data["match_value"], function(err, res) {
-        if (err) throw err;
+      var condition = {
+          $and:
+          [{"user_id.sender": update_data["sender_email"]}, {"user_id.recipient": update_data["recipient_email"]}]
+      };
+      var new_values = {
+        $set: {"status": update_data["new_status"]}
+      };
+      db.collection("refer_requests").updateMany(condition, new_values, function(err2, res) {
+        if (err2) throw err2;
         console.log("1 document updated");
-        db.close();
-
+        connection.close();
         callback("success");
       });
 
