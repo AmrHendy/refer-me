@@ -21,7 +21,7 @@ class RequestPage extends React.Component {
   }
 
   componentWillMount() {
-    let response = getRequests();
+    let response = getRequests(localStorage.getItem("email"));
     console.log("All requests getting from database = ", response);
     let sentRequests = response.requests.filter(request => {
       return request.user_id.sender === this.state.email;
