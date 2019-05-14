@@ -14,7 +14,6 @@ exports.handle_routes = function(
   session
 ) {
 
-
   /**************************************************************************
       request 1 - get list of all requests i have
       type = POST
@@ -49,7 +48,7 @@ exports.handle_routes = function(
         status: "success"
       };
   **************************************************************************/
-  server.get("/requests/handle_recevied_request", urlencodedParser, function(req, res) {
+  server.post("/requests/handle_recevied_request", urlencodedParser, function(req, res) {
     console.log("accepting route /requests/handle_recevied_request");
 
     /*var update_data = {
