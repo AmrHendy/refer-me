@@ -49,14 +49,18 @@ exports.handle_routes = function(
         status: "success"
       };
   **************************************************************************/
-  server.get("/requests/handle_recevied_request", urlencodedParser, function(req, res) {
+  server.post("/requests/handle_recevied_request", urlencodedParser, function(req, res) {
     console.log("accepting route /requests/handle_recevied_request");
 
-    /*var update_data = {
+    console.log("Request ID = ", req.body.id);
+    console.log("New Status = ", req.body.status);
+
+    /*
+    var update_data = {
       "sender_email": req.body.sender_email,
       "recipient_email": req.body.recipient_email,
       "new_status": req.body.new_status
-    };*/
+    };
 
     var update_data = {
       "sender_email": "mohamed.shaapan.1@gmail.com",
@@ -70,10 +74,8 @@ exports.handle_routes = function(
       res.end(ret);
       return;
     });
-
+    */
   });
-
-
 
 }
 

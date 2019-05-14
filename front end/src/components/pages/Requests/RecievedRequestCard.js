@@ -17,13 +17,13 @@ class ReceivedRequestCard extends React.Component {
 
     confirmRequest(e){
         e.preventDefault();
-        const {id} = this.props.request.id
-        this.props.changeRequestStatus(id, 'confirmed');
+        const id = this.props.request.id
+        this.props.changeRequestStatus(id, 'accepted');
     }
 
     rejectRequest(e){
         e.preventDefault();
-        const {id} = this.props.request.id
+        const id = this.props.request.id
         this.props.changeRequestStatus(id, 'rejected');
     }
 
