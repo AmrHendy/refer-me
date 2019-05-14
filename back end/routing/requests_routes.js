@@ -130,14 +130,15 @@ function conform_data(request_list)
 {
   var result = [];
   request_list.forEach( request => {
-      console.log(request);
+      console.log("==> request = ", request);
       var conformed_request = {
           "user_info":{
               "sender": {},
               "recipient": {}
           },
           "position_info": request["position_info"],
-          "status": request["status"]
+          "status": request["status"],
+          "id": request["_id"]
       };
 
       if(request["sender_data"].length > 0)
@@ -147,9 +148,9 @@ function conform_data(request_list)
           var sender_data = {
             "email": request["sender_data"][0]["login"]["email"],
             "firstName": request["sender_data"][0]["profile"]["first_name"],
-            "lasName": request["sender_data"][0]["profile"]["last_name"],
+            "lastName": request["sender_data"][0]["profile"]["last_name"],
             "profileImage": "http://localhost:8000/profile.png",
-            "resumeLink": "http://localhost:8000/profile.png"
+            "resumeLink": "http://localhost:8000/resume.pdf"
           };
           conformed_request["user_info"]["sender"] = sender_data;
       }
@@ -161,11 +162,11 @@ function conform_data(request_list)
         var recipient_data = {
           "email": request["recipient_data"][0]["login"]["email"],
           "firstName": request["recipient_data"][0]["profile"]["first_name"],
-          "lasName": request["recipient_data"][0]["profile"]["last_name"],
+          "lastName": request["recipient_data"][0]["profile"]["last_name"],
           "profileImage": "http://localhost:8000/profile.png",
-          "resumeLink": "http://localhost:8000/profile.png"
+          "resumeLink": "http://localhost:8000/resume.pdf"
         };
-        conformed_request["user_info"]["recipient"] = sender_data;
+        conformed_request["user_info"]["recipient"] = recipient_data;
       }
       
       result.push(conformed_request);

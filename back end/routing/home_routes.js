@@ -139,7 +139,8 @@ exports.handle_routes = function(
           "city": req.body.city,
           "country": req.body.country,
           "message": req.body.message
-        }
+        },
+        "status": req.body.status
     };
     
     register_new_request(connection_par, new_request, function(message){

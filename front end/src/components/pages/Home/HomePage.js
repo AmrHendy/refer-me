@@ -35,7 +35,8 @@ class HomePage extends React.Component {
         country: "",
         city: "",
         position: "",
-        message: ""
+        message: "",
+        status: ""
       },
       displayModal: false
     };
@@ -101,7 +102,7 @@ class HomePage extends React.Component {
 
   submitModal(info) {
     this.setState({ displayModal: false });
-    let referRequest = {...this.state.requestReferInfo, ...info};
+    let referRequest = {...this.state.requestReferInfo, ...info, status: "pending"};
     this.submitReuqestRefer(referRequest);
   }
 

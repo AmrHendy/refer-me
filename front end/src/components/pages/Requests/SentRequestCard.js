@@ -8,13 +8,13 @@ class SentRequestCard extends React.Component {
     }
 
     render() {
-        const {profileImage, firstName, lastName} = this.props.request.user_info.sender;
-        const {position, company, city, country} = this.props.request.info;
+        const {profileImage, firstName, lastName} = this.props.request.user_info.recipient;
+        const {position, company, city, country, message} = this.props.request.position_info;
         // setting the request color according to the status
-        let {requestStatus} = this.props.request.status;
+        let requestStatus = this.props.request.status;
         let requestClass = null;
         switch(requestStatus){
-            case "pending_response":
+            case "pending":
                 requestStatus = "Pending";
                 requestClass = "w3-teal";
                 break;
@@ -29,35 +29,36 @@ class SentRequestCard extends React.Component {
             default:
         }
         return (        
-            <div class="w3-row w3-card-2 w3-round-xlarge requestCard-comp1">
-                <div class="w3-col w3-center requestCard-comp2">
-                    <img class="w3-card-2 requestCard-comp3" src={profileImage}/>
-                    <div class="w3-large requestCard-comp4">{firstName} {lastName}</div>
+            <div className="w3-row w3-card-2 w3-round-xlarge requestCard-comp1">
+                <div className="w3-col w3-center requestCard-comp2">
+                    <img className="w3-card-2 requestCard-comp3" src={profileImage}/>
+                    <div className="w3-large requestCard-comp4">{firstName} {lastName}</div>
                 </div>
 
-                <div class="w3-col w3-large requestCard-comp5">
-                    <div class="w3-row">
-                        <div class="w3-col requestCard-comp6">Position</div>
-                        <div class="w3-col requestCard-comp7"> : </div>
-                        <div class="w3-col requestCard-comp8">{position}</div>
+                <div className="w3-col w3-large requestCard-comp5">
+                    <div className="w3-row">
+                        <div className="w3-col requestCard-comp6">Position</div>
+                        <div className="w3-col requestCard-comp7"> : </div>
+                        <div className="w3-col requestCard-comp8">{position}</div>
                     </div>
-                    <div class="w3-row">
-                        <div class="w3-col requestCard-comp6">Company</div>
-                        <div class="w3-col requestCard-comp7"> : </div>
-                        <div class="w3-col requestCard-comp8">{company}</div>
+                    <div className="w3-row">
+                        <div className="w3-col requestCard-comp6">Company</div>
+                        <div className="w3-col requestCard-comp7"> : </div>
+                        <div className="w3-col requestCard-comp8">{company}</div>
                     </div>
-                    <div class="w3-row">
-                        <div class="w3-col requestCard-comp6">Office</div>
-                        <div class="w3-col requestCard-comp7"> : </div>
-                        <div class="w3-col requestCard-comp8">{city}, {country}</div>
+                    <div className="w3-row">
+                        <div className="w3-col requestCard-comp6">Office</div>
+                        <div className="w3-col requestCard-comp7"> : </div>
+                        <div className="w3-col requestCard-comp8">{city}, {country}</div>
+                    </div>
+                    <div className="w3-row">
+                        <div className="w3-col requestCard-comp6">Message</div>
+                        <div className="w3-col requestCard-comp7"> : </div>
+                        <div className="w3-col requestCard-comp8">{message}</div>
                     </div>
                 </div>
-                <div class={`w3-col w3-small requestCard-comp9 ${requestClass}`}>
-                    <div>
-                        <div class="w3-btn w3-red w3-round-large requestCard-comp11">
-                            {requestStatus}
-                        </div>
-                    </div>
+                <div className={`w3-col w3-small requestCard-comp9 ${requestClass}`}>
+                    {requestStatus}
                 </div>
             </div>
         );
