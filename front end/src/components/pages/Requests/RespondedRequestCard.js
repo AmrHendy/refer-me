@@ -96,7 +96,7 @@ class RespondedRequestCard extends React.Component {
 
         <div className="w3-col w3-small requestCard-comp9">
         <div className="w3-col sh-request-done-status-container">
-            <span className={`sh-request-status ${requestClass}`}>
+            <span className={`sh-request-status w3-round-xxlarge ${requestClass}`}>
               {requestStatus}
             </span>
           </div>

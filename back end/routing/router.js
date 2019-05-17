@@ -14,5 +14,6 @@ exports.start_listening = function(server, connection_par, session) {
   signup_routes.handle_routes(server, connection_par, session);
   home_routes.handle_routes(server, connection_par, session);
   profile_routes.handle_routes(server, connection_par, session);
+  requests_routes.handle_routes(server, connection_par, session);
   topnav_routes.handle_routes(server, connection_par, session);
 };

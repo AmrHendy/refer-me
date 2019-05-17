@@ -59,7 +59,7 @@ class SentRequestCard extends React.Component {
                     </div>
                 </div>
                 <div className="w3-col sh-request-status-container">
-                    <span className={`sh-request-status ${requestClass}`}>
+                    <span className={`sh-request-status w3-round-xxlarge ${requestClass}`}>
                         {requestStatus}
                     </span>
                 </div>

@@ -24,7 +24,7 @@ class HomePage extends React.Component {
         imagePath: "http://localhost:8000/profile.png",
         firstName: "",
         lastName: "",
-        requestNum: 10
+        requestNum:""
       },
       filteredJobs: [],
 
@@ -67,7 +67,6 @@ class HomePage extends React.Component {
 
   getData() {
     let response = getProfileData();
-    let requestNum = 5;
     /*
       response = {
                   user_info: {first_name, last_name, email, password, img_link, resume_link },
@@ -79,7 +78,7 @@ class HomePage extends React.Component {
         imagePath: response.user_info.img_link,
         firstName: response.user_info.first_name,
         lastName: response.user_info.last_name,
-        requestNum: requestNum
+        requestNum: getRequestNum().request_count
       },
       filteredJobs: store.getState().filteredJobs,
       requestReferInfo: {
@@ -123,9 +122,6 @@ class HomePage extends React.Component {
 
   render() {
     let navItems = { ...this.state.navItems };
-    const { filteredJobs } = this.state.filteredJobs;
-    //console.log("filtered", filteredJobs);
-
     return (
       <React.Fragment>
         <TopNav items={navItems} />

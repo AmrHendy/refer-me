@@ -128,7 +128,6 @@ class ProfileCard extends React.Component {
               <button className="w3-btn w3-teal" onClick={this.viewResume}>
                 view
               </button>
-              <input className="w3-small sh-upload-btn" type="file" />
             </div>
           </div>
 

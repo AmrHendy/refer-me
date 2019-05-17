@@ -41,6 +41,7 @@ exports.handle_routes = function(
         request_count: result_data
       };
       
+      console.log(result_data);
       var ret = JSON.stringify(data);
       res.end(ret);
       return;

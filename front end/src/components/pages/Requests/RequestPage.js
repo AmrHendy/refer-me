@@ -24,7 +24,7 @@ class RequestPage extends React.Component {
         imagePath: 'http://localhost:8000/profile.png',
         firstName: '',
         lastName: '',
-        requestNum: 0
+        requestNum: ''
       },
       requestsType: "sent",
       requests: { sentRequests: [], receivedRequests: [], respondedRequests: [] },
@@ -57,15 +57,13 @@ class RequestPage extends React.Component {
     console.log('Filtered responded requests = ', respondedRequests);
 
     response = getProfileData();
-    //    let requestNum = getRequestNum();
-    let requestNum = 5;
     this.setState({
       navItems:{ 
         // imagePath, first_name, last_name ---> global state retrival 
         imagePath: response.user_info.img_link,
         firstName: response.user_info.first_name,
         lastName: response.user_info.last_name,
-        requestNum: requestNum
+        requestNum: getRequestNum().request_count
       },
       requests: {
         sentRequests: sentRequests,

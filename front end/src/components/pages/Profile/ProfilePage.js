@@ -23,7 +23,7 @@ class ProfilePage extends React.Component {
         imagePath: 'http://localhost:8000/profile.png',
         firstName: 'Shaaban',
         lastName: 'Shaapan',
-        requestNum: 10
+        requestNum: ''
       },
       cardItems: {
         imagePath: 'http://localhost:8000/profile.png',
@@ -63,21 +63,14 @@ class ProfilePage extends React.Component {
     }
   }
   getData() {
-    let response = getProfileData();
-//    let requestNum = getRequestNum();
-    let requestNum = 5;
-    // console.log('response in profile', response);
-    // response = {
-    //             user_info: {first_name, last_name, email, password, img_link, resume_link },
-    //            positions_held: [ {company , office, position, date, imagePath }, ...] }
-        
+    let response = getProfileData();        
     this.setState({
       navItems:{ 
         // imagePath, first_name, last_name ---> global state retrival 
         imagePath: response.user_info.img_link,
         firstName: response.user_info.first_name,
         lastName: response.user_info.last_name,
-        requestNum: requestNum
+        requestNum: getRequestNum().request_count
       },
       cardItems: {
         // imagePath, first_name, last_name, email ---> global state retrival 
