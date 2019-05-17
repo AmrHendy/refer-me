@@ -8,17 +8,8 @@ class SentRequestCard extends React.Component {
     }
 
     render() {
-        //const {profileImage, firstName, lastName} = this.props.request.user_info.recipient;
-        //const {position, company, city, country, message} = this.props.request.position_info;
-
-        const profileImage = "http://localhost:8000/profile.png";
-        const firstName = "mohamed"; const lastName = "shaban";
-
-        const position = "Junior swe";
-        const company = "Google";
-        const city = "Berlin";
-        const country = "Germany";
-        const message = "hello world";
+        const {profileImage, firstName, lastName} = this.props.request.user_info.recipient;
+        const {position, company, city, country, message} = this.props.request.position_info;
 
         // setting the request color according to the status
         let requestStatus = this.props.request.status;

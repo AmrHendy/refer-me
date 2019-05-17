@@ -26,7 +26,7 @@ exports.handle_routes = function(
   **************************************************************************/
   server.post("/requests/get_refer_requests", urlencodedParser, function(req, res) {
 
-    //console.log("accepting route /requests/init/get_sent_requests");
+    console.log("accepting route /requests/get_sent_requests");
     //console.log("Requests for email = ", req.body.user_email);
     get_refer_requests(connection_par, req.body.user_email, function(result){
       var data = {
@@ -52,7 +52,7 @@ exports.handle_routes = function(
       };
   **************************************************************************/
   server.post("/requests/handle_recevied_request", urlencodedParser, function(req, res) {
-    //console.log("accepting route /requests/handle_recevied_request");
+    console.log("accepting route /requests/handle_recevied_request");
 
     //console.log("Request ID = ", req.body.id);
     //console.log("New Status = ", req.body.status);

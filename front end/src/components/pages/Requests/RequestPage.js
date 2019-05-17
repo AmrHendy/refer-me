@@ -4,6 +4,7 @@ import TopNav from "../../layout/topnav";
 import RequestNav from "./RequestNav";
 import SentRequestCard from "./SentRequestCard";
 import RecievedRequestCard from "./RecievedRequestCard";
+import RespondedRequestCard from "./RespondedRequestCard";
 
 import getRequests from "../../../services/getRequests";
 import updateRequest from "../../../services/updateRequest";
@@ -26,7 +27,7 @@ class RequestPage extends React.Component {
         requestNum: 0
       },
       requestsType: "sent",
-      requests: { sentRequests: [], receivedRequests: [] },
+      requests: { sentRequests: [], receivedRequests: [], respondedRequests: [] },
       email: localStorage.getItem("email")
     };
     
@@ -44,12 +45,17 @@ class RequestPage extends React.Component {
     });
 
     let receivedRequests = response.requests.filter(request => {
-      return request.user_info.recipient.email === this.state.email;
+      return request.user_info.recipient.email === this.state.email && request.status === "pending";
     });
-    console.log('Filtered recieved requests = ', receivedRequests);
+
+    let respondedRequests = response.requests.filter(request => {
+      return request.user_info.recipient.email === this.state.email && request.status !== "pending";
+    });
+
     console.log('Filtered sent requests = ', sentRequests);
-    
-    
+    console.log('Filtered recieved requests = ', receivedRequests);
+    console.log('Filtered responded requests = ', respondedRequests);
+
     response = getProfileData();
     //    let requestNum = getRequestNum();
     let requestNum = 5;
@@ -63,7 +69,8 @@ class RequestPage extends React.Component {
       },
       requests: {
         sentRequests: sentRequests,
-        receivedRequests: receivedRequests
+        receivedRequests: receivedRequests,
+        respondedRequests: respondedRequests
       }
     })
   }
@@ -78,35 +85,34 @@ class RequestPage extends React.Component {
     // send ajax update request to backend
     console.log('Updated request with id: ', requestId, ' to status ', newStatus);
     let response = updateRequest(requestId, newStatus);
-    if(response.status === "success"){
-      alert("Successfully updated request");
-    }
-    else{
-      alert("Error while updating request");
-    }
+    alert("Successfully updated request");
   }
 
   render() {
     let navItems = { ...this.state.navItems };
-
-  //{/*<TopNav items={navItems} />*/}
-
     return (
-      <React.Fragment>
-        
+      <React.Fragment>      
         <TopNav items= {navItems}/>
         <RequestNav viewRequests={this.viewRequests} />
-        <div class="sh-requests-sidenav-content-container">
+        <div className="sh-requests-sidenav-content-container">
           {this.state.requestsType === "sent"
             ? this.state.requests.sentRequests.map(request => {
-                console.log("request", request);
-                return <SentRequestCard key={request.id} request={request} />;
+                console.log("sent request", request);
+                return <SentRequestCard key={request.id} request={request} />
               })
-            : this.state.requests.receivedRequests.map(request => {
-                console.log("request", request);
-                return <RecievedRequestCard key={request.id} request={request} 
-                          changeRequestStatus={this.changeRequestStatus}/>;
-              })};
+            : this.state.requestsType === "received" ? 
+                this.state.requests.receivedRequests.map(request => {
+                  console.log("recieved request", request);
+                  return <RecievedRequestCard key={request.id} request={request} 
+                            changeRequestStatus={this.changeRequestStatus}/>
+                })
+              :
+                this.state.requests.respondedRequests.map(request => {
+                  console.log("recieved request", request);
+                  return <RespondedRequestCard key={request.id} request={request} 
+                            changeRequestStatus={this.changeRequestStatus}/>
+                })
+          }
         </div>
       </React.Fragment>
     );
