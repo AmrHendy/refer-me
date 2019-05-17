@@ -1,2 +1,3 @@
-.requestNav-comp1 {width: 250px; margin-top: 30px; margin-left: 50px; margin-right: 20px;cursor: pointer; overflow: hidden;}
+.requestNav-comp1 {position: fixed; left: 50px; top: 110px; width: 250px; cursor: pointer; overflow: hidden;}
 .requestNav-comp2 {padding-left: 20px; padding-top: 10px; padding-bottom: 10px;}
+.sh-requests-sidenav-content-container {margin-top: 110px; margin-left: 350px;}

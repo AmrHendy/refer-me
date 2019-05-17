@@ -102,6 +102,7 @@ class ProfileCard extends React.Component {
                 onChange={this.handleChange}
                 name="email"
                 value={email}
+                disabled
               />
             </div>
           </div>

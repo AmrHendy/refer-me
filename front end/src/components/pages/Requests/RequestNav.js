@@ -19,11 +19,11 @@ class RequestNav extends React.Component {
 
   render() {
     return (
-    <div className="w3-card-2 w3-round-large w3-large w3-border requestNav-comp1">
-        <div className="w3-hover-grey requestNav-comp2" onClick={this.viewSent}>
+    <div className="w3-round-large w3-large w3-border requestNav-comp1">
+        <div className="w3-teal requestNav-comp2" onClick={this.viewSent}>
             Sent Requests
         </div>
-        <div className="w3-hover-grey w3-teal requestNav-comp2" onClick={this.viewReceived}>
+        <div className="w3-hover-grey requestNav-comp2" onClick={this.viewReceived}>
             Received Requests
         </div>
     </div>

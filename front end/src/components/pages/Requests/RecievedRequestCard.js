@@ -28,11 +28,21 @@ class ReceivedRequestCard extends React.Component {
     }
 
     render() {
-        const {profileImage, firstName, lastName} = this.props.request.user_info.sender;
-        const {position, company, city, country, message} = this.props.request.position_info;
+        //const {profileImage, firstName, lastName} = this.props.request.user_info.sender;
+        //const {position, company, city, country, message} = this.props.request.position_info;
+        
+        const profileImage = "http://localhost:8000/profile.png";
+        const firstName = "mohamed"; const lastName = "shaban";
+
+        const position = "Junior swe";
+        const company = "Google";
+        const city = "Berlin";
+        const country = "Germany";
+        const message = "hello world";
+
         
         return (        
-            <div className="w3-row w3-card-2 w3-round-xlarge requestCard-comp1">
+            <div className="w3-row w3-border w3-round-xlarge requestCard-comp1">
                 <div className="w3-col w3-center requestCard-comp2">
                     <img className="w3-card-2 requestCard-comp3" src={profileImage}/>
                     <div className="w3-large requestCard-comp4">{firstName} {lastName}</div>

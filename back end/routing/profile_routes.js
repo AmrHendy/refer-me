@@ -174,7 +174,7 @@ function update_user_info(connection_par, old_email, updated_info, callback)
 
 function handle_file_upload(req)
 {
-  console.log(req.files);
+  //console.log(req.files);
   if(req.files.upfile){
     var file = req.files.upfile,
     name = file.name,
@@ -182,11 +182,11 @@ function handle_file_upload(req)
     var uploadpath = __dirname + '/uploads/' + name;
     file.mv(uploadpath,function(err){
       if(err){
-        console.log("File Upload Failed",name,err);
+        //console.log("File Upload Failed",name,err);
         res.send("Error Occured!");
       }
       else {
-        console.log("File Uploaded",name);
+        //console.log("File Uploaded",name);
         res.send('Done! Uploading files');
       }
     });

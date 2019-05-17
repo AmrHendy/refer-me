@@ -11,6 +11,8 @@ import getProfileData from '../../../services/getProfileDataService'
 import checkLogin from '../../../services/checkLoginService';
 import getRequestNum from "../../../services/getRequestNum";
 
+import './RequestNav.css'
+
 
 
 class RequestPage extends React.Component {
@@ -87,21 +89,25 @@ class RequestPage extends React.Component {
   render() {
     let navItems = { ...this.state.navItems };
 
+  //{/*<TopNav items={navItems} />*/}
+
     return (
       <React.Fragment>
-        {/*<TopNav items={navItems} />*/}
+        
+        <TopNav items= {navItems}/>
         <RequestNav viewRequests={this.viewRequests} />
-        <br />
-        {this.state.requestsType === "sent"
-          ? this.state.requests.sentRequests.map(request => {
-              console.log("request", request);
-              return <SentRequestCard key={request.id} request={request} />;
-            })
-          : this.state.requests.receivedRequests.map(request => {
-              console.log("request", request);
-              return <RecievedRequestCard key={request.id} request={request} 
-                        changeRequestStatus={this.changeRequestStatus}/>;
-            })};
+        <div class="sh-requests-sidenav-content-container">
+          {this.state.requestsType === "sent"
+            ? this.state.requests.sentRequests.map(request => {
+                console.log("request", request);
+                return <SentRequestCard key={request.id} request={request} />;
+              })
+            : this.state.requests.receivedRequests.map(request => {
+                console.log("request", request);
+                return <RecievedRequestCard key={request.id} request={request} 
+                          changeRequestStatus={this.changeRequestStatus}/>;
+              })};
+        </div>
       </React.Fragment>
     );
   }

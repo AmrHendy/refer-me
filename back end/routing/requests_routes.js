@@ -3,6 +3,8 @@
 var path = require("path");
 var bodyParser = require("body-parser");
 
+const {ObjectId} = require('mongodb');
+
 // Create application/x-www-form-urlencoded parser
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
@@ -24,8 +26,8 @@ exports.handle_routes = function(
   **************************************************************************/
   server.post("/requests/get_refer_requests", urlencodedParser, function(req, res) {
 
-    console.log("accepting route /requests/init/get_sent_requests");
-    console.log("Requests for email = ", req.body.user_email);
+    //console.log("accepting route /requests/init/get_sent_requests");
+    //console.log("Requests for email = ", req.body.user_email);
     get_refer_requests(connection_par, req.body.user_email, function(result){
       var data = {
         "requests" : conform_data(result)
@@ -50,22 +52,15 @@ exports.handle_routes = function(
       };
   **************************************************************************/
   server.post("/requests/handle_recevied_request", urlencodedParser, function(req, res) {
-    console.log("accepting route /requests/handle_recevied_request");
+    //console.log("accepting route /requests/handle_recevied_request");
 
-    console.log("Request ID = ", req.body.id);
-    console.log("New Status = ", req.body.status);
+    //console.log("Request ID = ", req.body.id);
+    //console.log("New Status = ", req.body.status);
 
-    /*
+    
     var update_data = {
-      "sender_email": req.body.sender_email,
-      "recipient_email": req.body.recipient_email,
-      "new_status": req.body.new_status
-    };
-
-    var update_data = {
-      "sender_email": "mohamed.shaapan.1@gmail.com",
-      "recipient_email": "amrhendy@gmail.com",
-      "new_status": "accepted"
+      "request_id": req.body.id,
+      "new_status": req.body.status
     };
 
     handle_request(connection_par, update_data, function(message){
@@ -74,7 +69,7 @@ exports.handle_routes = function(
       res.end(ret);
       return;
     });
-    */
+    
   });
 
 }
@@ -132,7 +127,7 @@ function conform_data(request_list)
 {
   var result = [];
   request_list.forEach( request => {
-      console.log("==> request = ", request);
+      //console.log("==> request = ", request);
       var conformed_request = {
           "user_info":{
               "sender": {},
@@ -145,8 +140,8 @@ function conform_data(request_list)
 
       if(request["sender_data"].length > 0)
       {
-          console.log("in sender");
-          console.log(request["sender_data"]);
+          //console.log("in sender");
+          //console.log(request["sender_data"]);
           var sender_data = {
             "email": request["sender_data"][0]["login"]["email"],
             "firstName": request["sender_data"][0]["profile"]["first_name"],
@@ -159,8 +154,8 @@ function conform_data(request_list)
 
       if(request["recipient_data"].length > 0)
       {
-        console.log("in recipient");
-        console.log(request["recipient_data"]);
+        //console.log("in recipient");
+        //console.log(request["recipient_data"]);
         var recipient_data = {
           "email": request["recipient_data"][0]["login"]["email"],
           "firstName": request["recipient_data"][0]["profile"]["first_name"],
@@ -189,16 +184,17 @@ function handle_request(connection_par, update_data, callback)
     ) {
       if (err) throw err;
       var db = connection.db(connection_par["database_name"]);
-      var condition = {
+      /*var condition = {
           $and:
           [{"user_id.sender": update_data["sender_email"]}, {"user_id.recipient": update_data["recipient_email"]}]
-      };
+      };*/
+      var match = {"_id": ObjectId(update_data["request_id"])};
       var new_values = {
         $set: {"status": update_data["new_status"]}
       };
-      db.collection("refer_requests").updateMany(condition, new_values, function(err2, res) {
+      db.collection("refer_requests").updateMany(match, new_values, function(err2, res) {
         if (err2) throw err2;
-        console.log("1 document updated");
+        //console.log("1 document updated");
         connection.close();
         callback("success");
       });

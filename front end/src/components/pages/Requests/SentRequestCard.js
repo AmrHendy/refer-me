@@ -8,8 +8,18 @@ class SentRequestCard extends React.Component {
     }
 
     render() {
-        const {profileImage, firstName, lastName} = this.props.request.user_info.recipient;
-        const {position, company, city, country, message} = this.props.request.position_info;
+        //const {profileImage, firstName, lastName} = this.props.request.user_info.recipient;
+        //const {position, company, city, country, message} = this.props.request.position_info;
+
+        const profileImage = "http://localhost:8000/profile.png";
+        const firstName = "mohamed"; const lastName = "shaban";
+
+        const position = "Junior swe";
+        const company = "Google";
+        const city = "Berlin";
+        const country = "Germany";
+        const message = "hello world";
+
         // setting the request color according to the status
         let requestStatus = this.props.request.status;
         let requestClass = null;
@@ -29,7 +39,7 @@ class SentRequestCard extends React.Component {
             default:
         }
         return (        
-            <div className="w3-row w3-card-2 w3-round-xlarge requestCard-comp1">
+            <div className="w3-row w3-border w3-round-xlarge requestCard-comp1">
                 <div className="w3-col w3-center requestCard-comp2">
                     <img className="w3-card-2 requestCard-comp3" src={profileImage}/>
                     <div className="w3-large requestCard-comp4">{firstName} {lastName}</div>
@@ -57,8 +67,10 @@ class SentRequestCard extends React.Component {
                         <div className="w3-col requestCard-comp8">{message}</div>
                     </div>
                 </div>
-                <div className={`w3-col w3-small requestCard-comp9 ${requestClass}`}>
-                    {requestStatus}
+                <div className="w3-col sh-request-status-container">
+                    <span className={`sh-request-status ${requestClass}`}>
+                        {requestStatus}
+                    </span>
                 </div>
             </div>
         );

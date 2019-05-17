@@ -102,7 +102,7 @@ class ProfilePage extends React.Component {
     let cardItems = { ...this.state.cardItems };
     
     return (
-      <div>
+      <React.Fragment>
           <TopNav items= {navItems}/>
           <div className="w3-row comp111">
             <ProfileCard items = {cardItems}/>
@@ -118,7 +118,7 @@ class ProfilePage extends React.Component {
             </div>
           </div>
           {this.state.displayModal ? <PositionModal/> : null}
-      </div>
+      </React.Fragment>
     );
   }
 }

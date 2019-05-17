@@ -6,6 +6,8 @@
 .requestCard-comp6 {width: 80px; margin-right: 5px;}
 .requestCard-comp7 {width: 10px;}
 .requestCard-comp8 {width: 200px;}
-.requestCard-comp9 {width: 80px; font-weight: bold; padding-top: 3px; margin-left: 20px;}
+.requestCard-comp9 {width: 80px; font-weight: bold; padding-top: 15px; margin-left: 20px;}
 .requestCard-comp10 {width: 150px; margin-bottom: 5px;}
 .requestCard-comp11 {width: 150px;}
+.sh-request-status-container {width: 80px; font-weight: bold; padding-top: 60px; margin-left: 20px}
+.sh-request-status {padding: 8px;}
