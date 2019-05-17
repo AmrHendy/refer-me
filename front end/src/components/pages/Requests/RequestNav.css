@@ -1,3 +1,4 @@
-.requestNav-comp1 {position: fixed; left: 50px; top: 110px; width: 250px; cursor: pointer; overflow: hidden;}
-.requestNav-comp2 {padding-left: 20px; padding-top: 10px; padding-bottom: 10px;}
+.requestNav-comp1 {position: fixed; left: 50px; top: 110px; width: 250px; overflow: hidden; padding-bottom: 20px;}
+.requestNav-comp2 {padding-left: 20px; padding-top: 5px; padding-bottom: 5px; cursor: pointer;}
 .sh-requests-sidenav-content-container {margin-top: 110px; margin-left: 350px;}
+.sh-requests-sidenav-category-label {padding-left: 20px; margin-top: 15px; padding-bottom: 5px; font-weight: bold;}

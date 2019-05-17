@@ -45,18 +45,24 @@ class RequestNav extends React.Component {
   render() {
     return (
       <div className="w3-round-large w3-large w3-border requestNav-comp1">
-        <div className={`w3-hover-grey requestNav-comp2 ${this.state.sentClass}`} onClick={this.viewSent}>
+        <div className="sh-requests-sidenav-category-label">
           Sent Requests
         </div>
-        <div
-          className={`w3-hover-grey requestNav-comp2 ${this.state.receivedClass}`}
-          onClick={this.viewReceived}>
+        <div className={`w3-hover-grey w3-medium requestNav-comp2 ${this.state.sentClass}`} onClick={this.viewSent}>
+          All Requests
+        </div>
+        <div className="sh-requests-sidenav-category-label">
           Received Requests
         </div>
         <div
-          className={`w3-hover-grey requestNav-comp2 ${this.state.respondedClass}`}
+          className={`w3-hover-grey w3-medium requestNav-comp2 ${this.state.receivedClass}`}
+          onClick={this.viewReceived}>
+          Pending Response
+        </div>
+        <div
+          className={`w3-hover-grey w3-medium requestNav-comp2 ${this.state.respondedClass}`}
           onClick={this.viewResponded}>
-          Responded Requests
+          Done
         </div>
       </div>
     );

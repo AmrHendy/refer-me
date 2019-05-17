@@ -95,18 +95,18 @@ class RespondedRequestCard extends React.Component {
         </div>
 
         <div className="w3-col w3-small requestCard-comp9">
+        <div className="w3-col sh-request-done-status-container">
+            <span className={`sh-request-status ${requestClass}`}>
+              {requestStatus}
+            </span>
+          </div>
+          
           <div>
             <button
               className="w3-btn w3-teal w3-round-large requestCard-comp10"
               onClick={this.viewResume}>
               view resume
             </button>
-          </div>
-
-          <div className="w3-col sh-request-status-container">
-            <span className={`sh-request-status ${requestClass}`}>
-              {requestStatus}
-            </span>
           </div>
 
           {requestStatus === "Accepted" ? (

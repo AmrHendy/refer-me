@@ -1,0 +1,112 @@
+***********************************************************************
+								user_accounts
+***********************************************************************
+db.user_accounts.insert({
+
+	"login": {
+		"email": "mohamed.shaapan.1@gmail.com",
+		"password": "987654321"
+	},
+
+	"profile":{
+		"first_name": "mohamed",
+		"last_name": "shaban"
+	}
+})
+
+db.user_accounts.insert({
+
+	"login": {
+		"email": "amr.hendi@gmail.com",
+		"password": "123456789"
+	},
+
+	"profile":{
+		"first_name": "amr",
+		"last_name": "hendi"
+	}
+})
+
+
+***********************************************************************
+							positions_held
+***********************************************************************
+db.positions_held.insert(
+	{
+		"email": "mohamed.shaapan.1@gmail.com",
+		"company": "google",
+		"position": "junior SWE",
+		"office":
+		{
+			"city": "Palo Alto, California",
+			"country": "USA",
+		},
+		"duration":
+		{
+			"start_date": "july 2019",
+			"end_date": "present"
+		}
+	}
+)
+
+
+db.positions_held.insert(
+	{
+		"email": "mohamed.shaapan.1@gmail.com",
+		"company": "facebook",
+		"position": "senior SWE",
+		"office":
+		{
+			"city": "Palo Alto, California",
+			"country": "USA",
+		},
+		"duration":
+		{
+			"start_date": "july 2021",
+			"end_date": "present"
+		}
+	}
+)
+
+
+db.positions_held.insert(
+	{
+		"email": "amr.hendi@gmail.com",
+		"company": "amazon",
+		"position": "junior SWE",
+		"office":
+		{
+			"city": "Palo Alto, California",
+			"country": "USA",
+		},
+		"duration":
+		{
+			"start_date": "july 2019",
+			"end_date": "present"
+		}
+	}
+)
+
+
+db.positions_held.insert(
+	{
+		"email": "amr.hendi@gmail.com",
+		"company": "twitter",
+		"position": "senior SWE",
+		"office":
+		{
+			"city": "Palo Alto, California",
+			"country": "USA",
+		},
+		"duration":
+		{
+			"start_date": "july 2021",
+			"end_date": "present"
+		}
+	}
+)
+
+
+***********************************************************************
+							refer_requests
+***********************************************************************

@@ -1,5 +1,7 @@
 ***********************************************************************
+***********************************************************************
 								INIT DB
+***********************************************************************
 ***********************************************************************
 --------------------------
 ====>> CREATE DB
@@ -16,7 +18,9 @@ db.createCollection("refer_requests")
 
 
 ***********************************************************************
+***********************************************************************
 						INDEXING AND UNIQUENESS
+***********************************************************************
 ***********************************************************************
 --------------------
 ====>> user_accounts
@@ -39,8 +43,6 @@ db.positions_held.ensureIndex({"office.country": 1})
 db.positions_held.ensureIndex({"user_id.sender": 1})
 db.positions_held.ensureIndex({"user_id.recipient": 1})
 
-***********************************************************************
-
 
 
 
@@ -53,10 +55,6 @@ db.positions_held.ensureIndex({"user_id.recipient": 1})
 ====>> make sure email does't exist
 ------------------------------------
 db.user_accounts.find({"login.email": "mohamed.shaapan.1@gmail.com"}).pretty()
-
-
-db.positions_held.find()
-
 
 ----------------------------
 ====>> if so, insert into db
@@ -87,6 +85,8 @@ db.user_accounts.insert({
 ----------------------------------
 db.user_accounts.find({"login.email": "mohamed.shaapan.1@gmail.com"}).pretty()
 
+-> then check if password is same as retrieved document
+
 
 
 
@@ -96,12 +96,24 @@ db.user_accounts.find({"login.email": "mohamed.shaapan.1@gmail.com"}).pretty()
 ***********************************************************************
 ***********************************************************************
 ----------------------------
-====>> retrieve people list
+====>> retrieve positions
 ----------------------------
-db.positions_held.find().pretty()
+db.positions_held..aggregate([
+	{$match:
+		{"company": "Google"}
+	},
+	{$lookup:
+		{
+			from: 'user_accounts',
+			localField: 'email',
+			foreignField: 'login.email',
+			as: 'user_data'
+		}
+	}
+])
 
 ----------------------------------------------------------------------
-====>> get search list (list of distinct companies, countries, people)
+====>> get search data (list of distinct companies, countries, people)
 ----------------------------------------------------------------------
 db.positions_held.aggregate(
 	[
@@ -122,21 +134,22 @@ db.user_accounts.find({}, {"profile.first_name":1, "profile.last_name": 1, _id: 
 
 
 
-
+***********************************************************************
 ***********************************************************************
 							PROFILE PAGE
 ***********************************************************************
--------------------
-====>> single attr
--------------------
+***********************************************************************
+------------------------------------
+====>> update profile - single attr
+------------------------------------
 db.user_accounts.update(
 	{"login.email": "mohamed.shaapan.1@gmail.com"},
 	{$set:{'login.email':'mshaban@gmail.com'}}
 )
 
-----------------------
-====>> multiple attrs
-----------------------
+---------------------------------------
+====>> update profile - multiple attrs
+---------------------------------------
 db.user_accounts.update(
 	{"login.email": "mohamed.shaapan.1@gmail.com"},
 	{$set:
@@ -148,9 +161,10 @@ db.user_accounts.update(
 	}
 )
 
-***********************************************************************
-					PROFILE PAGE - POSITIONS_HELD
-***********************************************************************
+
+----------------------
+====>> positions_held
+----------------------
 >> how to know user id?
 get form back-end session variables
 
@@ -161,99 +175,109 @@ returned when displaying user positions - query
 ====>> get list of positions held by user
 -----------------------------------------
 db.positions_held.find(
-	{"user_id": ObjectId("5caf36f51766fb7ca42befdc")}
+	{"email": "mohamed.shaapan.1@gmail.com"}
 ).pretty()
 
 
 ----------------------
 ====>> insert new job
 ----------------------
-db.positions_held.insert({
-
-	"user_id": 321,
-			"email": "amr.hendi.1@gmail.com",
-			"company": "google",
-			"position": "junior SWE",
-			"office":{
-				"city": "Palo Alto, California",
-				"country": "USA",
-			},
-			"duration":{
-				"start_date": "july 2019",
-				"end_date": "present"
-			}
-
-})
+db.positions_held.insert(
+	{
+		"email": "mohamed.shaapan.1@gmail.com",
+		"company": "google",
+		"position": "junior SWE",
+		"office":
+		{
+			"city": "Palo Alto, California",
+			"country": "USA",
+		},
+		"duration":
+		{
+			"start_date": "july 2019",
+			"end_date": "present"
+		}
+	}
+)
 
 
 ------------------
 ====>> remove job
 ------------------
 db.positions_held.remove(
-	{
-		$and: [
-			{'user_id': ObjectId("5caf36f51766fb7ca42befdc")},
-			{'_id': ObjectId("5caf38241766fb7ca42befdd")}
-		]
+	{'_id': ObjectId("5caf38241766fb7ca42befdd")}
+)
+
+
+
+
+
+***********************************************************************
+***********************************************************************
+							REQUESTS PAGE
+***********************************************************************
+***********************************************************************
+
+---------------------
+====>> retrieve data
+---------------------
+db.refer_requests.aggregate([
+	{$match:
+		{$or:
+			[{"user_id.sender": "amrhendy@gmail.com"}, {"user_id.recipient": "amrhendy@gmail.com"}]
+		}
+	},
+	{ $lookup:
+	  {
+	    from: 'user_accounts',
+	    localField: 'user_id.sender',
+	    foreignField: 'login.email',
+	    as: 'sender_data'
+	  }
+	},
+	{ $lookup:
+	  {
+	    from: 'user_accounts',
+	    localField: 'user_id.recipient',
+	    foreignField: 'login.email',
+	    as: 'recipient_data'
+	  }
 	}
-)
-
-
-***********************************************************************
-***********************************************************************
-					POSITIONS_HELD - MAIN PAGE
-***********************************************************************
-***********************************************************************
-
-
-----------------------
-====>> search by attr
-----------------------
-db.positions_held.find(
-	{"office.city": "Palo Alto, California"}
-).pretty()
-
-
-------------------------
-------------------------
-------------------------
-====>> browse by office ???????????????????????????
-------------------------
-------------------------
-------------------------
-db.positions_held.aggregate(
-	[
-		{$match: {}},
-		{$group : {_id : "$office.city"}}
-	]
-)
-
-
-db.positions_held.group(
-	{
-		key: { 'user_id': 1, 'company': 1, 'position': 1},
-		reduce: function ( curr, result ) { },
-		initial: { }
-	}
-)
-
-
-db.positions_held.aggregate([
-
-    { "$group": {
-        "_id": "$office.city",
-        "city": { "$first": "$city" },
-        "user_id": { "$first": "$user_id" },
-        "position": { "$first": "$position" }
-    }}
-
 ]).pretty()
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ***********************************************************************
-
-
-
-
 ***********************************************************************
 					REFER_REQUESTS - OUTGOING REQUESTS
 ***********************************************************************
@@ -344,51 +368,3 @@ db.positions_held.aggregate([{
 
 
 
-***********************************************************************
-							REQUESTS PAGE
-***********************************************************************
----------------------------
-====>> insert dummy values
----------------------------
-db.refer_requests.insert({
-
-	"user_id": {
-		"sender": "hamada@gmail.com",
-		"recipient": "shaapan.1@gmail.com"
-	},
-
-	"position_info":{
-		"company": "google",
-		"title": "swe"
-	},
-
-	"status": "pending"
-})
-
-
----------------------
-====>> retrieve data
----------------------
-db.refer_requests.aggregate([
-	{$match:
-		{$or:
-			[{"user_id.sender": "amrhendy@gmail.com"}, {"user_id.recipient": "amrhendy@gmail.com"}]
-		}
-	},
-	{ $lookup:
-	  {
-	    from: 'user_accounts',
-	    localField: 'user_id.sender',
-	    foreignField: 'login.email',
-	    as: 'sender_data'
-	  }
-	},
-	{ $lookup:
-	  {
-	    from: 'user_accounts',
-	    localField: 'user_id.recipient',
-	    foreignField: 'login.email',
-	    as: 'recipient_data'
-	  }
-	}
-]).pretty()
