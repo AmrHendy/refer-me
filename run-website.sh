@@ -29,6 +29,7 @@ sudo service mongod start
 # 02. back-end server
 cd "./back end/"
 free_port 8001
+gnome-terminal -e "npm install" #install packages
 gnome-terminal -e "node main.js" #node main.js
 
 # 02. run media server
@@ -40,4 +41,5 @@ gnome-terminal -e "python -m SimpleHTTPServer 8000"
 # 02. run front-end server
 cd "../front end/"
 free_port 3000
+gnome-terminal -e "npm install" #install packages
 gnome-terminal -e "npm start"
