@@ -6,9 +6,16 @@ Finding a job in top companies is pretty hard these days, as the process starts 
 
 The main idea of the project is that each user uploads its information, resume and the previous positions that he worked at. When a user asks another user for refer, a request is sent to the other user to review, the other user could accept or reject that request, and then the first user would be notified if his request was accepted or not. 
 
-# How to Run
+# Getting started
+1. Clone the repo to your computer.
+>```
+>git clone <repo link>
+>cd <local repo dir>
+>```
+2. Follow the instruction commands at `run-website.sh` script to start the front end, back end, and the database.<br>
+3. open [http://localhost:3000/](http://localhost:3000/) to see the app working in your default browser.<br>
 
-Just follow the instruction commands at `run-website.sh` script to start the front end, back end, and the database.
+>HINT: You can use the json files under `the database data` directory to simulate some accounts, jobs and requests.
 
 
 # Implementation Details
@@ -34,6 +41,7 @@ In the database, we used MongoDB to handle the unstructured data that we used to
 - [x] Live counter of the incoming requests but not responded yet.
 - [x] Responding to the incoming requests by accepting or rejecting them.
 - [x] Ability to change the response status for the incoming requests.
+## More advanced Features
 - [ ] Attach files with the refer request.
 - [ ] Filter the jobs by keywords and multi-options.
 - [ ] Ability to start a conversation chat with someone if he allows this feature in his profile.
