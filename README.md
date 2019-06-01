@@ -15,7 +15,7 @@ The main idea of the project is that each user uploads its information, resume a
 2. Follow the instruction commands at `run-website.sh` script to start the front end, back end, and the database.<br>
 3. open [http://localhost:3000/](http://localhost:3000/) to see the app working in your default browser.<br>
 
->HINT: You can use the json files under `the database data` directory to simulate some accounts, jobs and requests.
+>HINT: You can use the json files under the `database data` directory to simulate some accounts, jobs and requests.
 
 
 # Implementation Details
@@ -41,7 +41,7 @@ In the database, we used MongoDB to handle the unstructured data that we used to
 - [x] Live counter of the incoming requests but not responded yet.
 - [x] Responding to the incoming requests by accepting or rejecting them.
 - [x] Ability to change the response status for the incoming requests.
-## More advanced Features
+## More Future Features
 - [ ] Attach files with the refer request.
 - [ ] Filter the jobs by keywords and multi-options.
 - [ ] Ability to start a conversation chat with someone if he allows this feature in his profile.
@@ -51,4 +51,3 @@ In the database, we used MongoDB to handle the unstructured data that we used to
 
 # Examples
 
-[TODO] Put images.
