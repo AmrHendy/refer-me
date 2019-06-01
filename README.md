@@ -51,3 +51,23 @@ In the database, we used MongoDB to handle the unstructured data that we used to
 
 # Examples
 
+
+# Authors
+
+* [Amr Hendy](https://github.com/AmrHendy)
+* [Muhammed Ibrahim](https://github.com/MuhammedKhamis)
+* [Abdelrahman Yasser](https://github.com/Abdelrhman-Yasser)
+* [Mohammed Shaban](https://github.com/mohamed-shaapan)
+
+
+# Contribute
+
+Contributions are always welcome!
+
+Please read the [contribution guidelines](contributing.md) first.
+
+
+# License
+
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details
+
