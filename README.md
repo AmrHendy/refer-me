@@ -6,6 +6,10 @@ Finding a job in top companies is pretty hard these days, as the process starts 
 
 The main idea of the project is that each user uploads its information, resume and the previous positions that he worked at. When a user asks another user for refer, a request is sent to the other user to review, the other user could accept or reject that request, and then the first user would be notified if his request was accepted or not. 
 
+# Examples
+
+![](examples/example.gif)
+
 # Getting started
 1. Clone the repo to your computer.
 >```
@@ -47,9 +51,6 @@ In the database, we used MongoDB to handle the unstructured data that we used to
 - [ ] Ability to start a conversation chat with someone if he allows this feature in his profile.
 - [ ] Filter sended requests by their status.
 - [ ] Ability to add some keywords to be able to spam the refer requests if they don't match these keywords. This feature is used to avoid sending requests to anyone.
-
-
-# Examples
 
 
 # Authors
